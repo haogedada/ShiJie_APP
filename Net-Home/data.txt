@@ -2,3 +2,5 @@
 拉取：git clone github项目地址
 创建分支：git branch 分支名
 切换分支: git checkout 分支名
+删除分支:
+
