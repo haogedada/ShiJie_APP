@@ -1,11 +1,18 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import HelloWorldApp from '../App/pages/HelloWorldApp'
+import AppRoot from './AppRoot'
 import store from '../App/redux/store'
-const App = () => (
-  <Provider store={store}>
-    <HelloWorldApp />
-  </Provider>
-);
+ class App extends Component<{}> {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+        <Provider store={store}>
+            <AppRoot />
+        </Provider>
+    );
+  }
+}
 export default App;

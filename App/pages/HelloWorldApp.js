@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import React, {Component} from 'react';
+import {Text, View} from 'react-native';
 
 export default class HelloWorldApp extends Component {
-  render() {
-    return (
-        <View>
-          <Text>Hello world!</Text>
-        </View>
-    );
-  }
+    render() {
+        return (
+            <View>
+                <Text>
+                    测试dfsda
+                    fdsafdsa
+                    fdsafdsaf
+                </Text>
+            </View>
+        );
+    }
 }
+
