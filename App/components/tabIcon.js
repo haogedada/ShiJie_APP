@@ -33,6 +33,7 @@ class TabIcon extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
     tabbarContainer:{
       flex:1,
