@@ -7,7 +7,6 @@ import {url} from "../constants/url"
 import {Actions} from 'react-native-router-flux'
 //网络请求后状态码的判断
 import {isStatusCode} from '../netWork/StatusCode'
-
 //警告
 import {prompt} from '../netWork/Warning'
 
@@ -23,7 +22,6 @@ class Login extends Component {
             url: "",
             str: ''
         };
-
     }
 
     /**
@@ -55,8 +53,6 @@ class Login extends Component {
             let str = res;
             isStatusCode(str);
         });
-
-
         //用户点击登录后清空输入框中的值
         this.setState({
             userName: '',
