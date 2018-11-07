@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -6,11 +6,15 @@ import {
     BackAndroid,
     StyleSheet
 } from 'react-native';
-import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } from 'react-native-router-flux';
-import { connect } from 'react-redux';
+import {Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst} from 'react-native-router-flux';
+import {connect} from 'react-redux';
 import TabIcon from './components/tabIcon';
 //导入各个界面page文件
 import Hello from './pages/HelloWorldApp'
+//登录页面
+import Login from './pages/Login'
+
+import Test from './test'
 
 class AppRoot extends Component {
     static propTypes = {
@@ -24,30 +28,31 @@ class AppRoot extends Component {
     createReducer(params) {
         const defaultReducer = Reducer(params);
         return (state, action) => {
-          this.props.dispatch(action);
-          return defaultReducer(state, action);
+            this.props.dispatch(action);
+            return defaultReducer(state, action);
         };
     }
 
-    onExitApp(){
+    onExitApp() {
         BackAndroid.exitApp();
         return true;
     }
+
     render() {
         return (
-            <Router onExitApp={this.onExitApp} 
-                    createReducer={ this.createReducer.bind(this) }
-                    scenes={ scenes }
-             >       
-            </Router >
+            <Router onExitApp={this.onExitApp}
+                    createReducer={this.createReducer.bind(this)}
+                    scenes={scenes}
+            >
+            </Router>
         )
-    }    
+    }
 }
 
 const styles = StyleSheet.create({
     tabBarStyle: {
         backgroundColor: '#fff',
-        height:64
+        height: 64
     },
     tabBarSelectedItemStyle: {
         backgroundColor: '#fff'
@@ -59,39 +64,39 @@ const styles = StyleSheet.create({
 
 const scenes = Actions.create(
     <Scene key="root" hideNavBar={true}>
-        <Scene key="hello" component={Hello} title="首页" hideNavBar={true} />
+        <Scene key="Login" component={Login} title="首页" hideNavBar={true}/>
+        {/*首页*/}
         <Scene key="tabbar"
-                initial
-                tabs={true}
-                tabBarPosition="bottom"
-                showLabel={false}
-                tabBarStyle={styles.tabBarStyle}
-                tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-                titleStyle={styles.titleStyle}>
-                <Scene key="home"
-                    hideNavBar={true}
-                    component={Hello}
-                    icon={TabIcon}
-                    titleStyle={styles.titleStyle}/>
+               initial
+               tabs={true}
+               tabBarPosition="bottom"
+               showLabel={false}
+               tabBarStyle={styles.tabBarStyle}
+               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+               titleStyle={styles.titleStyle}>
+            <Scene key="home"
+                   hideNavBar={true}
+                   component={Hello}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
+            <Scene key="movies"
+                   hideNavBar={true}
+                   component={Hello}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
 
-                <Scene key="movies"
-                    hideNavBar={true}
-                    component={Hello}      
-                    icon={TabIcon}                
-                    titleStyle={styles.titleStyle} />
+            <Scene key="theaters"
+                   hideNavBar={true}
+                   component={Hello}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
 
-                <Scene key="theaters"
-                    hideNavBar={true}
-                    component={Hello}                           
-                    icon={TabIcon}
-                    titleStyle={styles.titleStyle} />
-
-                <Scene key="me"
-                    hideNavBar={true}
-                    component={Hello}                    
-                    icon={TabIcon}
-                    titleStyle={styles.titleStyle} />
-            </Scene>
+            <Scene key="me"
+                   hideNavBar={true}
+                   component={Test}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
+        </Scene>
     </Scene>
 )
 export default connect()(AppRoot);

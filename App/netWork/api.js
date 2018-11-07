@@ -1,6 +1,6 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
-export function login(params){
-    HttpUtil.get(url.URL_LOGIN,params)
+export function login(params) {
+    return HttpUtil.post(url.URL_LOGIN, params);
 }

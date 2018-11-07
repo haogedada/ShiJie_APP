@@ -21,7 +21,7 @@ class TabIcon extends Component {
                 icon:!selected?require("../resources/images/router_flux/theater.png"):require("../resources/images/router_flux/theater_selected.png")
             },
             me:{
-                title:"我",
+                title: "我的",
                 icon:!selected?require("../resources/images/router_flux/me.png"):require("../resources/images/router_flux/me_selected.png")
             }
       }
