@@ -1,7 +1,7 @@
-import React ,{Component}from 'react'
+import React from 'react'
 import { Text, View, TextInput, Button } from 'react-native'
 
-class Login extends Component {
+class Login extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { 
@@ -11,28 +11,22 @@ class Login extends Component {
       }
     render() {
         function login(){
-          
+            console.log(this.state.userName);
+            console.log(this.state.passWord);
         }
-        let input;
         return (
-            <View style={{flexDirection:'column'}}> 
-                <View style={{flexDirection:'row'}}>
+            <View>
+                <view>
                     <Text> 用户名 </Text>
                     <TextInput 
-                    onChangeText={(userName) => this.setState({userName:userName})}
-                    placeholder="请输入用户名"
-                     value={this.state.userName}
-                     />
-                     </View>
-                     <View  style={{flexDirection:'row'}}>
+                    onChangeText={(userName) => this.setState({userName})}
+        value={this.state.userName}/>
                     <Text> 密码 </Text>
                     <TextInput 
                      onChangeText={(passWord) => this.setState({passWord})}
-                     placeholder="请输入密码"
-                     value={this.state.passWord}
-                     />
-                     </View>
-             <View><Button title="登录" onPress={login.bind(this)}/></View>
+        value={this.state.passWord}/>
+                </view>
+                <Button title="登录" onPress={login.bind(this)}/>
             </View>
         )
     }

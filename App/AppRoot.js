@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import TabIcon from './components/tabIcon';
 //导入各个界面page文件
 import Hello from './pages/HelloWorldApp'
-import Register from './pages/Register'
 
 class AppRoot extends Component {
     static propTypes = {
@@ -60,8 +59,9 @@ const styles = StyleSheet.create({
 
 const scenes = Actions.create(
     <Scene key="root" hideNavBar={true}>
-        <Scene key="register" initial component={Register} hideNavBar={true} />
+        <Scene key="hello" component={Hello} title="首页" hideNavBar={true} />
         <Scene key="tabbar"
+                initial
                 tabs={true}
                 tabBarPosition="bottom"
                 showLabel={false}
