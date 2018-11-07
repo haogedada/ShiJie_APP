@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import test from './test'
+import Register from './register'
 const rootReducer = combineReducers({
   //导入子reducers,合并子reducers 
-  test
+  Register,
   });
   export default rootReducer;
   
