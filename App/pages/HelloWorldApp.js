@@ -6,9 +6,7 @@ export default class HelloWorldApp extends Component {
         return (
             <View>
                 <Text>
-                    测试dfsda
-                    fdsafdsa
-                    fdsafdsaf
+                    用户参评
                 </Text>
             </View>
         );
