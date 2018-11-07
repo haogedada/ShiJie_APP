@@ -5,6 +5,11 @@ import {login} from '../netWork/api'
 //请求网址
 import {url} from "../constants/url"
 import {Actions} from 'react-native-router-flux'
+//网络请求后状态码的判断
+import {isStatusCode} from '../netWork/StatusCode'
+
+//警告
+import {prompt} from '../netWork/Warning'
 
 class Login extends Component {
     constructor(props) {
@@ -18,6 +23,7 @@ class Login extends Component {
             url: "",
             str: ''
         };
+
     }
 
     /**
@@ -26,31 +32,19 @@ class Login extends Component {
      * @param pass 密码
      */
     isInputEmpty(user, pass) {
+        let warn = {};
         this.setState({url: url.URL_LOGIN})
         //判断用户点击登录后输入框是否为空
         if (user === "") {
-            Alert.alert("警告", "用户名为空", [{
-                text: '确定', onPress: () => {
-                    console.log("确认")
-                }
-            }, {
-                text: "取消", onPress: () => {
-                    console.log("取消");
-                }
-            }])
+            warn.title = "警告";
+            warn.text = "用户名为空";
+            prompt(warn);
             return;
         }
-
         if (pass === "") {
-            Alert.alert("警告", "密码为空", [{
-                text: '确定', onPress: () => {
-                    console.log("确认")
-                }
-            }, {
-                text: "取消", onPress: () => {
-                    console.log("取消");
-                }
-            }])
+            warn.title = "警告";
+            warn.text = "密码为空";
+            prompt(warn);
             return;
         }
         //用户进行网络请求
@@ -59,17 +53,16 @@ class Login extends Component {
             password: pass
         }).then(res => {
             let str = res;
-            console.log(str.code);
-            this.setState({str: str.msg});
+            isStatusCode(str);
         });
-        // this.setState({str: strData})
+
+
         //用户点击登录后清空输入框中的值
         this.setState({
             userName: '',
             passWord: ''
         })
     }
-
     //render函数渲染
     render() {
         return (
@@ -98,7 +91,7 @@ class Login extends Component {
                                 let user = this.state.userName;
                                 let pass = this.state.passWord;
                                 this.isInputEmpty(user, pass);
-                                Actions.tabbar();
+
                             }
                         } title="登录"/>
                     </TouchableOpacity>
@@ -106,16 +99,6 @@ class Login extends Component {
                         去注册
                     </Text>
                 </View>
-                <Text>
-                    用户名:{this.state.userName} </Text>
-                <Text>
-                    密码:{this.state.passWord} </Text>
-                <Text>
-                    网址：{this.state.url}
-                </Text>
-                <Text>
-                    请求返回的数据:{this.state.str}
-                </Text>
             </View>
         );
     }
