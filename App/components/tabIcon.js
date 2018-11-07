@@ -10,7 +10,6 @@ class TabIcon extends Component {
         let data={
             home:{
                 title:"首页",
-<<<<<<< HEAD
                 icon: !selected ? require("../resources/images/icon/home.png") : require("../resources/images/icon/home_select.png")
             },
             friends: {
@@ -40,27 +39,6 @@ class TabIcon extends Component {
       return  <View style={styles.tabbarContainer}>
                 <Image style={{ width: 25, height: 25,resizeMode:'contain' }} source={param.icon} />
           <Text style={[styles.tabbarItem, selected && {color: '#1296db'}]}>{param.title}</Text>
-=======
-                icon:!selected?require("../resources/images/router_flux/home.png"):require("../resources/images/router_flux/home_selected.png")
-            },
-            movies:{
-                title:"电影",
-                icon:!selected?require("../resources/images/router_flux/movies.png"):require("../resources/images/router_flux/movies_selected.png")
-            },
-            theaters:{
-                title:"影院",
-                icon:!selected?require("../resources/images/router_flux/theater.png"):require("../resources/images/router_flux/theater_selected.png")
-            },
-            me:{
-                title:"我",
-                icon:!selected?require("../resources/images/router_flux/me.png"):require("../resources/images/router_flux/me_selected.png")
-            }
-      }
-      let param=data[this.props.navigation.state.key];
-      return  <View style={styles.tabbarContainer}>
-                <Image style={{ width: 25, height: 25,resizeMode:'contain' }} source={param.icon} />
-                <Text style={[styles.tabbarItem,selected&&{color:'#F08519'}]}>{param.title}</Text>
->>>>>>> haogedada
               </View>
     }
 }
@@ -70,11 +48,7 @@ const styles = StyleSheet.create({
       flex:1,
       alignItems:"center",
       justifyContent:"center",
-<<<<<<< HEAD
         width: Dimensions.get('window').width / 5
-=======
-      width:Dimensions.get('window').width/4
->>>>>>> haogedada
     },
     tabbarItem:{  
       marginTop:5,    

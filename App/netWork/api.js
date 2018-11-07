@@ -1,11 +1,6 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
-<<<<<<< HEAD
-export function login(params) {
-    return HttpUtil.post(url.URL_LOGIN, params);
-}
-=======
 export function login(params){
    return HttpUtil.post(url.URL_LOGIN,params)
 }
@@ -18,4 +13,3 @@ export function promptEmail(params){
 export function promptUserName(params){
     return HttpUtil.get(url.URL_PROMPTNAME,params)
 }
->>>>>>> haogedada
