@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image } from 'react-native'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
 class Register extends Component {
@@ -119,14 +119,14 @@ class Register extends Component {
         return (
             <View style={styles.column}>
                 <View style={styles.row}>
-                    <Text>用户名</Text>
+                    <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ username: value })}
                         placeholder="请输入用户名"
                         onBlur={handleUserName.bind(this)} />
                 </View>
                 <View style={styles.row}>
-                    <Text>密码</Text>
+                    <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
@@ -134,33 +134,34 @@ class Register extends Component {
                     />
                 </View>
                 <View style={styles.row}>
-                    <Text>确认密码</Text>
+                    <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
                         placeholder="请输入密码"
                         onBlur={handlePrompt.bind(this)} />
                 </View>
                 <View style={styles.row}>
-                    <Text>邮箱</Text>
+                    <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ email: value })}
                         onBlur={handleEmail.bind(this)}
                         placeholder="请输入邮箱" />
                 </View>
                 <View style={styles.row}>
-                    <Text>验证码</Text>
-                    <TextInput style={styles.input}
+                    <View style={styles.yzmBox}>
+                      <Text style={{fontSize: 20, textAlign: 'center', lineHeight: 36}} onPress={() => { this.setState({ random: randomNumber() }) }}>{this.state.random}</Text>
+                    </View>
+                     <TextInput style={[styles.input, styles.yzm]}
                         onChangeText={(value) => this.setState({ yzm: value })}
                         onBlur={handlePrompt.bind(this)}
                         placeholder="请输入验证码" />
-                    <Text onPress={() => { this.setState({ random: randomNumber() }) }}>{this.state.random}</Text>
                 </View>
                 <View style={styles.row}>
-                    <Text>{this.state.prompt}</Text>
+                    <Text style={styles.hint}>{this.state.prompt}</Text>
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-                        <Button title="注册" disabled={this.state.btn_disabled} style={styles.btn} onPress={btn_register.bind(this)} />
+                        <Button title="注           册" disabled={this.state.btn_disabled} style={styles.btn} onPress={btn_register.bind(this)} />
                     </View>
                 </View>
             </View>
@@ -174,25 +175,40 @@ var { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        paddingLeft: 30
+        justifyContent: 'space-between',
+        width: width * 0.7
     },
     column: {
-        flexDirection: 'column'
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     input: {
-        height: 30,
-        width: width * 0.4,
+        height: 36,
+        width: width * 0.6,
         padding: 0,
         borderWidth: 1,
-        borderColor: "#8ecbc1",
-        paddingLeft: 20,
+        borderColor: "#3d3d3d",
+        borderRadius: 4,
+        paddingLeft: 10,
         marginBottom: 10,
     },
     btn: {
-        width: width * 0.4,
-        height: 32,
-        marginTop: 20,
-        padding: 10,
-
+        width: width * 0.7,
+        height: 36,
+        marginTop: 25
     },
+    hint: {
+      color: 'red'
+    },
+    yzm: {
+      width: 0.5 * width
+    },
+    yzmBox: {
+      width: width * 0.18,
+      height: 36,
+      textAlign: 'center',
+      backgroundColor: '#fff'
+    }
 });

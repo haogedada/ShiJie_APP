@@ -89,7 +89,7 @@ class Login extends Component {
                   let pass = this.state.passWord;
                   this.isInputEmpty(user, pass);
                 }
-              }>登陆</Text>
+              }>登              陆</Text>
             </View>
             <View style={styles.tgSettingStyle}>
               <Text>忘记密码</Text>
@@ -110,8 +110,9 @@ const styles = StyleSheet.create({
     width: width*0.7,
     height: 38,
     borderWidth: 1,
-    borderColor: 'lightgrey',
+    borderColor: '#3d3d3d',
     marginBottom: 10,
+    paddingLeft: 10,
     borderRadius: 4,
     textAlign: 'left',
     alignSelf: 'center'

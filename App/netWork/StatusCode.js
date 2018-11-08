@@ -8,7 +8,7 @@ export function isStatusCode(parameter) {
     console.log("isStatusCode")
     console.log(parameter)
     if (parameter.code === 200) {
-        Actions.tabbar();
+        Actions.me();
     } else {
         return;
     }
