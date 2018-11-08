@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import TabIcon from './components/tabIcon';
 //导入各个界面page文件
 import Hello from './pages/HelloWorldApp'
-import Test from './test'
+import MeInfo from './pages/MeInfo'
 
 import Login from './pages/Login'
 
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 const scenes = Actions.create(
     <Scene key="root" hideNavBar={true}>
         {/*登录*/}
-        <Scene key="Login" component={Login} hideNavBar={false} />
+        <Scene key="Login" component={Login} hideNavBar={false}/>
         <Scene key="tabbar"
                initial
                tabs={true}
@@ -72,13 +72,13 @@ const scenes = Actions.create(
                showLabel={false}
                tabBarStyle={styles.tabBarStyle}
                tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-               titleStyle={styles.titleStyle}> 
+               titleStyle={styles.titleStyle}>
             {/*首页*/}
             <Scene key="home"
                    hideNavBar={true}
                    component={Hello}
                    icon={TabIcon}
-                   titleStyle={styles.titleStyle}/>        
+                   titleStyle={styles.titleStyle}/>
             {/*分类*/}
             <Scene key="friends"
                    hideNavBar={true}
@@ -91,7 +91,7 @@ const scenes = Actions.create(
                    component={Hello}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
-             {/*朋友*/}
+            {/*朋友*/}
             <Scene key="theaters"
                    hideNavBar={true}
                    component={Hello}
@@ -100,7 +100,7 @@ const scenes = Actions.create(
             {/*我的*/}
             <Scene key="me"
                    hideNavBar={true}
-                   component={Test}
+                   component={MeInfo}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
         </Scene>
