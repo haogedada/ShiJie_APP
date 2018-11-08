@@ -1,6 +1,7 @@
 import { fork } from 'redux-saga/effects'
+//import {registerFlow} from './registerSaga'
 //导入saga
 export default function* rootSaga(){
-    //调用 yield fork({soga名})
+     //yield fork(registerFlow)
     
 }
