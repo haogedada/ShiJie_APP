@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
 const scenes = Actions.create(
     <Scene key="root" hideNavBar={true}>
         {/*登录*/}
-        <Scene key="Login" component={Login} title="首页" hideNavBar={true}/>
-        {/*首页*/}
+        <Scene key="Login" component={Login} hideNavBar={false} />
         <Scene key="tabbar"
                initial
                tabs={true}
@@ -73,14 +72,14 @@ const scenes = Actions.create(
                showLabel={false}
                tabBarStyle={styles.tabBarStyle}
                tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-               titleStyle={styles.titleStyle}>
-            {/*分类*/}
+               titleStyle={styles.titleStyle}> 
+            {/*首页*/}
             <Scene key="home"
                    hideNavBar={true}
                    component={Hello}
                    icon={TabIcon}
-                   titleStyle={styles.titleStyle}/>
-            {/*朋友*/}
+                   titleStyle={styles.titleStyle}/>        
+            {/*分类*/}
             <Scene key="friends"
                    hideNavBar={true}
                    component={Hello}
@@ -92,6 +91,7 @@ const scenes = Actions.create(
                    component={Hello}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
+             {/*朋友*/}
             <Scene key="theaters"
                    hideNavBar={true}
                    component={Hello}
