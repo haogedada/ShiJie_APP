@@ -169,13 +169,9 @@ class Register extends Component {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-<<<<<<< HEAD
-                        <Button title="注           册" disabled={this.state.btn_disabled} style={styles.btn} onPress={btn_register.bind(this)} />
-=======
                         <Button title="注册"
                             disabled={this.state.promptCount === 5 ? false : true}
                             style={styles.btn} onPress={btn_register.bind(this)} />
->>>>>>> haogedada
                     </View>
                 </View>
             </View>
