@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, Button, Dimensions, Image, StyleSheet } from 'react-native'
+import { Text, View, TextInput, findNodeHandle, Dimensions, Image, StyleSheet, Button } from 'react-native'
+import { BlurView } from 'react-native-blur';
 //网络请求
 import { login } from '../netWork/api'
 //请求网址
@@ -22,9 +23,14 @@ class Login extends Component {
       passWord: '',
       //以下为测试使用的属性名
       url: "",
-      str: ''
+      str: '',
+      viewRef: null
     };
 
+  }
+
+  imageLoaded() {
+    this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
   }
 
   /**
@@ -68,7 +74,18 @@ class Login extends Component {
   render() {
     return (
         <View style={styles.container}>
-        <Image style={styles.bg} source={require('./../resources/images/image_backgrund/bg_1.jpg')}/>
+        <Image 
+          style={styles.bg}
+          source={require('./../resources/images/image_backgrund/bg_2.jpg')}
+          ref={(img) => { this.backgroundImage = img; }}
+          onLoadEnd={this.imageLoaded.bind(this)}
+          />
+        <BlurView
+          style={styles.abso}
+          viewRef={this.state.viewRef}
+          blurType="light"
+          blurAmount={20}
+        />
           <View style={styles.tgInputBox}>
             <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')}/>
             <TextInput style={styles.inputStyle} placeholder="用户名" onChangeText={(text) =>  this.setState({ userName: text })}
@@ -80,16 +97,14 @@ class Login extends Component {
               defaultValue={this.state.passWord} />
           </View>
             <View style={styles.tgLoginBtnStyle}>
-              <Text style={{
-                color: 'white',
-                textAlign: 'center'
-              }} onPress={
+              <Button style={styles.tgLoginBtnStyle} onPress={
                 () => {
                   let user = this.state.userName;
                   let pass = this.state.passWord;
                   this.isInputEmpty(user, pass);
                 }
-              }>登              陆</Text>
+              }
+                title='登              陆' />
             </View>
             <View style={styles.tgSettingStyle}>
               <Text>忘记密码</Text>
@@ -107,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   inputStyle: {
-    width: width*0.7,
+    width: width*0.62,
     height: 38,
     borderWidth: 1,
     borderColor: '#3d3d3d',
@@ -119,22 +134,18 @@ const styles = StyleSheet.create({
   },
   tgLoginBtnStyle: {
     height: 38,
-    width: width*0.8,
-    backgroundColor: '#1296db',
-    marginTop: 8,
-    marginBottom: 25,
-    justifyContent: 'center',
-    alignContent: 'center',
-    borderRadius: 4
+    width: width * 0.7,
+    marginTop: 15,
+    marginBottom: 10
   },
   tgSettingStyle: {
     flexDirection: 'row',
-    width: width*0.8,
+    width: width*0.7,
     justifyContent: 'space-between'
   },
   tgInputBox: {
     flexDirection: 'row',
-    width: width*0.8,
+    width: width*0.7,
     justifyContent: 'space-between'
   },
   bg: {
@@ -143,6 +154,13 @@ const styles = StyleSheet.create({
     left: 0,
     width: width,
     height: height
-  }
+  },
+  dark: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  },
 })
 export default Login;
