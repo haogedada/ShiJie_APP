@@ -40,6 +40,14 @@ class Register extends Component {
             register(form).then(response => {
                 if (response.code === 200) {
                     Alert.alert('注册成功')
+                    this.setState({
+                    username: '',
+                    password: '',
+                    okpassword: '',
+                    email: '',
+                    yzm: '',
+                    promptCount: 0});
+
                 } else if (response.code === 500) {
                     Alert.alert(response.msg)
                 }
@@ -138,6 +146,7 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
+                        password={true}
                         onBlur={handlePromptPassword.bind(this)}
                     />
                 </View>
@@ -146,6 +155,7 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
                         placeholder="请输入密码"
+                        password={true}
                         onBlur={handlePromptOkPassword.bind(this)} />
                 </View>
                 <View style={styles.row}>
@@ -169,8 +179,8 @@ class Register extends Component {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-                        <Button title="注册"
-                            disabled={this.state.promptCount === 5 ? false : true}
+                        <Button title="注     册"
+                            disabled={this.state.promptCount <= 5 ? false : true}
                             style={styles.btn} onPress={btn_register.bind(this)} />
                     </View>
                 </View>
