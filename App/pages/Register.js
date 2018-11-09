@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image, findNodeHandle } from 'react-native'
+import { BlurView } from 'react-native-blur'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
 class Register extends Component {
@@ -15,8 +16,14 @@ class Register extends Component {
             prompt: ' ',
             random: randomNumber(),
             btn_disabled: true,
+            viewRef: null
         }
     }
+
+    imageLoaded() {
+      this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+    }
+
     render() {
         let prompt_str = [
             '用户名为长度3至20的英文字母',
@@ -118,6 +125,18 @@ class Register extends Component {
         }
         return (
             <View style={styles.column}>
+              <Image 
+                style={styles.bg}
+                source={require('./../resources/images/image_backgrund/bg_2.jpg')}
+                ref={(img) => { this.backgroundImage = img; }}
+                onLoadEnd={this.imageLoaded.bind(this)}
+                />
+                <BlurView
+                  style={styles.abso}
+                  viewRef={this.state.viewRef}
+                  blurType="light"
+                  blurAmount={20}
+                />
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')} />
                     <TextInput style={styles.input}
@@ -130,6 +149,7 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
+                        secureTextEntry={true}
                         onBlur={handlePrompt.bind(this)}
                     />
                 </View>
@@ -137,8 +157,9 @@ class Register extends Component {
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
-                        placeholder="请输入密码"
-                        onBlur={handlePrompt.bind(this)} />
+                        placeholder="再次输入密码"
+                        onBlur={handlePrompt.bind(this)}
+                        secureTextEntry={true} />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
@@ -185,7 +206,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     input: {
-        height: 36,
+        height: 38,
         width: width * 0.6,
         padding: 0,
         borderWidth: 1,
@@ -196,7 +217,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: width * 0.7,
-        height: 36,
+        height: 38,
         marginTop: 25
     },
     hint: {
@@ -207,8 +228,22 @@ const styles = StyleSheet.create({
     },
     yzmBox: {
       width: width * 0.18,
-      height: 36,
+      height: 38,
       textAlign: 'center',
       backgroundColor: '#fff'
+    },
+      bg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: width,
+    height: height
+    },
+    dark: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
     }
 });
