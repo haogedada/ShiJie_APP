@@ -12,15 +12,15 @@ class TabIcon extends Component {
                 title:"首页",
                 icon: !selected ? require("../resources/images/icon/home.png") : require("../resources/images/icon/home_select.png")
             },
-            friends: {
+            types: {
                 title: "分类",
                 icon: !selected ? require("../resources/images/icon/type.png") : require("../resources/images/icon/type_select.png")
             },
-            add: {
+            uploadVideo: {
                 title: "添加",
                 icon: !selected ? require("../resources/images/icon/add.png") : require("../resources/images/icon/add_select.png")
             },
-            theaters:{
+            friends:{
                 title: "朋友",
                 icon: !selected ? require("../resources/images/icon/friends.png") : require("../resources/images/icon/friends_select.png")
             },
