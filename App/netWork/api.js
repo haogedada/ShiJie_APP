@@ -13,3 +13,10 @@ export function promptEmail(params){
 export function promptUserName(params){
     return HttpUtil.get(url.URL_PROMPTNAME,params)
 }
+export function promptUserMsg(){
+    return HttpUtil.get(url.URL_USERMSG)
+}
+export function modifyUserMsg(params){
+    return HttpUtil.upload(url.URL_MODIFYUSER,params)
+}
+

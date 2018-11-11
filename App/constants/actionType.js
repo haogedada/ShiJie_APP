@@ -1,3 +1,3 @@
 export const actionType = {
-    TEST: 'TEST',
+    ERROR: 'ERROR',
   }

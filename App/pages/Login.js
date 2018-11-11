@@ -53,11 +53,9 @@ class Login extends Component {
       username: user,
       password: pass
     }).then(res => {
-      let str = res;
-      isStatusCode(str);
-    });
-
-
+        let str = res;
+        isStatusCode(str);
+      })
     //用户点击登录后清空输入框中的值
     this.setState({
       userName: '',
@@ -89,7 +87,7 @@ class Login extends Component {
                   let pass = this.state.passWord;
                   this.isInputEmpty(user, pass);
                 }
-              }>登              陆</Text>
+              }>登       陆</Text>
             </View>
             <View style={styles.tgSettingStyle}>
               <Text>忘记密码</Text>

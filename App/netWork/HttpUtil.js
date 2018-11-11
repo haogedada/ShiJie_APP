@@ -1,76 +1,83 @@
 import axios from 'axios' // 引入axios
-
+import Storage from '../util/AsyncStorageUtil'
+import CryptoJS from 'crypto-js'
+import {key} from '../constants/base64Key'
 var HTTPUtil = {};
-//从缓存文件中获取token
-const getToken = () => {
-  let token = " "
-  if (token === null || token === '') {
-    console.log(2);
-    return null;
-  } else {
-    return null;
-  }
-}
+
+
 /**
  * 发起请求
  * @param {请求参数} options 
  */
-function initialRequest(options) {
-  return new Promise((resolve, reject) => {
-    let instance;
-    let header;
-    if (getToken() === null || getToken() === " ") {
+async function initialRequest(options) {
+  console.log(options);
+  
+    let token=" "
+    token = await Storage.get('token');
+    return new Promise((resolve, reject) => {
+      let instance;
+      let header;
+    let isLogin = options.url.includes("login");
+    if (token === null || token === " " || isLogin) {
       header = {
         'Content-Type': 'multipart/form-data'
       }
     } else {
       header = {
         'Content-Type': 'multipart/form-data',
-        'Authorization': getToken() // token从全局变量那里传过来
+        'Authorization': token
       }
     }
-    axios.defaults.baseURL = 'http://www.haogedada.top/api';
-    instance = axios.create({
-      headers: header,
-    })
-
-    // 添加一个响应拦截器 
-    axios.interceptors.response.use(response => {
-      // Do something with response data 
-      return response;
-    }, error => {
-      // Do something with response error 
-      return Promise.reject(error);
-    });
-
-    // 添加一个请求拦截器 
-    axios.interceptors.request.use(config=> {
-      // Do something before request is sent 
-      return config;
-    },error=> {
-        // Do something with request error 
+    console.log(header);
+    
+      axios.defaults.baseURL = 'http://www.haogedada.top/apiep';
+      instance = axios.create({
+        headers: header,
+      })
+      // 添加一个响应拦截器 
+      axios.interceptors.response.use(response => {
+        // Do something with response data 
+        return response;
+      }, error => {
+        // Do something with response error 
         return Promise.reject(error);
       });
-
-    instance(options)
-      .then(response => { // then请求成功之后进行什么操作
-        console.log(response.data);
-        resolve(response.data) // 把请求到的数据发到引用请求的地方
-      })
-      .catch(error => {
-        if (error.response.status === 400) { //400状态码,一些正常的响应
-          console.log(error.response.data);
-          resolve(error.response.data)
-        }else if (error.request) {
-          // 发送请求但是没有响应返回 
-          console.log(error.request);
-        } else { // 其他错误 
-          console.log('请求异常信息：'+error);
-          reject(error)
-        } 
-      
-      })
-  })
+      // 添加一个请求拦截器 
+      axios.interceptors.request.use(config=> {
+        // Do something before request is sent 
+        return config;
+      },error=> {
+          // Do something with request error 
+          return Promise.reject(error);
+        });
+      instance(options)
+        .then(response => { // then请求成功之后进行什么操作
+          console.log(response.data);
+          try{
+            let data = response.data
+            let str = decryptByDES(data.data,key.value)
+            data.data = JSON.parse(str)
+            console.log(data);
+            resolve(data)
+          }catch(error){
+            resolve(response.data)
+          }
+          // 把请求到的数据发到引用请求的地方
+        })
+        .catch(error => {
+          if (error.response.status === 400) { //400状态码,一些正常的响应
+            console.log(error.response.data);
+            resolve(error.response.data)
+          }else if (error.request) {
+            // 发送请求但是没有响应返回 
+            console.log(error.request);
+          } else { // 其他错误 
+            console.log('请求异常信息：'+error);
+            reject(error)
+          }  
+        })
+    })
+  
 }
 
 HTTPUtil.get = (url, params) => {
@@ -108,6 +115,32 @@ HTTPUtil.delete = (url, params) => {
     params: params
   }
   return initialRequest(options)
+}
+
+HTTPUtil.upload = (url, data) => {
+  const method = 'post';
+  let options = {
+    url: url,
+    method: method,
+    data: data
+  }
+  return initialRequest(options)
+}
+/**
+ * 
+ * @param {加密字符} ciphertext 
+ * @param {加密密钥} key 
+ */
+function decryptByDES(ciphertext, key) {
+  var keyHex = CryptoJS.enc.Utf8.parse(key);
+  // direct decrypt ciphertext
+  var decrypted = CryptoJS.DES.decrypt({
+      ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+  }, keyHex, {
+      mode: CryptoJS.mode.ECB,
+  //这一步 是来填写 加密时候填充方式 padding: CryptoJS.pad.Pkcs7
+  });
+  return decrypted.toString(CryptoJS.enc.Utf8);
 }
 export default HTTPUtil;
 
