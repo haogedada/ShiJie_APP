@@ -167,28 +167,17 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
-<<<<<<< HEAD
-                        password={true}
-                        onBlur={handlePromptPassword.bind(this)}
-=======
                         secureTextEntry={true}
                         onBlur={handlePrompt.bind(this)}
->>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                     />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
-<<<<<<< HEAD
-                        placeholder="请输入密码"
-                        password={true}
-                        onBlur={handlePromptOkPassword.bind(this)} />
-=======
                         placeholder="再次输入密码"
                         onBlur={handlePrompt.bind(this)}
                         secureTextEntry={true} />
->>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
@@ -211,13 +200,8 @@ class Register extends Component {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-<<<<<<< HEAD
-                        <Button title="注     册"
-                            disabled={this.state.promptCount <= 5 ? false : true}
-=======
                         <Button title="注册"
                             disabled={this.state.promptCount >= 5 ? false : true}
->>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                             style={styles.btn} onPress={btn_register.bind(this)} />
                     </View>
                 </View>
