@@ -191,7 +191,7 @@ class Register extends Component {
                 <View style={styles.row}>
                     <View style={styles.btn} >
                         <Button title="注册"
-                            disabled={this.state.promptCount === 5 ? false : true}
+                            disabled={this.state.promptCount >= 5 ? false : true}
                             style={styles.btn} onPress={btn_register.bind(this)} />
                     </View>
                 </View>
