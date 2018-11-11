@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import Register from './register'
+import RightHeader from './rightHeader'
 const rootReducer = combineReducers({
   //导入子reducers,合并子reducers 
-  Register,
+  RightHeader,
   });
   export default rootReducer;
   

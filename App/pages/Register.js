@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image, findNodeHandle } from 'react-native'
+import { BlurView } from 'react-native-blur'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -14,9 +16,15 @@ class Register extends Component {
             isRegister: false,
             prompt: ' ',
             random: randomNumber(),
-            promptCount: 0,
+            btn_disabled: true,
+            viewRef: null
         }
     }
+
+    imageLoaded() {
+      this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+    }
+
     render() {
         let prompt_str = [
             '用户名为长度3至20的英文字母数字组合',
@@ -133,7 +141,20 @@ class Register extends Component {
             }
         }
         return (
+          <KeyboardAwareScrollView>
             <View style={styles.column}>
+              <Image 
+                style={styles.bg}
+                source={require('./../resources/images/image_backgrund/bg_2.jpg')}
+                ref={(img) => { this.backgroundImage = img; }}
+                onLoadEnd={this.imageLoaded.bind(this)}
+                />
+                <BlurView
+                  style={styles.dark}
+                  viewRef={this.state.viewRef}
+                  blurType="light"
+                  blurAmount={20}
+                />
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')} />
                     <TextInput style={styles.input}
@@ -146,17 +167,28 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
+<<<<<<< HEAD
                         password={true}
                         onBlur={handlePromptPassword.bind(this)}
+=======
+                        secureTextEntry={true}
+                        onBlur={handlePrompt.bind(this)}
+>>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                     />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
+<<<<<<< HEAD
                         placeholder="请输入密码"
                         password={true}
                         onBlur={handlePromptOkPassword.bind(this)} />
+=======
+                        placeholder="再次输入密码"
+                        onBlur={handlePrompt.bind(this)}
+                        secureTextEntry={true} />
+>>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
@@ -179,12 +211,18 @@ class Register extends Component {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
+<<<<<<< HEAD
                         <Button title="注     册"
                             disabled={this.state.promptCount <= 5 ? false : true}
+=======
+                        <Button title="注册"
+                            disabled={this.state.promptCount >= 5 ? false : true}
+>>>>>>> 7325c04ae4659dbb8b09e6000dcb4e2c65f952dd
                             style={styles.btn} onPress={btn_register.bind(this)} />
                     </View>
                 </View>
             </View>
+          </KeyboardAwareScrollView>
         )
     }
 }
@@ -203,9 +241,11 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      width: width,
+      height: height - 70
     },
     input: {
-        height: 36,
+        height: 38,
         width: width * 0.6,
         padding: 0,
         borderWidth: 1,
@@ -216,7 +256,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: width * 0.7,
-        height: 36,
+        height: 38,
         marginTop: 25
     },
     hint: {
@@ -227,8 +267,22 @@ const styles = StyleSheet.create({
     },
     yzmBox: {
       width: width * 0.18,
-      height: 36,
+      height: 38,
       textAlign: 'center',
       backgroundColor: '#fff'
+    },
+      bg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: width,
+    height: height
+    },
+    dark: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
     }
 });
