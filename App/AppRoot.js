@@ -17,9 +17,8 @@ import Hello from './pages/HelloWorldApp'
 import Test from './test'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Friend from './pages/Friend'
 import UserMsg from './pages/UserMsg'
-import FriendList from './components/Friend/FriendList'
+
 
 class AppRoot extends Component {
     static propTypes = {
@@ -97,7 +96,7 @@ const scenes = Actions.create(
             {/*朋友*/}
             <Scene key="friends"
                 hideNavBar={true}
-                component={Friend}
+                component={Hello}
                 icon={TabIcon}
                 titleStyle={styles.titleStyle}
  
