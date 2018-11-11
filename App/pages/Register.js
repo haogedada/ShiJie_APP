@@ -3,6 +3,7 @@ import { Text, View, TextInput, StyleSheet, Button, Dimensions, Alert, Image, fi
 import { BlurView } from 'react-native-blur'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -132,6 +133,7 @@ class Register extends Component {
             }
         }
         return (
+          <KeyboardAwareScrollView>
             <View style={styles.column}>
               <Image 
                 style={styles.bg}
@@ -140,7 +142,7 @@ class Register extends Component {
                 onLoadEnd={this.imageLoaded.bind(this)}
                 />
                 <BlurView
-                  style={styles.abso}
+                  style={styles.dark}
                   viewRef={this.state.viewRef}
                   blurType="light"
                   blurAmount={20}
@@ -196,6 +198,7 @@ class Register extends Component {
                     </View>
                 </View>
             </View>
+          </KeyboardAwareScrollView>
         )
     }
 }
@@ -214,6 +217,8 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      width: width,
+      height: height - 70
     },
     input: {
         height: 38,

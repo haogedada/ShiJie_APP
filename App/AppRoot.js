@@ -17,7 +17,7 @@ import Types from './pages/Types';
 import UploadVideo from './pages/UploadVideo';
 import Friend from './pages/Friend';
 import Me from './pages/Me';
-
+import CustomNavBarView from './components/CustomNavBarView';
 class AppRoot extends Component {
   static propTypes = {
     dispatch: PropTypes.func
@@ -61,14 +61,17 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     color: '#fff'
+  },
+  navStyle: {
+    shadowRadius: 0
   }
 })
 
 const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
     {/*登录*/}
-    <Scene key="Login" component={Login} hideNavBar={false} />
-    <Scene key="Register" component={Register} hideNavBar={false} />
+    <Scene key="Login" component={Login} hideNavBar={false} title='登陆' navBar={CustomNavBarView} />
+    <Scene key="Register" component={Register} hideNavBar={false} title='注册' navBar={CustomNavBarView} />
     <Scene key="tabbar"
       initial
       tabs={true}
