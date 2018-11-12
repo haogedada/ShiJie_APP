@@ -4,6 +4,7 @@ export const url={
     URL_PROMPTEMAIL:'/email',
     URL_PROMPTNAME:'/username',
     URL_USERMSG:'/user',
-    URL_MODIFYUSER:'/modifyUser'
+    URL_MODIFYUSER:'/modifyUser',
+    URL_VIDEO:"/video"
     
 }
