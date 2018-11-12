@@ -16,6 +16,7 @@ import Home from './pages/Home';
 import Types from './pages/Types';
 import UploadVideo from './pages/UploadVideo';
 import Friend from './pages/Friend';
+import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
@@ -79,6 +80,7 @@ const scenes = Actions.create(
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         {/*修改人信息*/}
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
+        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
         <Scene key="tabbar"
                initial
                tabs={true}
@@ -118,6 +120,6 @@ const scenes = Actions.create(
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
         </Scene>
-    </Scene>
+        </Scene>
 )
 export default connect()(AppRoot);

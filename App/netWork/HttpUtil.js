@@ -2,6 +2,8 @@ import axios from 'axios' // 引入axios
 import Storage from '../util/AsyncStorageUtil'
 import CryptoJS from 'crypto-js'
 import {key} from '../constants/base64Key'
+import {Actions} from 'react-native-router-flux'
+
 var HTTPUtil = {};
 
 
@@ -49,6 +51,9 @@ async function initialRequest(options) {
       instance(options)
         .then(response => { // then请求成功之后进行什么操作
           console.log(response.data);
+          if(response.data.code===401){
+            Actions.notLogin()
+          }
           try{
             let data = response.data
             let str = decryptByDES(data.data,key.value)
@@ -64,7 +69,9 @@ async function initialRequest(options) {
           if (error.response.status === 400) { //400状态码,一些正常的响应
             console.log(error.response.data);
             resolve(error.response.data)
-          }else if (error.request) {
+          }else if(error.request.code===401){
+            Actions.notLogin()
+          } else if (error.request) {
             // 发送请求但是没有响应返回 
             console.log(error.request);
           } else { // 其他错误 
@@ -121,6 +128,7 @@ HTTPUtil.upload = (url, data) => {
   }
   return initialRequest(options)
 }
+
 /**
  * 
  * @param {加密字符} ciphertext 

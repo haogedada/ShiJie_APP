@@ -9,7 +9,7 @@ export default class FansAndConcernItem extends Component {
   render() {
     return (
       <TouchableOpacity style={styles.itemBoxStyle}>
-        <Image style={styles.avatar} source={require('./../../resources/images/image_backgrund/bg_2.jpg')} />
+        <Image style={styles.avatar} source={{uri:this.props.dataItem.avatar}} />
         <View>
           <Text style={styles.nameStyle} numberOfLines={1}>{this.props.dataItem.name}</Text>
           <Text style={styles.signatureStyle} numberOfLines={1}>{this.props.dataItem.signature}</Text>
