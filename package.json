@@ -14,11 +14,7 @@
     "react-native-blur": "^3.2.2",
     "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-router-flux": "^4.0.5",
-<<<<<<< HEAD
-    "react-native-scrollable-tab-view": "^0.10.0",
-=======
     "react-native-syan-image-picker": "^0.2.0",
->>>>>>> haogedada
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2"

@@ -170,32 +170,21 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
-<<<<<<< HEAD
-                        secureTextEntry={true}
-                        onBlur={handlePrompt.bind(this)}
-=======
                         defaultValue={this.state.password}
                         password={true}
                         secureTextEntry={true}
                         onBlur={handlePromptPassword.bind(this)}
->>>>>>> haogedada
                     />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
-<<<<<<< HEAD
-                        placeholder="再次输入密码"
-                        onBlur={handlePrompt.bind(this)}
-                        secureTextEntry={true} />
-=======
                         placeholder="请输入密码"
                         defaultValue={this.state.okpassword}
                         password={true}
                         secureTextEntry={true}
                         onBlur={handlePromptOkPassword.bind(this)} />
->>>>>>> haogedada
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
@@ -223,16 +212,10 @@ class Register extends Component {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-<<<<<<< HEAD
-                        <Button title="注册"
-                            disabled={this.state.promptCount >= 5 ? false : true}
-                            style={styles.btn} onPress={btn_register.bind(this)} />
-=======
                         <Button title="注     册"
                             disabled={this.state.promptCount >= 5 ? false : true}
                             style={styles.btn} 
                             onPress={btn_register.bind(this)} />
->>>>>>> haogedada
                     </View>
                 </View>
             </View>

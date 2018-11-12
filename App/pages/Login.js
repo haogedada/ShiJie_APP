@@ -96,7 +96,6 @@ class Login extends Component {
             <TextInput style={styles.inputStyle} password={true} placeholder="密码" secureTextEntry={true} onChangeText={(text) => this.setState({ passWord: text })}
               defaultValue={this.state.passWord} />
           </View>
-<<<<<<< HEAD
           <View style={styles.tgLoginBtnStyle}>
             <Button style={styles.tgLoginBtnStyle} onPress={
               () => {
@@ -113,25 +112,6 @@ class Login extends Component {
           </View>
         </View>
       </KeyboardAwareScrollView>
-=======
-            <View style={styles.tgLoginBtnStyle}>
-              <Text style={{
-                color: 'white',
-                textAlign: 'center'
-              }} onPress={
-                () => {
-                  let user = this.state.userName;
-                  let pass = this.state.passWord;
-                  this.isInputEmpty(user, pass);
-                }
-              }>登       陆</Text>
-            </View>
-            <View style={styles.tgSettingStyle}>
-              <Text>忘记密码</Text>
-              <Text onPress={() => Actions.Register()}>新用户</Text>
-            </View>
-      </View>
->>>>>>> haogedada
     );
   }
 }
