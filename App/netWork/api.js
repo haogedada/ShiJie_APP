@@ -2,6 +2,10 @@ import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 import Storage from '../util/AsyncStorageUtil'
 
+export async function updateInfo(parms) {
+    console.log("修改个人信息参数:", parms);
+}
+
 export async function login(params) {
     await HttpUtil.post(url.URL_LOGIN, params).then(req => {
         Storage.save("loginInfo", req);

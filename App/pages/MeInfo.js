@@ -45,6 +45,7 @@ export default class MeInfo extends Component {
                     </Text>
                 </View>
                 <TouchableOpacity onPress={() => {
+                    DeviceEventEmitter.emit('update', this.state.msgInfo);
                     Actions.UpdateInfo();
                 }}>
                     <Text style={meInfoStyle.UpdateInfo}>修改个人信息</Text>
@@ -65,12 +66,11 @@ const meInfoStyle = StyleSheet.create({
         backgroundColor: "#ff5fb2",
         color: "#fff",
         height: 40,
-        lineHeight: 40
-
+        lineHeight: 40,
+        textAlign: "center"
     },
     meInfoFocus: {
         height: 40,
-
         borderWidth: 1,
         borderColor: "#ff394a"
     },
