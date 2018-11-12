@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, DeviceEventEmitter,View, Image, Text, Button, StyleSheet} from 'react-native'
+import {ScrollView, TouchableOpacity, DeviceEventEmitter, View, Image, Text, Button, StyleSheet} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 
@@ -44,12 +44,17 @@ export default class MeInfo extends Component {
                         <Text>{this.state.msgInfo.bardianSign}</Text>
                     </Text>
                 </View>
+                <TouchableOpacity onPress={() => {
+                    Actions.UpdateInfo();
+                }}>
+                    <Text style={meInfoStyle.UpdateInfo}>修改个人信息</Text>
 
+                </TouchableOpacity>
                 <Button title="注销登录" onPress={() => {
                     Storage.save("token", null);
                     Storage.save("infoMsg", null);
                     Actions.home();
-                    DeviceEventEmitter.emit("exit","注销")
+                    DeviceEventEmitter.emit("exit", "注销")
                 }
                 }/>
             </View>
@@ -57,6 +62,13 @@ export default class MeInfo extends Component {
     }
 }
 const meInfoStyle = StyleSheet.create({
+    UpdateInfo: {
+        backgroundColor: "#ff5fb2",
+        color: "#fff",
+        height: 40,
+        lineHeight: 40
+
+    },
     meInfoFocus: {
         height: 40,
 

@@ -19,6 +19,7 @@ import Friend from './pages/Friend';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
+import UpdateInfo from './pages/UpdateInfo'
 
 class AppRoot extends Component {
     static propTypes = {
@@ -76,6 +77,8 @@ const scenes = Actions.create(
         <Scene key="Register" component={Register} hideNavBar={false} title='注册' navBar={CustomNavBarView}/>
         {/*个人中心*/}
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView}/>
+        {/*修改人信息*/}
+        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="tabbar"
                initial
                tabs={true}
