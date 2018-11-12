@@ -25,7 +25,7 @@ async function initialRequest(options) {
         'Content-Type': 'multipart/form-data',
         'Authorization': token
       }
-    }
+    }  
       axios.defaults.baseURL = 'http://www.haogedada.top/apiep';
       instance = axios.create({
         headers: header,
@@ -109,6 +109,16 @@ HTTPUtil.delete = (url, params) => {
     url: url,
     method: method,
     params: params
+  }
+  return initialRequest(options)
+}
+
+HTTPUtil.upload = (url, data) => {
+  const method = 'post';
+  let options = {
+    url: url,
+    method: method,
+    data: data
   }
   return initialRequest(options)
 }
