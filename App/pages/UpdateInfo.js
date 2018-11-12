@@ -41,7 +41,7 @@ export default class UpdateInfo extends Component {
                 sign: a.bardianSign,
                 imgfile: a.headimgUrl
             });
-            console.log("触发事件");
+            alert("触发事件");
         });
     }
 
@@ -49,34 +49,33 @@ export default class UpdateInfo extends Component {
         return (
             <View>
                 <Text>修改个人信息</Text>
-
                 <TouchableOpacity onPress={
                     () => {
                         this.setState({
-                            imgfile: '图片路径'
+                            imgfile: ''
                         });
                         alert("图片");
                     }
                 }>
-                    <Image style={updateSytle.updateImage}
+                    <Image style={updateStyle.updateImage}
                            source={{uri: this.state.imgfile}}/>
                 </TouchableOpacity>
-                <TextInput style={updateSytle.updateText} onChange={(text) => {
+                <TextInput style={updateStyle.updateText} onChange={(text) => {
                     this.setState({
                         nickName: text
                     });
                 }} defaultValue={this.state.nickname}/>
-                <TextInput onChange={(text) => {
+                <TextInput style={updateStyle.updateText} onChange={(text) => {
                     this.setState({
                         sex: text
                     });
                 }} defaultValue={this.state.sex}/>
-                <TextInput onChange={(text) => {
+                <TextInput style={updateStyle.updateText} onChange={(text) => {
                     this.setState({
                         birthday: text
                     });
                 }} defaultValue={this.state.birthday}/>
-                <TextInput onChange={(text) => {
+                <TextInput style={updateStyle.updateText} onChange={(text) => {
                     this.setState({
                         sign: text
                     });
@@ -111,16 +110,21 @@ export default class UpdateInfo extends Component {
         );
     }
 }
-const updateSytle = StyleSheet.create({
+const updateStyle = StyleSheet.create({
     updateText: {
-        borderColor: "#6a6e6d",
-        borderWidth: 1
+        marginTop: 10,
+        borderWidth: 1,
+        borderBottomColor: "#6a6e6d"
     },
     updateImage: {
         height: 50,
-        width: 50,
-        borderRadius: 50,
-        borderColor: "#ee2115",
-        borderWidth: 1
+        width:
+            50,
+        borderRadius:
+            50,
+        borderColor:
+            "#ee2115",
+        borderWidth:
+            1
     }
 })
