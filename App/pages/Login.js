@@ -25,7 +25,7 @@ class Login extends Component {
       //以下为测试使用的属性名
       url: "",
       str: '',
-      viewRef: null
+      viewRef: 1
     };
 
   }
@@ -109,8 +109,10 @@ class Login extends Component {
               title='登              陆' />
           </View>
           <View style={styles.tgSettingStyle}>
-            <Text>忘记密码</Text>
-            <Text onPress={() => Actions.Register()}>新用户</Text>
+            <Text style={{fontSize: 16}}>忘记密码</Text>
+            <Text style={{fontSize: 16}} onPress={() => Actions.Register()}>新用户
+            <Text style={{color: '#1296db'}}>注册</Text>
+            </Text>
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -129,13 +131,12 @@ const styles = StyleSheet.create({
   inputStyle: {
     width: width * 0.62,
     height: 38,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#3d3d3d',
-    marginBottom: 10,
-    paddingLeft: 10,
-    borderRadius: 4,
+    marginBottom: 20,
     textAlign: 'left',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontSize: 18
   },
   tgLoginBtnStyle: {
     height: 38,
