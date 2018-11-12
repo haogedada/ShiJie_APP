@@ -48,7 +48,6 @@ export default class MeInfo extends Component {
                     Actions.UpdateInfo();
                 }}>
                     <Text style={meInfoStyle.UpdateInfo}>修改个人信息</Text>
-
                 </TouchableOpacity>
                 <Button title="注销登录" onPress={() => {
                     Storage.save("token", null);
