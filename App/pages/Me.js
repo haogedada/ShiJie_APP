@@ -9,31 +9,44 @@ export default class Me extends Component {
         super(props);
         this.state = {
             token: '',
-            isLogin: false,
+            isLogin: true,
             showData: ''
         }
+        console.log("构造函数");
     }
-
+//卸载事件
     componentWillUnmount() {
         this.deEmitter.remove();
     }
+    //重新渲染
+    componentWillUpdate(newProps,newState){
+        console.log("修改前:",this.state.isLogin,"修改后:",newState.isLogin);
 
+        return true;
+    }
     componentDidMount() {
+        this.deEmitter=DeviceEventEmitter.addListener("exit",a=>{
+          this.setState({isLogin:false})
+        })
         this.deEmitter = DeviceEventEmitter.addListener("info", (a) => {
             if (a !== null && a !== "") {
                 this.setState({
                     token: a,
-                    isLogin: true
+                    isLogin: false
                 });
+                getInfo();
+                //显示个人信息
+                this.showInfoData();
             } else {
                 this.setState({
                     token: "",
-                    idLogin: false
+                    idLogin: true
+
                 })
             }
+            console.log("触发事件");
         })
-        getInfo();
-        this.showInfoData();
+
     }
 
     async showInfoData() {
@@ -45,7 +58,6 @@ export default class Me extends Component {
             });
         }
     }
-
     judgeLogin() {
         console.log("judegeLogin()是否登录", this.state.isLogin);
         if (this.state.isLogin) {
@@ -54,7 +66,6 @@ export default class Me extends Component {
                 <View>
                     <TouchableOpacity  onPress={() => {
                         Actions.Login();
-                        alert("123")
                     }}>
                         <Image style={meStyle.loginImage} source={require('../resources/images/icon/me.png')}/>
                         <Text>

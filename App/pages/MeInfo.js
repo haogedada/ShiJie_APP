@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Image, Text, Button, StyleSheet} from 'react-native'
+import {ScrollView, DeviceEventEmitter,View, Image, Text, Button, StyleSheet} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 
@@ -49,6 +49,7 @@ export default class MeInfo extends Component {
                     Storage.save("token", null);
                     Storage.save("infoMsg", null);
                     Actions.home();
+                    DeviceEventEmitter.emit("exit","注销")
                 }
                 }/>
             </View>

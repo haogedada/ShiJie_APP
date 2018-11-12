@@ -20,8 +20,7 @@ export function getInfo() {
 
     HttpUtil.get(url.URL_USERMSG).then(req => {
         Storage.save("infoMsg", req);
-        // console.log("获取个人资料", req);
-
+        console.log("获取个人资料", req);
     });
     // console.log("获取个信息资料");
 }
