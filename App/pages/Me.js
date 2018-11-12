@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, StyleSheet, View, Image, Button, DeviceEventEmitter, TouchableOpacity} from 'react-native'
+import {Text, AppState, StyleSheet, View, Image, Button, DeviceEventEmitter, TouchableOpacity} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 import {getInfo} from "../netWork/api";
@@ -12,21 +12,70 @@ export default class Me extends Component {
             isLogin: true,
             showData: ''
         }
-        console.log("构造函数");
+        // console.log("构造函数");
     }
+
+    componentWillMount() {
+        AppState.addEventListener("change", this.hindleActive);
+    }
+
+    async hindleActive(appstate) {
+        //运行状态
+        if (appstate = 'active') {
+            alert(appstate);
+            let loginInfo = await Storage.get("loginInfo");
+            let msgInfo = await Storage.get("infoMsg");
+            let videoInfo = await Storage.get("videoInfo");
+            DeviceEventEmitter.emit("info", loginInfo.data);
+            console.log("状态:",
+                appstate
+                ,
+                "是否登录loginInfo:"
+                ,
+                loginInfo
+            )
+            ;
+            console
+                .log(
+                    "状态:"
+                    ,
+                    appstate
+                    ,
+                    "个人信息msgInfo:"
+                    ,
+                    msgInfo
+                )
+            ;
+            console
+                .log(
+                    "状态:"
+                    ,
+                    appstate
+                    ,
+                    "视频信息videoInfo:"
+                    ,
+                    videoInfo
+                )
+            ;
+        }
+    }
+
 //卸载事件
     componentWillUnmount() {
         this.deEmitter.remove();
     }
-    //重新渲染
-    componentWillUpdate(newProps,newState){
-        console.log("修改前:",this.state.isLogin,"修改后:",newState.isLogin);
 
+//重新渲染
+    componentWillUpdate(newProps, newState) {
+        console.log("修改前:", this.state.isLogin, "修改后:", newState.isLogin);
         return true;
     }
     componentDidMount() {
-        this.deEmitter=DeviceEventEmitter.addListener("exit",a=>{
-          this.setState({isLogin:false})
+        this.deEmitter = DeviceEventEmitter.addListener("exit", a => {
+            this.setState({
+                isLogin: false,
+                token: ''
+            })
         })
         this.deEmitter = DeviceEventEmitter.addListener("info", (a) => {
             if (a !== null && a !== "") {
@@ -40,17 +89,16 @@ export default class Me extends Component {
             } else {
                 this.setState({
                     token: "",
-                    idLogin: true
-
+                    idLogin: true,
+                    showData: ''
                 })
             }
             console.log("触发事件");
         })
-
     }
-
     async showInfoData() {
-        let showData = await Storage.get("infoMsg");
+        let showData = await
+            Storage.get("infoMsg");
         console.log("showData", showData);
         if (showData !== null) {
             this.setState({
@@ -64,7 +112,7 @@ export default class Me extends Component {
             console.log("登录页面");
             return (
                 <View>
-                    <TouchableOpacity  onPress={() => {
+                    <TouchableOpacity onPress={() => {
                         Actions.Login();
                     }}>
                         <Image style={meStyle.loginImage} source={require('../resources/images/icon/me.png')}/>
@@ -106,8 +154,11 @@ export default class Me extends Component {
             </View>
         );
     }
+
 }
-const meStyle = StyleSheet.create({
+
+const
+    meStyle = StyleSheet.create({
         loginImage: {
             borderWidth: 1,
             borderColor: "#ee2115",
@@ -119,4 +170,3 @@ const meStyle = StyleSheet.create({
             backgroundColor: "#73c0ff"
         }
     })
-;

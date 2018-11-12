@@ -2,6 +2,10 @@ import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 import Storage from '../util/AsyncStorageUtil'
 
+export async function updateInfo(parms) {
+    console.log("修改个人信息参数:", parms);
+}
+
 export async function login(params) {
     await HttpUtil.post(url.URL_LOGIN, params).then(req => {
         Storage.save("loginInfo", req);
@@ -22,7 +26,13 @@ export function getInfo() {
         Storage.save("infoMsg", req);
         console.log("获取个人资料", req);
     });
-    // console.log("获取个信息资料");
+}
+
+export function getVideo(params) {
+    HttpUtil.get(url.URL_VIDEO + "/" + params).then(req => {
+        Storage.save("videoInfo", req)
+        console.log("视屏信息", req);
+    })
 }
 
 export function promptEmail(params) {
