@@ -3,13 +3,8 @@ package com.shijie;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
 import com.cmcewen.blurview.BlurViewPackage;
-=======
-import com.rnfs.RNFSPackage;
-import com.benwixen.rnfilesystem.RNFileSystemPackage;
 import com.reactlibrary.RNSyanImagePickerPackage;
->>>>>>> haogedada
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,13 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-<<<<<<< HEAD
-            new BlurViewPackage()
-=======
-            new RNFSPackage(),
-            new RNFileSystemPackage(),
+            new BlurViewPackage(),
             new RNSyanImagePickerPackage()
->>>>>>> haogedada
       );
     }
 
