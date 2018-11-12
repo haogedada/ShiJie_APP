@@ -27,7 +27,7 @@ const propTypes = {
           source={require('./../resources/images/icon/back.png')}
           style={styles.iconStyle} />
         </TouchableOpacity>
-        <Text>{this.props.title}</Text>
+        <Text style={{fontSize: 18}}>{this.props.title}</Text>
         <TouchableOpacity
           onPress={this.rightHeader}>
           <Text style={styles.tightStyle}>{this.props.rightText}</Text>
