@@ -37,7 +37,13 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+<<<<<<< HEAD
 		D9863E71099946F7A3B515B7 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FD05BF454A486FA074BA3D /* libRNBlur.a */; };
+=======
+		8061A2AA13ED495D82A76D00 /* libRNSyanImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28228009CE6645BEB213C08A /* libRNSyanImagePicker.a */; };
+		6ABF6A82C7584F5CB3CFB8D5 /* libRNFileSystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BF713F652F4BDEB6AE7B4B /* libRNFileSystem.a */; };
+		B38C18FA4F00470F98D5C53E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5330D022F411436D95835FFA /* libRNFS.a */; };
+>>>>>>> haogedada
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,8 +349,17 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		B29A1417570846618888C7E3 /* RNBlur.xcodeproj */ = {isa = PBXFileReference; name = "RNBlur.xcodeproj"; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		87FD05BF454A486FA074BA3D /* libRNBlur.a */ = {isa = PBXFileReference; name = "libRNBlur.a"; path = "libRNBlur.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		CFD6F0354D5746CB8951CD56 /* RNSyanImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNSyanImagePicker.xcodeproj"; path = "../node_modules/react-native-syan-image-picker/ios/RNSyanImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		28228009CE6645BEB213C08A /* libRNSyanImagePicker.a */ = {isa = PBXFileReference; name = "libRNSyanImagePicker.a"; path = "libRNSyanImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BAB7CB9EECD44607B30E715A /* RNFileSystem.xcodeproj */ = {isa = PBXFileReference; name = "RNFileSystem.xcodeproj"; path = "../node_modules/react-native-filesystem/ios/RNFileSystem.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		A9BF713F652F4BDEB6AE7B4B /* libRNFileSystem.a */ = {isa = PBXFileReference; name = "libRNFileSystem.a"; path = "libRNFileSystem.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		29478F0698E64FA6A4A8F059 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5330D022F411436D95835FFA /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> haogedada
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,7 +387,13 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+<<<<<<< HEAD
 				D9863E71099946F7A3B515B7 /* libRNBlur.a in Frameworks */,
+=======
+				8061A2AA13ED495D82A76D00 /* libRNSyanImagePicker.a in Frameworks */,
+				6ABF6A82C7584F5CB3CFB8D5 /* libRNFileSystem.a in Frameworks */,
+				B38C18FA4F00470F98D5C53E /* libRNFS.a in Frameworks */,
+>>>>>>> haogedada
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,7 +580,13 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+<<<<<<< HEAD
 				B29A1417570846618888C7E3 /* RNBlur.xcodeproj */,
+=======
+				CFD6F0354D5746CB8951CD56 /* RNSyanImagePicker.xcodeproj */,
+				BAB7CB9EECD44607B30E715A /* RNFileSystem.xcodeproj */,
+				29478F0698E64FA6A4A8F059 /* RNFS.xcodeproj */,
+>>>>>>> haogedada
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1188,10 +1215,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Debug;
@@ -1214,10 +1252,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Release;
@@ -1240,7 +1289,13 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Debug;
@@ -1262,7 +1317,13 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
+<<<<<<< HEAD
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Release;
@@ -1293,10 +1354,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Debug;
@@ -1327,10 +1399,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Release;
@@ -1360,10 +1443,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Debug;
@@ -1393,10 +1487,21 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-blur\ios",
+=======
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-syan-image-picker\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-filesystem\ios\RNFileSystem",
+					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+>>>>>>> haogedada
 				);
 			};
 			name = Release;
