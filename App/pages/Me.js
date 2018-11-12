@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-
 export default class Me extends Component {
   render() {
     return (
@@ -10,7 +9,7 @@ export default class Me extends Component {
           // alert("点击")
           Actions.Login()
         }}
-        title="登录" />
+        title="登录1df23" />
       </View>
     )
   }
