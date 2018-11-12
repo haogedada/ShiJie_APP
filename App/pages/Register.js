@@ -17,7 +17,8 @@ class Register extends Component {
             prompt: '',
             random: randomNumber(),
             btn_disabled: true,
-            viewRef: null
+            viewRef: 1,
+            promptCount:0
         }
         
     }
@@ -52,9 +53,7 @@ class Register extends Component {
                     this.setState({
                     username: '',
                     password: '',
-                    okpassword: '',
                     email: '',
-                    yzm: '',
                     promptCount: 0});
                 } else if (response.code === 500) {
                     Alert.alert(response.msg)
@@ -65,17 +64,17 @@ class Register extends Component {
          * 
          * @param {验证邮箱是否存在} e 
          */
-        function handlePromptEmail(e) {
+        function handlePromptEmail(value) {
             const re = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-            if (!re.test(this.state.email)) {
+            if (!re.test(value)) {
                 this.setState({ prompt: prompt_str[3] });
             } else {
-                let _email = { email: this.state.email }
+                let _email = { email: value }
                 promptEmail(_email).then(response => {
                     if (response.code === 200) {
                         this.setState({ prompt: prompt_str[4] });
                     } else {
-                        this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
+                        this.setState({ email:value,prompt: ' ', promptCount: this.state.promptCount + 1 });
                     }
                 })
             }
@@ -83,20 +82,20 @@ class Register extends Component {
         /**
          * 用户名验证
          */
-        function handlePromptUserName(e) {
+        function handlePromptUserName(value) {
             const re = /^[0-9a-zA-z]/;
-            if ((3 > this.state.username.length) ||
-                (this.state.username.length > 20) ||
-                !re.test(this.state.username)) {
+            if ((3 > value.length) ||
+                (value.length > 20) ||
+                !re.test(value)) {
                 this.setState({ prompt: prompt_str[0] });
             } else {
-                if (this.state.username !== '  ') {
-                    let _username = { username: this.state.username }
+                if (value !== '  ') {
+                    let _username = { username: value }
                     promptUserName(_username).then(response => {
                         if (response.code === 200) {
                             this.setState({ prompt: prompt_str[6] });
                         } else {
-                            this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
+                            this.setState({username: value, prompt: ' ', promptCount: this.state.promptCount + 1 });
                         }
                     })
                 } else {
@@ -107,22 +106,22 @@ class Register extends Component {
         /**
          * 密码验证
          */
-        function handlePromptPassword(e) {
+        function handlePromptPassword(value) {
             const re = /^[\u3220-\uFA29]+$/;
-            if ((re.test(this.state.password)) ||
-                (8 > this.state.password.length) ||
-                (this.state.password.length > 16)) {
+            if ((re.test(value)) ||
+                (8 > value.length) ||
+                (value.length > 16)) {
                 this.setState({ prompt: prompt_str[1] });
             } else {
-                this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
+                this.setState({password:value,prompt: ' ', promptCount: this.state.promptCount + 1 });
             }
 
         }/**
          * 确认密码验证
          * @param {*} e 
          */
-        function handlePromptOkPassword(e) {
-            if (this.state.password !== (this.state.okpassword)) {
+        function handlePromptOkPassword(value) {
+            if (this.state.password !== value) {
                 this.setState({ prompt: prompt_str[2] });
             } else {
                 this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
@@ -133,15 +132,13 @@ class Register extends Component {
          * @param {*} e 
          */
         function handlePromptYzm(value) {
-            console.log(this.state.yzm.toLowerCase());
-            console.log(this.state.random.toLowerCase());
-            
-            if (this.state.yzm.toLowerCase() !== this.state.random.toLowerCase()) {
+            if (value !== this.state.random.toLowerCase()) {
               return  this.setState({ prompt: prompt_str[5] });
             } else {
                 return  this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
             }
         }
+      
         return (
           <KeyboardAwareScrollView>
             <View style={styles.column}>
@@ -160,37 +157,35 @@ class Register extends Component {
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')} />
                     <TextInput style={styles.input}
-                        onChangeText={(value) => this.setState({ username: value })}
+                        onChangeText={handlePromptUserName.bind(this)}
                         placeholder="请输入用户名"
                         defaultValue={this.state.username}
-                        onBlur={handlePromptUserName.bind(this)} />
+                         />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
-                        onChangeText={(value) => this.setState({ password: value })}
+                        onChangeText={handlePromptPassword.bind(this)}
                         placeholder="请输入密码"
                         defaultValue={this.state.password}
                         password={true}
                         secureTextEntry={true}
-                        onBlur={handlePromptPassword.bind(this)}
                     />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
-                        onChangeText={(value) => this.setState({ okpassword: value })}
+                        onChangeText={handlePromptOkPassword.bind(this)}
                         placeholder="请输入密码"
                         defaultValue={this.state.okpassword}
                         password={true}
                         secureTextEntry={true}
-                        onBlur={handlePromptOkPassword.bind(this)} />
+                        />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
                     <TextInput style={styles.input}
-                        onChangeText={(value) => this.setState({ email: value })}
-                        onBlur={handlePromptEmail.bind(this)}
+                        onChangeText={handlePromptEmail.bind(this)}
                         placeholder="请输入邮箱" 
                         defaultValue={this.state.email}/>
                 </View>
@@ -202,8 +197,7 @@ class Register extends Component {
                       </Text>
                     </View>
                      <TextInput style={[styles.input, styles.yzm]}
-                        onChangeText={(value) => this.setState({ yzm: value })}
-                        onBlur={handlePromptYzm.bind(this)}
+                        onChangeText={handlePromptYzm.bind(this)}
                         placeholder="请输入验证码"
                         defaultValue="" />
                 </View>

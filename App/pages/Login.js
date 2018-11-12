@@ -25,7 +25,7 @@ class Login extends Component {
       //以下为测试使用的属性名
       url: "",
       str: '',
-      viewRef: null
+      viewRef: 1
     };
 
   }

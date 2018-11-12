@@ -10,8 +10,6 @@ var HTTPUtil = {};
  * @param {请求参数} options 
  */
 async function initialRequest(options) {
-  console.log(options);
-  
     let token=" "
     token = await Storage.get('token');
     return new Promise((resolve, reject) => {
@@ -27,9 +25,7 @@ async function initialRequest(options) {
         'Content-Type': 'multipart/form-data',
         'Authorization': token
       }
-    }
-    console.log(header);
-    
+    }  
       axios.defaults.baseURL = 'http://www.haogedada.top/apiep';
       instance = axios.create({
         headers: header,
