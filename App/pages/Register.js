@@ -14,11 +14,12 @@ class Register extends Component {
             email: '',
             yzm: '',
             isRegister: false,
-            prompt: ' ',
+            prompt: '',
             random: randomNumber(),
             btn_disabled: true,
             viewRef: null
         }
+        
     }
 
     imageLoaded() {
@@ -47,7 +48,14 @@ class Register extends Component {
             }
             register(form).then(response => {
                 if (response.code === 200) {
-                    Alert.alert('注册成功')
+                    Alert.alert('注册成功,请在邮箱内激活')
+                    this.setState({
+                    username: '',
+                    password: '',
+                    okpassword: '',
+                    email: '',
+                    yzm: '',
+                    promptCount: 0});
                 } else if (response.code === 500) {
                     Alert.alert(response.msg)
                 }
@@ -124,12 +132,14 @@ class Register extends Component {
          * 验证码验证
          * @param {*} e 
          */
-        function handlePromptYzm(e) {
-            if ((this.state.yzm !== this.state.random.toLowerCase()) &&
-                (this.state.yzm !== this.state.random.toUpperCase())) {
-                this.setState({ prompt: prompt_str[5] });
+        function handlePromptYzm(value) {
+            console.log(this.state.yzm.toLowerCase());
+            console.log(this.state.random.toLowerCase());
+            
+            if (this.state.yzm.toLowerCase() !== this.state.random.toLowerCase()) {
+              return  this.setState({ prompt: prompt_str[5] });
             } else {
-                this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
+                return  this.setState({ prompt: ' ', promptCount: this.state.promptCount + 1 });
             }
         }
         return (
@@ -152,6 +162,7 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ username: value })}
                         placeholder="请输入用户名"
+                        defaultValue={this.state.username}
                         onBlur={handlePromptUserName.bind(this)} />
                 </View>
                 <View style={styles.row}>
@@ -159,42 +170,52 @@ class Register extends Component {
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ password: value })}
                         placeholder="请输入密码"
+                        defaultValue={this.state.password}
+                        password={true}
                         secureTextEntry={true}
-                        onBlur={handlePrompt.bind(this)}
+                        onBlur={handlePromptPassword.bind(this)}
                     />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ okpassword: value })}
-                        placeholder="再次输入密码"
-                        onBlur={handlePrompt.bind(this)}
-                        secureTextEntry={true} />
+                        placeholder="请输入密码"
+                        defaultValue={this.state.okpassword}
+                        password={true}
+                        secureTextEntry={true}
+                        onBlur={handlePromptOkPassword.bind(this)} />
                 </View>
                 <View style={styles.row}>
                     <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/email.png')} />
                     <TextInput style={styles.input}
                         onChangeText={(value) => this.setState({ email: value })}
                         onBlur={handlePromptEmail.bind(this)}
-                        placeholder="请输入邮箱" />
+                        placeholder="请输入邮箱" 
+                        defaultValue={this.state.email}/>
                 </View>
                 <View style={styles.row}>
                     <View style={styles.yzmBox}>
-                      <Text style={{fontSize: 20, textAlign: 'center', lineHeight: 36}} onPress={() => { this.setState({ random: randomNumber() }) }}>{this.state.random}</Text>
+                      <Text style={{fontSize: 20, textAlign: 'center', lineHeight: 36}} 
+                      onPress={() => { this.setState({ random: randomNumber() }) }}>
+                      {this.state.random}
+                      </Text>
                     </View>
                      <TextInput style={[styles.input, styles.yzm]}
                         onChangeText={(value) => this.setState({ yzm: value })}
                         onBlur={handlePromptYzm.bind(this)}
-                        placeholder="请输入验证码" />
+                        placeholder="请输入验证码"
+                        defaultValue="" />
                 </View>
                 <View style={styles.row}>
                     <Text style={styles.hint}>{this.state.prompt}</Text>
                 </View>
                 <View style={styles.row}>
                     <View style={styles.btn} >
-                        <Button title="注册"
+                        <Button title="注     册"
                             disabled={this.state.promptCount >= 5 ? false : true}
-                            style={styles.btn} onPress={btn_register.bind(this)} />
+                            style={styles.btn} 
+                            onPress={btn_register.bind(this)} />
                     </View>
                 </View>
             </View>

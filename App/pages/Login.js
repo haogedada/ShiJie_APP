@@ -60,11 +60,9 @@ class Login extends Component {
       username: user,
       password: pass
     }).then(res => {
-      let str = res;
-      isStatusCode(str);
-    });
-
-
+        let str = res;
+        isStatusCode(str);
+      })
     //用户点击登录后清空输入框中的值
     this.setState({
       userName: '',

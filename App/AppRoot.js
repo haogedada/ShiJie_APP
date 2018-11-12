@@ -50,7 +50,6 @@ class AppRoot extends Component {
     )
   }
 }
-
 const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: '#fff',
@@ -66,7 +65,6 @@ const styles = StyleSheet.create({
     shadowRadius: 0
   }
 })
-
 const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
     {/*登录*/}
