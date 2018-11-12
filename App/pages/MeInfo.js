@@ -7,7 +7,6 @@ export default class MeInfo extends Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <View style={meInfoStyle.meInfoPrevent}>

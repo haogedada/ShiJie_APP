@@ -11,7 +11,7 @@ import { Actions } from 'react-native-router-flux'
 import { isStatusCode } from '../netWork/StatusCode'
 
 //警告
-import { prompt } from '../netWork/Warning'
+import { prompt } from '../util/Warning'
 
 let { width, height } = Dimensions.get("window")
 class Login extends Component {
