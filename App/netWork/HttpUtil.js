@@ -73,7 +73,6 @@ async function initialRequest(options) {
           }  
         })
     })
-  
 }
 
 HTTPUtil.get = (url, params) => {
