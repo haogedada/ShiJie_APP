@@ -11,6 +11,7 @@ export default class Me extends Component {
           Actions.Login()
         }}
         title="登录" />
+       
       </View>
     )
   }

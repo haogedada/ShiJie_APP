@@ -19,4 +19,10 @@ export function promptUserMsg(){
 export function modifyUserMsg(params){
     return HttpUtil.upload(url.URL_MODIFYUSER,params)
 }
+export function getUserFansList(){
+    return HttpUtil.get(url.URL_FANSLIST)
+}
+export function getUserFollowList(){
+    return HttpUtil.get(url.URL_FOLLOWLIST)
+}
 

@@ -16,6 +16,7 @@ import Home from './pages/Home';
 import Types from './pages/Types';
 import UploadVideo from './pages/UploadVideo';
 import Friend from './pages/Friend';
+import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import CustomNavBarView from './components/CustomNavBarView';
 class AppRoot extends Component {
@@ -70,6 +71,7 @@ const scenes = Actions.create(
     {/*登录*/}
     <Scene key="Login" component={Login} hideNavBar={false} title='登陆' navBar={CustomNavBarView} />
     <Scene key="Register" component={Register} hideNavBar={false} title='注册' navBar={CustomNavBarView} />
+    <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
     <Scene key="tabbar"
       initial
       tabs={true}
