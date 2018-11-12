@@ -17,12 +17,8 @@ class Register extends Component {
             prompt: '',
             random: randomNumber(),
             btn_disabled: true,
-<<<<<<< HEAD
             viewRef: 1,
             promptCount:0
-=======
-            viewRef: 1
->>>>>>> dev
         }
         
     }
@@ -245,7 +241,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: "#3d3d3d",
         marginBottom: 10,
-        fontSize: 18
+        fontSize: 18,
+        padding: 0
     },
     btn: {
         width: width * 0.7,

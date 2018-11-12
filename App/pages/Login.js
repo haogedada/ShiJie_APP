@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'left',
     alignSelf: 'center',
-    fontSize: 18
+    fontSize: 18,
+    padding: 0
   },
   tgLoginBtnStyle: {
     height: 38,
