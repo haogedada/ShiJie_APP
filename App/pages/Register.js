@@ -17,7 +17,7 @@ class Register extends Component {
             prompt: '',
             random: randomNumber(),
             btn_disabled: true,
-            viewRef: 1,
+            viewRef: null,
             promptCount:0
         }
         
