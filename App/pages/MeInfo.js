@@ -78,8 +78,6 @@ const meInfoStyle = StyleSheet.create({
         height: 40,
         borderColor: "#ff5fb2",
         borderWidth: 1
-
-
     },
     meInfoPrevent: {
         flex: 1
