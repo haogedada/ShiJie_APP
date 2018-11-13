@@ -16,6 +16,7 @@
     "react-native-router-flux": "^4.0.5",
     "react-native-scrollable-tab-view": "^0.10.0",
     "react-native-syan-image-picker": "^0.2.0",
+    "react-native-video": "^3.2.1",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2"

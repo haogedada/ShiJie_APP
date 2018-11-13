@@ -70,6 +70,7 @@ export default class Me extends Component {
         console.log("修改前:", this.state.isLogin, "修改后:", newState.isLogin);
         return true;
     }
+
     componentDidMount() {
         this.deEmitter = DeviceEventEmitter.addListener("exit", a => {
             this.setState({
@@ -96,6 +97,7 @@ export default class Me extends Component {
             console.log("触发事件");
         })
     }
+
     async showInfoData() {
         let showData = await
             Storage.get("infoMsg");
@@ -106,6 +108,7 @@ export default class Me extends Component {
             });
         }
     }
+
     judgeLogin() {
         console.log("judegeLogin()是否登录", this.state.isLogin);
         if (this.state.isLogin) {
@@ -157,16 +160,15 @@ export default class Me extends Component {
 
 }
 
-const
-    meStyle = StyleSheet.create({
-        loginImage: {
-            borderWidth: 1,
-            borderColor: "#ee2115",
-            height: 60,
-            width: 60,
-            borderRadius: 50
-        },
-        loginWoks: {
-            backgroundColor: "#73c0ff"
-        }
-    })
+const meStyle = StyleSheet.create({
+    loginImage: {
+        borderWidth: 1,
+        borderColor: "#ee2115",
+        height: 60,
+        width: 60,
+        borderRadius: 50
+    },
+    loginWoks: {
+        backgroundColor: "#73c0ff"
+    }
+})

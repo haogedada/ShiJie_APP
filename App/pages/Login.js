@@ -86,7 +86,8 @@ class Login extends Component {
                         }}
                         onLoadEnd={this.imageLoaded.bind(this)}
                     />
-                    <BlurView style={styles.dark} viewRef={this.state.viewRef} blurType="light" blurAmount={20}/>{' '}
+                    <BlurView style={styles.dark} viewRef={this.state.viewRef} blurType="light" blurAmount={20}/>
+
                     <View style={styles.tgInputBox}>
                         <Image
                             style={{
@@ -137,7 +138,8 @@ class Login extends Component {
                         />
                     </View>
                     <View style={styles.tgSettingStyle}>
-                        <Text> 忘记密码 </Text> <Text onPress={() => Actions.Register()}> 新用户 </Text>{' '}
+                        <Text> 忘记密码 </Text>
+                        <Text onPress={() => Actions.Register()}> 新用户 </Text>
                     </View>
                 </View>
             </KeyboardAwareScrollView>
