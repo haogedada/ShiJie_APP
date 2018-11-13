@@ -20,6 +20,7 @@ import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
+import  UserMsg from './pages/UserMsg'
 import UpdateInfo from './pages/UpdateInfo'
 
 class AppRoot extends Component {
@@ -80,6 +81,7 @@ const scenes = Actions.create(
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         {/*修改人信息*/}
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
+        <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
         <Scene key="tabbar"
                initial
