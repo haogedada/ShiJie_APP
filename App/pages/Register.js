@@ -5,8 +5,6 @@ import { BlurView } from 'react-native-blur'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-
 class Register extends Component {
     constructor(props) {
         super(props)

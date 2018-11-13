@@ -29,7 +29,6 @@ async function initialRequest(options) {
       }
     }
     axios.defaults.baseURL = 'http://www.haogedada.top/apiep';
-    instance.defaults.timeout = 6000;
     instance = axios.create({
       headers: header,
     })
@@ -52,6 +51,9 @@ async function initialRequest(options) {
     instance(options)
       .then(response => { // then请求成功之后进行什么操作
         console.log(response.data);
+        if(response.headers.Authorization){
+          Storage.save('token',response.headers.Authorization)
+        }
         if (response.data.code === 401) {
           Actions.notLogin()
         }
@@ -68,7 +70,9 @@ async function initialRequest(options) {
       })
       .catch(error => {
         if (error.response.status === 400) { //400状态码,一些正常的响应
-          console.log(error.response.data);
+          if(error.response.msg==="Missing request header 'Authorization' for method parameter of type String"){
+            Actions.notLogin()
+          }
           resolve(error.response.data)
         } else if (error.request.code === 401) {
           Actions.notLogin()
@@ -78,31 +82,6 @@ async function initialRequest(options) {
           //请求超时
           if (error.request.readyState == 4 && error.request.status == 0) {
             Alert.alert('请求超时')
-            // var originalRequest = error.config;
-            // //这里给出提示重新请求
-            // RRCAlert.alert(
-            //   '网络异常',
-            //   '请求超时!!!\n是否重试',
-            //   [{
-            //     text: '取消',
-            //     style: { color: 'red' }
-            //   }, {
-            //     text: '重试',
-            //   }],
-            //   (index) => {
-            //     if (index === 2) {
-            //       return axios.request(originalRequest);
-            //     } else {
-            //       return
-            //     }
-            //   },
-            //   {
-            //     contentTextStyle: {
-            //       fontSize: 14,
-            //       textAlign: 'left'
-            //     }
-            //   }
-            // )
           }
         } else { // 其他错误 
           console.log('请求异常信息：' + error);

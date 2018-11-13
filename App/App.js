@@ -11,14 +11,13 @@ import {login} from './netWork/api'
     super(props);
   }
   componentWillMount(){
-   // this.Login()
+   this.Login()
   }
   //获取token
   async Login(){
     let user = await Storage.get('user')
     let isLogin = await Storage.get('loginState')
      if(isLogin){
-      console.log(user);
       login(user).then(res => {
         if(res.data){
           Storage.save('token',res.data)

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button,DeviceEventEmitter } from 'react-native'
 import { getUserInfo } from '../netWork/api'
 import { Actions } from 'react-native-router-flux'
-
+import Storage from '../util/AsyncStorageUtil'
 export default class Me extends Component {
     constructor(props) {
         super(props)
@@ -12,21 +12,41 @@ export default class Me extends Component {
         }
         this.getInfo = this.getInfo.bind(this)
     }
+
     componentWillMount() {
         this.getInfo()
     }
+    componentDidMount() {
+        this.eventEmitter = DeviceEventEmitter.addListener("login",()=>{
+            this.setState({ loginState: true})
+            this.getInfo()
+        });
+    }
+    // 组件销毁前移除事件监听 
+    componentWillUnmount(){ 
+        this.eventEmitter.remove(); 
+    }
     async getInfo() {
-        let loginState = await Storage.get('loginState');
+        let loginState = await Storage.get('loginState')
         if (loginState) {
-            let info = await getUserInfo()
-            if (info) {
-                this.setState({ loginState: true, userInfo: info.data })
-            }
+            getUserInfo().then(info => {
+                if (info) {
+                    this.setState({ loginState: true, userInfo: info.data })
+                }
+            })
+            //todo
         }
-
     }
     render() {
-        let login = (<View><Text>登录</Text></View>)
+        let login = (<View>
+            <Text>已登录</Text>
+            <Button title='注销' onPress={() => {
+                Storage.save('loginState', false)
+                Storage.save('user', null)
+                Storage.save('token', null)
+                this.setState({loginState:false})
+            }} />
+        </View>)
         let noLogin = (<View>
             <Text>你还没有登录!!</Text>
             <Button title='登录' onPress={

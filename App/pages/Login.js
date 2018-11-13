@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, findNodeHandle, Dimensions, Image, StyleSheet, Button } from 'react-native'
+import { Text, View, TextInput, findNodeHandle, 
+    Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
 import { BlurView } from 'react-native-blur';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //网络请求
@@ -9,7 +10,6 @@ import { Actions } from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 //警告
 import { prompt } from '../util/Warning'
-import { RRCAlert, RRCLoading } from 'react-native-overlayer';
 let { width, height } = Dimensions.get("window")
 class Login extends Component {
     constructor(props) {
@@ -53,21 +53,19 @@ class Login extends Component {
             return;
         }
         //用户进行网络请求
-        console.log("是否登录");
-        RRCLoading.show
         login({
             username: user,
             password: pass
         }).then(res => {
-            console.log("是否登录", res.code);
             if (res.code === 200) {
                 this.setState({
                     userName: '',
                     passWord: ''
                 })
+                Storage.save('token',res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
-                RRCLoading.hide
+                DeviceEventEmitter.emit('login')
                 Actions.me()
             }
         })
