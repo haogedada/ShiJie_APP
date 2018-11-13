@@ -81,8 +81,7 @@ export default class Friend extends Component {
         this.state.followList
       }
       tabLabel = "关注" / >
-      <
-      /ScrollableTabView>
+      </ScrollableTabView>
     )
   }
 }
