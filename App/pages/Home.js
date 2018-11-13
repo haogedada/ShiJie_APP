@@ -79,12 +79,12 @@ export default class Home extends Component {
 
     async componentDidMount() {
         let saveVideo = await Storagge.get("videoInfo");
-        getVideo(2);
+       // getVideo(2);
         this.setState({
             videoData: saveVideo.data,
             videoUser: this.state.videoData.userBean
         });
-        console.log(saveVideo);
+      //  console.log(saveVideo);
     }
 
     render() {

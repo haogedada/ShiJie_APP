@@ -103,8 +103,10 @@ const scenes = Actions.create(
                    titleStyle={styles.titleStyle}/>
             {/*添加视屏按钮*/}
             <Scene key="uploadVideo"
-                   hideNavBar={true}
                    component={UploadVideo}
+                   hideTabBar={true}
+                   title='上传视频' 
+                   navBar={CustomNavBarView} 
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
             {/*朋友*/}

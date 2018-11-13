@@ -50,7 +50,7 @@ export default class FansAndConcernContain extends Component {
       this.props.refreshCallBack(this.state.fansList,this.state.followList)
       this.setState({isRefreshing:false})
     }else{
-      this.setState({isRefreshing:false})
+      this.setState({isRefreshing:true})
     }
   }
   render() {

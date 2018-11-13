@@ -24,7 +24,7 @@ class UserMsg extends Component {
     }
 
     render() {
-        function handleSelectImg(e) {
+        function handleSelectImg() {
             let options = {
                 imageCount: 1,// 最大选择图片数目
                 isCamera: true,         // 是否允许用户在内部拍照，默认true
