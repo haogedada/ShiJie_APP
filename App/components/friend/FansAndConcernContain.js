@@ -27,6 +27,8 @@ export default class FansAndConcernContain extends Component {
       })
     });
     this.setState({followList: newFollowList})
+    this.setState({isRefreshing:false})
+ 
   })
      getUserFansList().then(_fansList=>{
       let newFansList = []
@@ -39,18 +41,17 @@ export default class FansAndConcernContain extends Component {
         })
       });
       this.setState({fansList:newFansList})
+      this.setState({isRefreshing:false})
      })
 }
   // 下拉刷新功能
   onRefresh () {
     // 请求数据
+    this.setState({isRefreshing:true})
     this.loadUserFriend()
     if(this.state.fansList.length>0&&
       this.state.followList.length>0){
       this.props.refreshCallBack(this.state.fansList,this.state.followList)
-      this.setState({isRefreshing:false})
-    }else{
-      this.setState({isRefreshing:false})
     }
   }
   render() {

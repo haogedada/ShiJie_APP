@@ -1,18 +1,16 @@
-import React, {Component} from 'react'
-import {Text, View, TextInput, findNodeHandle, Dimensions, Image, StyleSheet, Button} from 'react-native'
-import {BlurView} from 'react-native-blur';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import React, { Component } from 'react'
+import { Text, View, TextInput, findNodeHandle, 
+    Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
+import { BlurView } from 'react-native-blur';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //网络请求
-import {login} from '../netWork/api'
+import { login } from '../netWork/api'
 //请求网址
-import {url} from "../constants/url"
-import {Actions} from 'react-native-router-flux'
-//网络请求后状态码的判断
-import {isStatusCode} from '../netWork/StatusCode'
+import { Actions } from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 //警告
-import {prompt} from '../util/Warning'
-let {width, height} = Dimensions.get("window")
+import { prompt } from '../util/Warning'
+let { width, height } = Dimensions.get("window")
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -22,15 +20,14 @@ class Login extends Component {
             //密码
             passWord: '',
             //以下为测试使用的属性名
-            url: "",
             str: '',
             viewRef: null
         };
-
+        this.isInputEmpty = this.isInputEmpty.bind(this)
     }
 
     imageLoaded() {
-        this.setState({viewRef: findNodeHandle(this.backgroundImage)});
+        this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
     }
 
     /**
@@ -38,35 +35,42 @@ class Login extends Component {
      * @param user 用戶名
      * @param pass 密码
      */
-    async isInputEmpty(user, pass) {
+    isInputEmpty() {
+        let user = this.state.userName;
+        let pass = this.state.passWord;
         let warn = {};
-        this.setState({url: url.URL_LOGIN})
         //判断用户点击登录后输入框是否为空
         if (user === "") {
-            warn.title = "警告";
+            warn.title = "警告!";
             warn.text = "用户名为空";
             prompt(warn);
             return;
         }
         if (pass === "") {
-            warn.title = "警告";
+            warn.title = "警告!";
             warn.text = "密码为空";
             prompt(warn);
             return;
         }
         //用户进行网络请求
-        let black = login({
+        login({
             username: user,
             password: pass
+        }).then(res => {
+            if (res.code === 200) {
+                this.setState({
+                    userName: '',
+                    passWord: ''
+                })
+                Storage.save('token',res.data)
+                Storage.save('user', { username: user, password: pass })
+                Storage.save('loginState', true)
+                DeviceEventEmitter.emit('login')
+                Actions.me()
+            }
         })
-        let loginInfo = await Storage.get("loginInfo");
-        console.log("登录数据", loginInfo);
-        isStatusCode(loginInfo)
-        //用户点击登录后清空输入框中的值
-        this.setState({
-            userName: '',
-            passWord: ''
-        })
+
+
     }
 
     //render函数渲染
@@ -89,26 +93,21 @@ class Login extends Component {
                         blurAmount={20}
                     />
                     <View style={styles.tgInputBox}>
-                        <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/user.png')}/>
+                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/user.png')} />
                         <TextInput style={styles.inputStyle} placeholder="用户名"
-                                   onChangeText={(text) => this.setState({userName: text})}
-                                   defaultValue={this.state.userName}/>
+                            onChangeText={(text) => this.setState({ userName: text })}
+                            defaultValue={this.state.userName} />
                     </View>
                     <View style={styles.tgInputBox}>
-                        <Image style={{width: 35, height: 35}} source={require('./../resources/images/icon/word.png')}/>
+                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/word.png')} />
                         <TextInput style={styles.inputStyle} password={true} placeholder="密码" secureTextEntry={true}
-                                   onChangeText={(text) => this.setState({passWord: text})}
-                                   defaultValue={this.state.passWord}/>
+                            onChangeText={(text) => this.setState({ passWord: text })}
+                            defaultValue={this.state.passWord} />
                     </View>
                     <View style={styles.tgLoginBtnStyle}>
-                        <Button style={styles.tgLoginBtnStyle} onPress={
-                            () => {
-                                let user = this.state.userName;
-                                let pass = this.state.passWord;
-                                this.isInputEmpty(user, pass);
-                            }
-                        }
-                                title='登              陆'/>
+                        <Button style={styles.tgLoginBtnStyle} 
+                        onPress={this.isInputEmpty}
+                            title='登          陆' />
                     </View>
                     <View style={styles.tgSettingStyle}>
                         <Text>忘记密码</Text>

@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View,TouchableOpacity } from 'react-native'
+import { RRCAlert } from 'react-native-overlayer';
 
-export default class UploadVideo extends Component {
+class UploadVideo extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text> 上传视频 </Text>
+      <TouchableOpacity onPress={()=>{
+          RRCAlert.alert('title title')
+        }}>
+        <Text>上传视频</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
+export default UploadVideo

@@ -1,20 +1,19 @@
 import HttpUtil from './HttpUtil'
+<<<<<<< HEAD
 import {
     url
 } from '../constants/url'
 import Storage from '../util/AsyncStorageUtil'
+=======
+import {url} from '../constants/url'
+>>>>>>> haogedada
 
-export async function updateInfo(parms) {
-    console.log("修改个人信息参数:", parms);
+export function updateInfo(parms) {
+ 
 }
-
-export async function login(params) {
-    await HttpUtil.post(url.URL_LOGIN, params).then(req => {
-        Storage.save("loginInfo", req);
-        console.log("保存数据:", req);
-    });
+export function login(params) {
+    return HttpUtil.post(url.URL_LOGIN, params);
 }
-
 export function register(params) {
     return HttpUtil.post(url.URL_REGISTER, params)
 }
@@ -22,19 +21,11 @@ export function register(params) {
 /**
  * 请求个人信息数据
  */
-export function getInfo() {
-
-    HttpUtil.get(url.URL_USERMSG).then(req => {
-        Storage.save("infoMsg", req);
-        console.log("获取个人资料", req);
-    });
+export function getUserInfo() {
+    return HttpUtil.get(url.URL_USERMSG);
 }
-
 export function getVideo(params) {
-    HttpUtil.get(url.URL_VIDEO + "/" + params).then(req => {
-        Storage.save("videoInfo", req)
-        console.log("视屏信息", req);
-    })
+    return HttpUtil.get(url.URL_VIDEO + "/" + params);
 }
 
 export function promptEmail(params) {
