@@ -10,7 +10,8 @@ export default class Friend extends Component {
       fansList: [],
       followList: [],
     }
-    this.loadUserFriend.bind(this);
+    this.loadUserFriend = this.loadUserFriend.bind(this)
+    this.refreshCallBack = this.refreshCallBack.bind(this)
   }
   componentWillMount() {
     this.loadUserFriend()
@@ -31,9 +32,6 @@ export default class Friend extends Component {
         });
         console.log(_followList);
         this.setState({ followList: newFollowList })
-        
-      }).catch(err=>{
-        Alert.alert(err)
       })
       getUserFansList().then(_fansList=>{
         let newFansList = []
@@ -46,18 +44,18 @@ export default class Friend extends Component {
           })
         });
         this.setState({fansList:newFansList})
-      }).catch(err=>{
-        Alert.alert(err)
       })
-  
   }
-
+  refreshCallBack(fansList,followList){
+    this.setState({fansList:fansList,followList:followList})
+  }
   render() {
-    this.loadUserFriend
     return (
       <ScrollableTabView tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
-        <FansAndConcernContain data={this.state.fansList} tabLabel="粉丝" />
-        <FansAndConcernContain data={this.state.followList} tabLabel="关注" />
+        <FansAndConcernContain refreshCallBack ={this.refreshCallBack} 
+        data={this.state.fansList} tabLabel="粉丝" />
+        <FansAndConcernContain refreshCallBack ={this.refreshCallBack} 
+        data={this.state.followList} tabLabel="关注" />
       </ScrollableTabView>
     )
   }
