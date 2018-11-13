@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import FansAndConcernContain from '../components/friend/FansAndConcernContain';
 import { getUserFansList, getUserFollowList } from '../netWork/api'
-import { Alert } from 'react-native'
 export default class Friend extends Component {
   constructor(props) {
     super(props)
@@ -30,7 +29,6 @@ export default class Friend extends Component {
             avatar: item.headimgUrl
           })
         });
-        console.log(_followList);
         this.setState({ followList: newFollowList })
       })
       getUserFansList().then(_fansList=>{
