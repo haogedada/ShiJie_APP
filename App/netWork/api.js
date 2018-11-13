@@ -1,5 +1,7 @@
 import HttpUtil from './HttpUtil'
-import {url} from '../constants/url'
+import {
+    url
+} from '../constants/url'
 import Storage from '../util/AsyncStorageUtil'
 
 export async function updateInfo(parms) {
@@ -50,10 +52,9 @@ export function promptUserMsg() {
 export function modifyUserMsg(params) {
     return HttpUtil.upload(url.URL_MODIFYUSER, params)
 }
-export function getUserFansList(){
+export function getUserFansList() {
     return HttpUtil.get(url.URL_FANSLIST)
 }
-export function getUserFollowList(){
+export function getUserFollowList() {
     return HttpUtil.get(url.URL_FOLLOWLIST)
 }
-
