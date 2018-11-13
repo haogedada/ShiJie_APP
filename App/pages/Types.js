@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-// import Video from 'react-native-video'
 import {View, FlatList, Text, Image, ScrollView, TouchableOpacity, Button, StyleSheet, Dimensions} from 'react-native'
 import {getTypes, getVideoTypesCount} from "../netWork/api";
 
@@ -68,7 +67,7 @@ export default class Classification extends Component {
     }
 
     defaultType(type) {
-        console.log("视屏123456:", type.videos);
+        // console.log("视屏123456:", type.videos);
         return type.map(item => {
             let videoList = item.videos;
             return <View stylt={classStyle.outer}>
@@ -134,16 +133,17 @@ export default class Classification extends Component {
 
     render() {
         return (
-            <View>
-                <ScrollView style={classStyle.classTitle} horizontal={true}>
-                    {this.titleData()}
-                </ScrollView>
-                <View>
+            <View style={{flex: 1}}>
+                <View style={{flex: 1}}>
+                    <ScrollView style={classStyle.classTitle} horizontal={true}>
+                        {this.titleData()}
+                    </ScrollView>
+                </View>
+                <View style={{flex: 9}}>
                     <ScrollView>
                         {this.defaultList()}
                     </ScrollView>
                 </View>
-
             </View>
         );
     }
