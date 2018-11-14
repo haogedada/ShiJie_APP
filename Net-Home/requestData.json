@@ -1,96 +1,60 @@
 {
   "code": 200,
   "msg": "success",
-  "data": {
-    "homePageHead": null,
-    "videoTypeList": [
-      {
-        "videoType": "hot|热门",
-        "videos": [
-          {
-            "videoTitle": "2的视频",
-            "videoContent": "2的视频",
-            "videoUrl": "无",
-            "videoCoverUrl": null,
-            "videoTime": null,
-            "videoType": "hot|热门",
-            "videoId": 2,
-            "userId": 2,
-            "playerCount": 2,
-            "videoTipNum": 18,
-            "videoTrampleNum": 2,
-            "videoCreatTime": "2018-07-28T03:11:17.000+0000",
-            "userBean": {
-              "userId": 2,
-              "userName": "2",
-              "userPassword": "",
-              "userNickname": "哈哈",
-              "userSex": "男",
-              "userBirthday": "无",
-              "bardianSign": "无",
-              "headimgUrl": "http://www.haogedada.top/apiep/upLoadFile/headImage/userheadimg-1.jpg",
-              "userEmail": "",
-              "registerTime": null,
-              "auxiliaryUserBean": null
-            }
-          },
-          {
-            "videoTitle": "修改过",
-            "videoContent": "1内容修改过2",
-            "videoUrl": "无",
-            "videoCoverUrl": "videocover-1.jpg",
-            "videoTime": null,
-            "videoType": "hot|热门",
-            "videoId": 1,
-            "userId": 1,
-            "playerCount": 1,
-            "videoTipNum": 4,
-            "videoTrampleNum": 0,
-            "videoCreatTime": "2018-07-28T03:11:17.000+0000",
-            "userBean": {
-              "userId": 1,
-              "userName": "1",
-              "userPassword": "",
-              "userNickname": "11asd",
-              "userSex": "hehe",
-              "userBirthday": "十大",
-              "bardianSign": "上的",
-              "headimgUrl": "http://www.haogedada.top/apiep/upLoadFile/headImage/userheadimg-1.jpg",
-              "userEmail": "",
-              "registerTime": null,
-              "auxiliaryUserBean": null
-            }
-          },
-          {
-            "videoTitle": "热门",
-            "videoContent": "热门",
-            "videoUrl": "http://www.haogedada.top/api/upLoadFile/videoFile/video1-225.mp4",
-            "videoCoverUrl": "http://www.haogedada.top/api/upLoadFile/videoCover/videocover-225.jpg",
-            "videoTime": "00:08",
-            "videoType": "hot|热门",
-            "videoId": 225,
-            "userId": 1,
-            "playerCount": 0,
-            "videoTipNum": 2,
-            "videoTrampleNum": 0,
-            "videoCreatTime": "2018-08-14T10:42:40.000+0000",
-            "userBean": {
-              "userId": 1,
-              "userName": "1",
-              "userPassword": "",
-              "userNickname": "11asd",
-              "userSex": "hehe",
-              "userBirthday": "十大",
-              "bardianSign": "上的",
-              "headimgUrl": "http://www.haogedada.top/apiep/upLoadFile/headImage/userheadimg-1.jpg",
-              "userEmail": "",
-              "registerTime": null,
-              "auxiliaryUserBean": null
-            }
-          }
-        ]
+  "data": [
+    {
+      "videoTitle": "2的视频",
+      "videoContent": "2的视频",
+      "videoUrl": "无",
+      "videoCoverUrl": null,
+      "videoTime": null,
+      "videoType": "hot|热门",
+      "videoId": 2,
+      "userId": 2,
+      "playerCount": 2,
+      "videoTipNum": 18,
+      "videoTrampleNum": 2,
+      "videoCreatTime": "2018-07-28T03:11:17.000+0000",
+      "userBean": {
+        "userId": 2,
+        "userName": "1",
+        "userPassword": "",
+        "userNickname": "哈哈",
+        "userSex": "男",
+        "userBirthday": "18",
+        "bardianSign": "miui",
+        "headimgUrl": "http://www.haogedada.top/apiep/upLoadFile/headImage/userheadimg-1.png",
+        "userEmail": "",
+        "registerTime": null,
+        "auxiliaryUserBean": null
       }
-    ],
-    "tail": null
-  }
+    },
+    {
+      "videoTitle": "2的第二个视频",
+      "videoContent": "无",
+      "videoUrl": "无",
+      "videoCoverUrl": null,
+      "videoTime": null,
+      "videoType": null,
+      "videoId": 4,
+      "userId": 2,
+      "playerCount": 0,
+      "videoTipNum": 0,
+      "videoTrampleNum": 0,
+      "videoCreatTime": "2018-07-30T11:49:30.000+0000",
+      "userBean": {
+        "userId": 2,
+        "userName": "1",
+        "userPassword": "",
+        "userNickname": "哈哈",
+        "userSex": "男",
+        "userBirthday": "18",
+        "bardianSign": "miui",
+        "headimgUrl": "http://www.haogedada.top/apiep/upLoadFile/headImage/userheadimg-1.png",
+        "userEmail": "",
+        "registerTime": null,
+        "auxiliaryUserBean": null
+      }
+    }
+  ]
 }

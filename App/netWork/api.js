@@ -1,6 +1,14 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
+export function getHome() {
+    return HttpUtil.get(url.URL_USERHOME);
+}
+
+export function getCollections() {
+    return HttpUtil.get(url.URL_COLLECTIONS);
+}
+
 export function getTypes() {
     return HttpUtil.get(url.URL_ALLVIDEOTYPE);
 }
