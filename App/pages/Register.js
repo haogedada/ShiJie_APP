@@ -152,7 +152,7 @@ class Register extends Component {
                 <View style={styles.column}>
                     <Image
                         style={styles.bg}
-                        source={require('./../resources/images/image_backgrund/bg_2.jpg')}
+                        source={require('./../resources/images/image_backgrund/bg_1.jpg')}
                         ref={(img) => { this.backgroundImage = img; }}
                         onLoadEnd={this.imageLoaded.bind(this)}
                     />
@@ -160,42 +160,46 @@ class Register extends Component {
                         style={styles.dark}
                         viewRef={this.state.viewRef}
                         blurType="light"
-                        blurAmount={20}
+                        blurAmount={15}
                     />
                     <View style={styles.row}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/user.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptUserName}
                             placeholder="请输入用户名"
                             defaultValue={this.state.username}
+                            placeholderTextColor='#d4d4d4'
                         />
                     </View>
                     <View style={styles.row}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/word.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptPassword}
                             placeholder="请输入密码"
                             defaultValue={this.state.password}
                             password={true}
                             secureTextEntry={true}
+                            placeholderTextColor='#d4d4d4'
                         />
                     </View>
                     <View style={styles.row}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/word.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptOkPassword}
                             placeholder="请输入密码"
                             defaultValue={this.state.okpassword}
                             password={true}
                             secureTextEntry={true}
+                            placeholderTextColor='#d4d4d4'
                         />
                     </View>
                     <View style={styles.row}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/email.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/email.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptEmail}
                             placeholder="请输入邮箱"
-                            defaultValue={this.state.email} />
+                            defaultValue={this.state.email}
+                            placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.row}>
                         <View style={styles.yzmBox}>
@@ -207,7 +211,8 @@ class Register extends Component {
                         <TextInput style={[styles.input, styles.yzm]}
                             onChangeText={this.handlePromptYzm}
                             placeholder="请输入验证码"
-                            defaultValue="" />
+                            defaultValue=""
+                            placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.hint}>{this.state.prompt}</Text>
@@ -245,12 +250,13 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 38,
-        width: width * 0.6,
-        borderBottomWidth: 1,
-        borderColor: "#3d3d3d",
+        width: width * 0.7,
+        borderBottomWidth: 0.5,
+        borderColor: "#fff",
         marginBottom: 10,
         fontSize: 18,
-        padding: 0
+        padding: 0,
+        color: '#fff'
     },
     btn: {
         width: width * 0.7,

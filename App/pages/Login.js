@@ -90,7 +90,7 @@ class Login extends Component {
                 <View style={styles.container}>
                     <Image
                         style={styles.bg}
-                        source={require('./../resources/images/image_backgrund/bg_2.jpg')}
+                        source={require('./../resources/images/image_backgrund/bg_1.jpg')}
                         ref={(img) => {
                             this.backgroundImage = img;
                         }}
@@ -100,19 +100,21 @@ class Login extends Component {
                         style={styles.dark}
                         viewRef={this.state.viewRef}
                         blurType="light"
-                        blurAmount={20}
+                        blurAmount={15}
                     />
                     <View style={styles.tgInputBox}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/user.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
                         <TextInput style={styles.inputStyle} placeholder="用户名"
                             onChangeText={(text) => this.setState({ userName: text })}
-                            defaultValue={this.state.userName} />
+                            defaultValue={this.state.userName}
+                            placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.tgInputBox}>
-                        <Image style={{ width: 35, height: 35 }} source={require('./../resources/images/icon/word.png')} />
+                        {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.inputStyle} password={true} placeholder="密码" secureTextEntry={true}
                             onChangeText={(text) => this.setState({ passWord: text })}
-                            defaultValue={this.state.passWord} />
+                            defaultValue={this.state.passWord}
+                            placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.tgLoginBtnStyle}>
                         <Button style={styles.tgLoginBtnStyle} 
@@ -120,8 +122,8 @@ class Login extends Component {
                             title='登          陆' />
                     </View>
                     <View style={styles.tgSettingStyle}>
-                        <Text>忘记密码</Text>
-                        <Text onPress={() => Actions.Register()}>新用户</Text>
+                        <Text style={{color: '#fff'}}>忘记密码</Text>
+                        <Text style={{color: '#fff'}} onPress={() => Actions.Register()}>新用户</Text>
                     </View>
                 </View>
             </KeyboardAwareScrollView>
@@ -138,15 +140,14 @@ const styles = StyleSheet.create({
         height: height - 70
     },
     inputStyle: {
-        width: width * 0.62,
         height: 38,
-        borderWidth: 1,
-        borderColor: '#3d3d3d',
+        width: width * 0.7,
+        borderBottomWidth: 0.5,
+        borderColor: "#fff",
         marginBottom: 10,
-        paddingLeft: 10,
-        borderRadius: 4,
-        textAlign: 'left',
-        alignSelf: 'center'
+        fontSize: 18,
+        padding: 0,
+        color: '#fff'
     },
     tgLoginBtnStyle: {
         height: 38,
