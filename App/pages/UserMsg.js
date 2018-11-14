@@ -103,8 +103,6 @@ class UserMsg extends Component {
           <TextInput defaultValue={this.state.nickname}
             style={styles.inputStyle}
             onChangeText={(value) => {
-              console.log(value === ' ',value);
-              
               if (value.includes(' ')) {
                 this.setState({ prompt: '昵称不能为空' })
               }
