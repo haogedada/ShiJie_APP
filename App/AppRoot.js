@@ -21,7 +21,7 @@ import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
-import  UserMsg from './pages/UserMsg'
+// import  UserMsg from './pages/UserMsg'
 import UpdateInfo from './pages/UpdateInfo'
 import UserMsg from './pages/UserMsg'
 class AppRoot extends Component {
