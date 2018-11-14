@@ -68,7 +68,6 @@ class Login extends Component {
                 DeviceEventEmitter.emit('login')
                 Actions.me()
             } if(res.code === 199){
-                DeviceEventEmitter.emit('firstLogin')
                 this.setState({
                     userName: '',
                     passWord: ''
