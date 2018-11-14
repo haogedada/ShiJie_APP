@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, ScrollView,TouchableOpacity, Image, Button, FlatList, WebView,RefreshControl} from 'react-native'
+import {Text, View, ScrollView,TouchableOpacity, Image, Button, FlatList, WebView,StyleSheet,RefreshControl} from 'react-native'
 import Storagge from '../util/AsyncStorageUtil'
 import {getVideo} from "../netWork/api"
 
@@ -41,8 +41,7 @@ loading(){
                 <ScrollView  refreshControl={<RefreshControl
                 refreshing={this.setState.isRef}
                 onRefresh={()=>this.onRef()}
-                tintColor='gary'
-                />}>
+                tintColor='gary'/>}>
                   <View>
                       <Text>1231546131</Text>
                       <Text>1231546131</Text>
@@ -53,3 +52,4 @@ loading(){
         )
     }
 }
+const homStyle=StyleSheet.create({})
