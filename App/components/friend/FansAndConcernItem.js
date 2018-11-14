@@ -24,8 +24,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginTop: 10,
+    paddingBottom: 10,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#a5a5a5'
   },
   avatar: {
     width: 50,
