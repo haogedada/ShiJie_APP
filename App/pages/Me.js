@@ -90,76 +90,77 @@ export default class Me extends Component {
     }
   }
 
-  render() {
-    let login = (
-      <View>
-        <TouchableOpacity onPress={
-          () => {
-            Actions.UserMsg();
-          }}>
-          <Image
-            source={{ uri: this.state.userInfo.headimgUrl }}
-            style={meStyle.noLoginImage} />
-          <Text>{this.state.userInfo.userNickname}</Text>
-        </TouchableOpacity>
-        <Text>{this.state.userInfo.bardianSign}</Text>
-        <Button title="注销"
-          onPress={
-            () => {
-              Storage.save('loginState', false);
-              Storage.save('user', null);
-              Storage.save('token', null);
-              this.setState({
-                loginState: false
-              });
-            }
-          } />
-      </View>
-    );
-    let noLogin = (
-      <View>
-        <TouchableOpacity onPress={
-          () => {
-            Actions.Login();
-          }
-        }>
-          <Image style={meStyle.noLoginImage}
-            source={require('../resources/images/icon/me.png')} />
-          <Text> 登录 / 注册 </Text>
-        </TouchableOpacity>
-      </View>
-    );
-    return (
-      <View>
-        <View>{this.state.loginState ? login : noLogin}</View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity onPress={
-              () => {
-                this.setState({
-                  collHome: true
-                });
-              }
-            }>
-              <Text style={meStyle.home}>我的作品</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity onPress={
-              () => {
-                this.setState({
-                  collHome: false
-                });
-              }
-            }>
-              <Text style={meStyle.coll}>我的收藏</Text>
-            </TouchableOpacity>
-          </View>
+    render() {
+        let login = (
+        <View style={{flex:1}}>
+            <View style={{flex:3}}>
+                <TouchableOpacity onPress={
+                    () => {
+                        Actions.UserMsg();
+                    }
+                }>
+                    <Image source={{uri: this.state.userInfo.headimgUrl}} style={meStyle.noLoginImage}/>
+                    <Text>
+                        {this.state.userInfo.userNickname}
+                    </Text>
+                </TouchableOpacity>
+                <Text>{this.state.userInfo.bardianSign} </Text>
+                <Button title="注销" onPress={() => {
+                    Storage.save('loginState', false);
+                    Storage.save('user', null);
+                    Storage.save('token', null);
+                    this.setState({
+                        loginState: false
+                    });
+                }}/>
+            </View>
+            <View style={{flex:1,backgroundColor:"#000"}}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View style={{flex: 1}}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({
+                                    collHome: true
+                                });
+                            }}>
+                                <Text style={meStyle.home}>
+                                    我的作品
+                                </Text>
+                            </ TouchableOpacity>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <TouchableOpacity onPress={() => {
+                                this.setState({
+                                    collHome: false
+                                });
+                            }}>
+                                <Text style={meStyle.coll}>
+                                    我的收藏
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+            </View>
+                <View style={{flex: 5}}>
+                    {this.state.collHome ? <MeHome home={this.state.home}/> : <MeCollection/>}
+                </View>
         </View>
-        {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
-      </View>
-    );
-  }
+       );
+        let noLogin = (
+            <View>
+                <TouchableOpacity onPress={() => {
+                    Actions.Login();
+                }}>
+                    <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')}/>
+                    <Text> 登录/注册 </Text>
+                </TouchableOpacity>
+            </View>
+        );
+        return (
+            <View style={{flex: 1}}>
+                    {this.state.loginState ? login : noLogin}
+            </View>
+        );
+    }
 }
 const meStyle = StyleSheet.create({
   noLoginImage: {
