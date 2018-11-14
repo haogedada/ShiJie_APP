@@ -6,6 +6,7 @@ export function loadData(key) {
     loadUserFriend()
   } else if (key === 'me') {
     loadUserInfo()
+    
   } else if (key === 'uploadVideo') {
     selectVideo()
   } else {

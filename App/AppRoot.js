@@ -81,12 +81,7 @@ const scenes = Actions.create(
         {/*个人中心*/}
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView} />
         {/*修改人信息*/}
-<<<<<<< HEAD
-        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
-        <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
-=======
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView} />
->>>>>>> haogedada
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />

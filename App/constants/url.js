@@ -8,12 +8,9 @@ export const url = {
     URL_FOLLOWLIST: '/user/followList',
     URL_FANSLIST: '/user/fansList',
     URL_VIDEO: "/video",
-<<<<<<< HEAD
     URL_ALLVIDEOTYPE: '/video/allVideoType',
     URL_VIDEOCOUNT: "/app/homepage/3",
     URL_USERHOME: '/user/userhome',
-    URL_COLLECTIONS: '/user/collections'
-=======
+    URL_COLLECTIONS: '/user/collections',
     URL_UPLOADVIDEO:'/user/video',
->>>>>>> haogedada
 }
