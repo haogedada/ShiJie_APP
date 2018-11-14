@@ -3,6 +3,7 @@ import SYImagePicker from 'react-native-syan-image-picker'
 import { modifyUserMsg, getUserInfo } from '../netWork/api'
 import FileUtil from '../util/FileUtil'
 import { Actions } from 'react-native-router-flux'
+import ActionSheet from 'react-native-actionsheet'
 import {
   Text, View, Image, TextInput, StyleSheet, Dimensions, TouchableOpacity,
   Button, Alert, DeviceEventEmitter
@@ -114,15 +115,10 @@ class UserMsg extends Component {
         </View>
         <View style={styles.msg_item}>
           <Text style={styles.textStyle}>性别:</Text>
-          <TextInput defaultValue={this.state.sex}
-            onChangeText={(value) => {
-              if (value.includes(' ')) {
-                this.setState({ prompt: '性别不能为空'})
-              } else {
-                this.setState({ sex: value, prompt: ' ' })
-              }
-            }}
-            style={styles.inputStyle} />
+          <View style={styles.inputStyle}>
+            <Text style={{lineHeight: 38}}
+                  onPress={() => {this.ActionSheet.show()}}>{this.state.sex}</Text>
+          </View>
         </View>
         <View style={styles.msg_item}>
           <Text style={styles.textStyle}>年龄:</Text>
@@ -152,6 +148,18 @@ class UserMsg extends Component {
           <Button title="完成"
             onPress={this.submitMsg} />
         </View>
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={'选择'}
+          options={['男', '女', '取消']}
+          cancelButtonIndex={2}
+          onPress={(index) => {
+            let sex = this.ActionSheet.props.options[index]
+            if (index !== 2) {
+              this.setState({sex})
+            }
+          }}
+        />
       </View>
     )
   }
