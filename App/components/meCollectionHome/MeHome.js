@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Image, Text, TouchableOpacity, FlatList, ScrollView, StyleSheet} from 'react-native'
+import {View, Image, Text, TouchableOpacity, FlatList, RefreshControl, ScrollView, StyleSheet} from 'react-native'
 import {getHome} from "../../netWork/api";
 
 export default class MeHome extends Component {
@@ -13,6 +13,10 @@ export default class MeHome extends Component {
     }
 
     componentWillMount() {
+        this.getFetch();
+    }
+
+    getFetch() {
         let list = [];
         let videoList = '';
         //作品
@@ -26,36 +30,56 @@ export default class MeHome extends Component {
         });
     }
 
+    _onRefresh() {
+        var self = this;
+        this.setState({
+            isRefreshing: true
+        });
+        setTimeout(() => {
+            this.getFetch();
+        }, 2000)
+    }
+
     loadingView() {
         return this.state.videoList.map(item => {
-            return (<View style={meHomeStyle.showDate}>
-                <TouchableOpacity onPress={
-                    () => {
-                        alert
-                        (item.videoId + ";" + item.userBean.userId);
-                    }
-                }>
-                    {/*<Image style={{height: 40, width: 40, borderRadius: 50}} source={{uri: item.userBean}}/>*/}
-                    <Text>标题;{item.videoTitle}</Text>
-                    <Text>描述;{item.videoContent}</Text>
-                    <Text>分类;{item.videoType}</Text>
-                    <Image style={{height: 40, width: 40, borderRadius: 50}} source={{uri: item.videoCoverUrl}}/>
-                    <Text>播放量:{item.playerCount}</Text>
-                    <Text>顶:{item.videoTipNum}</Text>
-                    <Text>踩:{item.videoTrampleNum}</Text>
-                </TouchableOpacity>
-            </View>);
-        })
+            return (
+                <View style={meHomeStyle.showDate}>
+                    <TouchableOpacity onPress={() => {
+                    }}>
+                        <Text>标题;{item.videoTitle}</Text>
+                        <Text>描述;{item.videoContent}</Text>
+                        <Text>分类;{item.videoType}</Text>
+                        <Image style={{height: 40, width: 40, borderRadius: 50}}
+                               source={{uri: item.videoCoverUrl}}/>
+                        <Text>播放量:{item.playerCount}</Text>
+                        <Text>顶:{item.videoTipNum}</Text>
+                        <Text>踩:{item.videoTrampleNum}</Text>
+                    </TouchableOpacity>
 
+                </View>
+            )
+                ;
+        })
     }
 
     render() {
         return (
-            <View>
-                <ScrollView>
-                    {/*<Text>作品{this.state.homeData.nickName}</Text>*/}
-                    {this.loadingView()}
-                </ScrollView>
+            <View stylt={meHomeStyle.prevent}>
+                {/*<Text>作品{this.state.homeData.nickName}</Text>*/}
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.isRefreshing}
+                            onRefresh={this._onRefresh}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#fff"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#ffff00"
+                        />}
+                >
+                    {this.loadingView()}</ScrollView>
+
             </View>
         );
     }
