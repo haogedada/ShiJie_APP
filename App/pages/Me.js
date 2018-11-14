@@ -92,7 +92,8 @@ export default class Me extends Component {
 
     render() {
         let login = (
-            <View>
+        <View style={{flex:1}}>
+            <View style={{flex:3}}>
                 <TouchableOpacity onPress={
                     () => {
                         Actions.UserMsg();
@@ -113,23 +114,7 @@ export default class Me extends Component {
                     });
                 }}/>
             </View>
-        );
-        let noLogin = (
-            <View>
-                <TouchableOpacity onPress={() => {
-                    Actions.Login();
-                }}>
-                    <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')}/>
-                    <Text> 登录/注册 </Text>
-                </TouchableOpacity>
-            </View>
-        );
-        return (
-            <View style={{flex: 1}}>
-                <View style={{flex: 3}}>
-                    {this.state.loginState ? login : noLogin}
-                </View>
-                <View style={{flex: 1}}>
+            <View style={{flex:1,backgroundColor:"#000"}}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <View style={{flex: 1}}>
                             <TouchableOpacity onPress={() => {
@@ -154,10 +139,25 @@ export default class Me extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
-                <View style={{flex: 6}}>
+            </View>
+                <View style={{flex: 5}}>
                     {this.state.collHome ? <MeHome home={this.state.home}/> : <MeCollection/>}
                 </View>
+        </View>
+       );
+        let noLogin = (
+            <View>
+                <TouchableOpacity onPress={() => {
+                    Actions.Login();
+                }}>
+                    <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')}/>
+                    <Text> 登录/注册 </Text>
+                </TouchableOpacity>
+            </View>
+        );
+        return (
+            <View style={{flex: 1}}>
+                    {this.state.loginState ? login : noLogin}
             </View>
         );
     }
