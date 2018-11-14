@@ -147,52 +147,51 @@ export default class Me extends Component {
         );
         return (<View>
                 <View>
-                    {
-                        this.state.loginState ? login : noLogin
-                    } </View> <
-                View style={
-                {
-                    flex: 1,
-                    flexDirection: 'row'
-                }
-            }>
-                <View style={
-                    {
-                        flex: 1
-                    }
-                }>
-                    <TouchableOpacity onPress={
-                        () => {
-                            this.setState({
-                                collHome: true
-                            });
+                    {this.state.loginState ? login : noLogin}
+                </View>
+                <View
+                    style={
+                        {
+                            flex: 1,
+                            flexDirection: 'row'
                         }
                     }>
-                        <Text style={
-                            meStyle.home
-                        }> 我的作品 </Text>
-                    </ TouchableOpacity>
-                </View> <
-                View style={
-                {
-                    flex: 1
-                }
-            }>
-                <
-                    TouchableOpacity onPress={
-                    () => {
-                        this.setState({
-                            collHome: false
-                        });
-                    }
-                }>
-                    <Text style={
-                        meStyle.coll
-                    }> 我的收藏 </Text> </TouchableOpacity> </View> </View> {
-                this.state.collHome ? <MeHome home={
-                    this.state.home
-                }/> : <MeCollection/>
-            } </View>
+                    <View style={
+                        {
+                            flex: 1
+                        }
+                    }>
+                        <TouchableOpacity onPress={
+                            () => {
+                                this.setState({
+                                    collHome: true
+                                });
+                            }
+                        }>
+                            <Text style={
+                                meStyle.home
+                            }> 我的作品 </Text>
+                        </ TouchableOpacity>
+                    </View>
+                    <View style={
+                        {
+                            flex: 1
+                        }
+                    }>
+                        <
+                            TouchableOpacity onPress={
+                            () => {
+                                this.setState({
+                                    collHome: false
+                                });
+                            }
+                        }>
+                            <Text style={
+                                meStyle.coll
+                            }> 我的收藏 </Text> </TouchableOpacity> </View>
+                </View>
+                {this.state.collHome ? <MeHome home={this.state.home}/> : <MeCollection/>}
+            </View>
         );
     }
 }
