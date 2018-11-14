@@ -4,7 +4,8 @@ import {
     View,
     Text,
     BackAndroid,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import {Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst} from 'react-native-router-flux';
 import {connect} from 'react-redux';
@@ -21,7 +22,7 @@ import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
 import UpdateInfo from './pages/UpdateInfo'
-
+import UserMsg from './pages/UserMsg'
 class AppRoot extends Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -81,6 +82,8 @@ const scenes = Actions.create(
         {/*修改人信息*/}
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
+        <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
+        <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
         <Scene key="tabbar"
                initial
                tabs={true}
@@ -105,7 +108,7 @@ const scenes = Actions.create(
             <Scene key="uploadVideo"
                    component={UploadVideo}
                    hideTabBar={true}
-                   title='上传视频' 
+                   title='上传视频'
                    navBar={CustomNavBarView} 
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>

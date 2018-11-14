@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import AppRoot from './AppRoot'
 import store from '../App/redux/store'
-<<<<<<< HEAD
-class App extends Component<{}> {
-=======
 import Storage from './util/AsyncStorageUtil'
 import {login} from './netWork/api'
 
  class App extends Component<{}> {
->>>>>>> haogedada
   constructor(props) {
     super(props);
   }

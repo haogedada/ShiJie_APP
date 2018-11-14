@@ -67,6 +67,16 @@ class Login extends Component {
                 Storage.save('loginState', true)
                 DeviceEventEmitter.emit('login')
                 Actions.me()
+            } if(res.code === 199){
+                DeviceEventEmitter.emit('firstLogin')
+                this.setState({
+                    userName: '',
+                    passWord: ''
+                })
+                Storage.save('token',res.data)
+                Storage.save('user', { username: user, password: pass })
+                Storage.save('loginState', true)
+                Actions.firstLogin()
             }
         })
 

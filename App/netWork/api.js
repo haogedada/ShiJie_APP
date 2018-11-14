@@ -1,12 +1,5 @@
 import HttpUtil from './HttpUtil'
-<<<<<<< HEAD
-import {
-    url
-} from '../constants/url'
-import Storage from '../util/AsyncStorageUtil'
-=======
 import {url} from '../constants/url'
->>>>>>> haogedada
 
 export function updateInfo(parms) {
  

@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux'
 import { Alert } from 'react-native';
 var HTTPUtil = {};
 
-
 /**
  * 发起请求
  * @param {请求参数} options 
@@ -51,8 +50,8 @@ async function initialRequest(options) {
     instance(options)
       .then(response => { // then请求成功之后进行什么操作
         console.log(response.data);
-        if(response.headers.Authorization){
-          Storage.save('token',response.headers.Authorization)
+        if (response.headers.Authorization) {
+          Storage.save('token', response.headers.Authorization)
         }
         if (response.data.code === 401) {
           Actions.notLogin()
@@ -70,7 +69,7 @@ async function initialRequest(options) {
       })
       .catch(error => {
         if (error.response.status === 400) { //400状态码,一些正常的响应
-          if(error.response.msg==="Missing request header 'Authorization' for method parameter of type String"){
+          if (error.response.msg === "Missing request header 'Authorization' for method parameter of type String") {
             Actions.notLogin()
           }
           resolve(error.response.data)

@@ -73,12 +73,10 @@ class Register extends Component {
      */
     handlePromptEmail(value) {
         const re = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-        
         if (!re.test(value)) {
             console.log(!re.test(value));
             this.setState({ prompt: this.state.prompt_str[3] });
         } else {
-            console.log('fuck');
             let _email = { email: value }
             promptEmail(_email).then(response => {
                 if (response.code === 200) {
@@ -99,7 +97,7 @@ class Register extends Component {
             !re.test(value)) {
             this.setState({ prompt: this.state.prompt_str[0] });
         } else {
-            if (value !== '  ') {
+            if (!value.includes(' ')) {
                 let _username = { username: value }
                 promptUserName(_username).then(response => {
                     if (response.code === 200) {

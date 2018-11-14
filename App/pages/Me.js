@@ -17,14 +17,14 @@ export default class Me extends Component {
         this.getInfo()
     }
     componentDidMount() {
-        this.eventEmitter = DeviceEventEmitter.addListener("login",()=>{
+         DeviceEventEmitter.addListener("login",()=>{
             this.setState({ loginState: true})
             this.getInfo()
         });
     }
     // 组件销毁前移除事件监听 
     componentWillUnmount(){ 
-        this.eventEmitter.remove(); 
+        DeviceEventEmitter.removeListener('login')
     }
     async getInfo() {
         let loginState = await Storage.get('loginState')
@@ -46,6 +46,9 @@ export default class Me extends Component {
                 Storage.save('token', null)
                 this.setState({loginState:false})
             }} />
+            <Button title='修改资料' onPress={()=>{
+                Actions.userMsg()
+            }}/>
         </View>)
         let noLogin = (<View>
             <Text>你还没有登录!!</Text>
