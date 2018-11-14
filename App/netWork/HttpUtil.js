@@ -68,6 +68,7 @@ async function initialRequest(options) {
         // 把请求到的数据发到引用请求的地方
       })
       .catch(error => {
+        console.log(error);
         if (error.response.status === 400) { //400状态码,一些正常的响应
           if (error.response.msg === "Missing request header 'Authorization' for method parameter of type String") {
             Actions.notLogin()

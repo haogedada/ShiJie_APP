@@ -74,7 +74,7 @@ class UserMsg extends Component {
     form.append("nickname", this.state.nickname);
     form.append("sex", this.state.sex);
     form.append("birthday", this.state.birthday);
-    form.append('imgfile', FileUtil.creatPngFile(this.state.headerPath[0].uri, 'header'));
+    form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
     form.append("sign", this.state.sign);
     modifyUserMsg(form).then(data => {
       if (data.code === 200) {

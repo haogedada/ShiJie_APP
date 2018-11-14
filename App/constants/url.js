@@ -9,4 +9,5 @@ export const url={
     URL_FOLLOWLIST:'/user/followList',
     URL_FANSLIST:'/user/fansList',
     URL_VIDEO: "/video",
+    URL_UPLOADVIDEO:'/user/video',
 }

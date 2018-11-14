@@ -42,3 +42,6 @@ export function getUserFansList() {
 export function getUserFollowList() {
     return HttpUtil.get(url.URL_FOLLOWLIST)
 }
+export function upLoadVideo(params) {
+    return HttpUtil.upload(url.URL_UPLOADVIDEO,params)
+}

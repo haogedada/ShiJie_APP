@@ -11,20 +11,19 @@ export default class Me extends Component {
             userInfo: {}
         }
         this.getInfo = this.getInfo.bind(this)
+       this.listenerLoadUser = this.listenerLoadUser.bind(this)
     }
-
     componentWillMount() {
         this.getInfo()
     }
     componentDidMount() {
-         DeviceEventEmitter.addListener("login",()=>{
-            this.setState({ loginState: true})
-            this.getInfo()
-        });
+        this.listenerLoadUser()
+        this.listenerLogin()
     }
     // 组件销毁前移除事件监听 
     componentWillUnmount(){ 
         DeviceEventEmitter.removeListener('login')
+        DeviceEventEmitter.removeListener('loadUser')
     }
     async getInfo() {
         let loginState = await Storage.get('loginState')
@@ -34,8 +33,20 @@ export default class Me extends Component {
                     this.setState({ loginState: true, userInfo: info.data })
                 }
             })
-            //todo
+        }else{
+            this.setState({ loginState: false})
         }
+    }
+    listenerLoadUser(){
+        DeviceEventEmitter.addListener("loadUser",()=>{
+            this.getInfo()
+        })
+    }
+    listenerLogin(){
+        DeviceEventEmitter.addListener("login",()=>{
+            this.setState({ loginState: true})
+            this.getInfo()
+        });
     }
     render() {
         let login = (<View>
