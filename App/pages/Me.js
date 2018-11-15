@@ -53,6 +53,11 @@ export default class Me extends Component {
         this.listenerLoadUser()
         this.listenerLogin()
     }
+     // 组件销毁前移除事件监听 
+     componentWillUnmount() {
+        DeviceEventEmitter.removeListener('login')
+        DeviceEventEmitter.removeListener('loadUser')
+    }
     loadMyVideo() {
         //作品
         getHome().then((req) => {
@@ -62,11 +67,14 @@ export default class Me extends Component {
         });
     }
 
-    // 组件销毁前移除事件监听 
-    componentWillUnmount() {
-        DeviceEventEmitter.removeListener('login')
-        DeviceEventEmitter.removeListener('loadUser')
+    
+    listenerLoadUser() {
+        DeviceEventEmitter.addListener("loadUser", () => {
+            this.getInfo()
+            this.loadMyVideo()
+        })
     }
+
     async getInfo() {
         let loginState = await Storage.get('loginState')
         if (loginState) {
