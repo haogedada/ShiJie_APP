@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
-import {View, FlatList, Text, Image, ScrollView, TouchableOpacity, Button, StyleSheet, Dimensions} from 'react-native'
+import {View, FlatList, Text,RefreshControl, Image, ScrollView, TouchableOpacity, Button, StyleSheet, Dimensions} from 'react-native'
 import {getTypes, getVideoTypesCount} from "../netWork/api";
+import Video from 'react-native-video';
 
+const {
+    width,
+    height
+} = Dimensions.get('window');
 const titleList = [""]
 export default class Classification extends Component {
     constructor(props) {
@@ -11,10 +16,12 @@ export default class Classification extends Component {
             //所有视屏
             videoTypeList: [],
             //分类视屏
-            videoList: []
-        }
+            videoList: [],
+            isRef:false
+         
+        };
+     
     }
-
     componentWillMount() {
 // 标题
         getTypes().then(item => {
@@ -34,7 +41,7 @@ export default class Classification extends Component {
                 typeList: keyValue
             });
         });
-//视屏
+        //视屏
         getVideoTypesCount().then(req => {
             this.setState({
                 videoTypeList: req.data.videoTypeList
@@ -48,100 +55,56 @@ export default class Classification extends Component {
      */
     titleData() {
         let title = this.state.typeList;
+
         return title.map(item => {
-            console.log(item.id);
+            // console.log(item.id);
             return (<Text onPress={() => {
-                this.titleClick(item.id);
+                this.titleClick(item);
             }} key={item.id} style={classStyle.classTitleText}>{item.name}</Text>);
         });
     }
 
-    defaultList() {
-        let allVideo = this.state.videoTypeList;
-        return allVideo.map(type => {
-            return (<View>
-                {this.defaultType(allVideo)}
-            </View>);
 
-        })
+
+  
+    titleClick(item) {
+        console.log("点击的元素", item.name,item.id);
     }
-
-    defaultType(type) {
-        // console.log("视屏123456:", type.videos);
-        return type.map(item => {
-            let videoList = item.videos;
-            return <View stylt={classStyle.outer}>
-                <Text style={classStyle.title}>{item.videoType}</Text>
-                <View>
-                    {this.defaultVideo(videoList)}
-                </View>
-            </View>
-        });
+    /**
+     * 刷新页面
+     */
+    onRefreshLoaging(){
+    this.setState({isRef:true});
+        setTimeout(()=>{
+            console.log("等待2s");
+          this.setState({isRef:false})
+        },2000);   
+    
     }
-
-    defaultVideo(videoList) {
-        return videoList.map((item, index) => {
-            console.log(index);
-            if (index === 0) {
-                return (this.defaultVideoShow(index, item));
-            } else {
-                return (this.defaultVideoShow(index, item));
-            }
-        });
-    }
-
-    defaultVideoShow(index, item) {
-        let attribute;
-        let video;
-        if (index == 0) {
-            attribute = classStyle.parent;
-            video = classStyle.parentVideo;
-        } else {
-            attribute = classStyle.child;
-            video = classStyle.childVideo;
-        }
-        return (
-            <View key={index} style={attribute}>
-                <Image style={classStyle.infoImage} source={{uri: item.userBean.headimgUrl}}/>
-                <Text>{item.userBean.userNickname}</Text>
-                <Text>{item.videoTitle}</Text>
-                <Text>{item.videoContent}</Text>
-                {/*<Video*/}
-                {/*onEnd={this.onEnd}//视频播放结束时的回调函数*/}
-                {/*source={require('../resources/video/douyin.qlv')}*/}
-                {/*style={video}/>*/}
-                <Text>播放次数:{item.playerCount}</Text>
-                <Text>时间{item.videoTime}</Text>
-                <View>
-                    <Image source={require('../resources/images/icon/share.png')} style={classStyle.allImage}/>
-                    <Image source={require('../resources/images/icon/comment.png')}
-                           style={classStyle.allImage}/>
-                    <Image source={require('../resources/images/icon/top.png')}
-                           style={classStyle.allImage}/>
-                    <Image source={require('../resources/images/icon/tread.png')}
-                           style={classStyle.allImage}/>
-                    <Image source={require('../resources/images/icon/focus.png')}
-                           style={classStyle.allImage}/>
-                </View>
-            </View>
-        );
-    }
-
-    titleClick(titleParams) {
-        console.log("点击的元素", titleParams);
-    }
-
     render() {
         return (
             <View style={{flex: 1}}>
+            {/* 标题栏 */}
                 <View style={{flex: 1}}>
-                    <ScrollView style={classStyle.classTitle} horizontal={true}>
+                    <ScrollView 
+                    style={classStyle.classTitle}
+                     showsHorizontalScrollIndicator={false} 
+                     horizontal={true}>
                         {this.titleData()}
                     </ScrollView>
                 </View>
+                {/* 数据 */}
                 <View style={{flex: 9}}>
-                    <ScrollView>
-                        {this.defaultList()}
+                    <ScrollView 
+                    refreshControl={ <RefreshControl
+                    refreshing={this.state.isRef}
+                    onRefresh={
+                        this.onRefreshLoaging.bind(this)
+                    }
+                    tintColor='#fff'
+                    
+                    />} >
+                   
                     </ScrollView>
                 </View>
             </View>
@@ -149,6 +112,13 @@ export default class Classification extends Component {
     }
 }
 const classStyle = StyleSheet.create({
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+      },
     infoImage: {
         width: 30,
         height: 30,
@@ -210,7 +180,7 @@ const classStyle = StyleSheet.create({
         maxHeight: 30
     },
     classTitleText: {
-        width: 50,
+        width: width/4,
         height: 30,
         lineHeight: 30,
         textAlign: "center",

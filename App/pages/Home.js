@@ -17,7 +17,7 @@ export default class Home extends Component {
       this.video();
    }
    video(){
-        getVideo().then(req=>{
+        getVideo(2).then(req=>{
             console.log("视频:",req);
         });
    }
@@ -25,29 +25,25 @@ export default class Home extends Component {
        this.setState({
            isRef:true
        });
-       setTimeout(()=>{
-            this.loading();
-           this.setState({
-               isRef:false
-           });
-       },2000)
+     setTimeout(()=>{
+         console.log("首页刷新");
+         this.setState({isRef:false});
+     },2000);
    }
-loading(){
-    alert("刷新");
-}
+   
     render() {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ScrollView  refreshControl={<RefreshControl
+                <ScrollView  
+                refreshControl={<RefreshControl
                 refreshing={this.setState.isRef}
-                onRefresh={()=>this.onRef()}
+                onRefresh={()=>this.onRef.bind(this)}
                 tintColor='gary'
                 />}>
-                  <View>
-                      <Text>1231546131</Text>
-                      <Text>1231546131</Text>
-                      <Text>1231546131</Text>
-                  </View>
+                <Text>12364654</Text>
+                <Text>12364654</Text>
+                <Text>12364654</Text>
+                <Text>12364654</Text>
                 </ScrollView>
             </View>
         )
