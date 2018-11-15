@@ -159,21 +159,19 @@ export default class Classification extends Component {
                             }
                             tintColor='#fff'
                         />}>
-
                     </ScrollView>
                 </View>
             </View>
         );
     }
 }
-const
-    classStyle = StyleSheet.create({
-        classTitleText: {
-            width: width / 4,
-            height: 50,
-            lineHeight: 50,
-            textAlign: "center",
-            borderColor: "#fff",
-            borderWidth: 1
-        }
-    });
+const classStyle = StyleSheet.create({
+    classTitleText: {
+        width: width / 4,
+        height: 50,
+        lineHeight: 50,
+        textAlign: "center",
+        borderColor: "#fff",
+        borderWidth: 1
+    }
+});
