@@ -17,18 +17,31 @@ export default class UploadVideo extends Component {
       videoType: ' ',
       VideoCoverfile: require('./../resources/images/icon/header.png'),
       isSelectImg: false,
-      isSelectVideo: false
+      isSelectVideo: false,
+      progress: "0%"
     }
     this.subUploadVideo = this.subUploadVideo.bind(this)
     this.selectImg = this.selectImg.bind(this)
+    this.listenerSelectVideo = this.listenerSelectVideo.bind(this)
+    this.listenerUploadProgress = this.listenerUploadProgress.bind(this)
   }
   componentDidMount() {
+    this.listenerSelectVideo()
+    this.listenerUploadProgress()
+  }
+  componentWillUnmount() {
+    DeviceEventEmitter.removeListener('selectVideo')
+    DeviceEventEmitter.removeListener('uploadProgress')
+  }
+  listenerSelectVideo() {
     DeviceEventEmitter.addListener('selectVideo', (videoPath) => {
       this.setState({ videoSource: videoPath, isSelectVideo: true })
     })
   }
-  componentWillUnmount() {
-    DeviceEventEmitter.removeListener('selectVideo')
+  listenerUploadProgress() {
+    DeviceEventEmitter.addListener('uploadProgress', (_progress) => {
+      this.setState({ progress: _progress })
+    })
   }
   subUploadVideo() {
     if (this.state.videoTitle.includes(' ') ||
@@ -45,15 +58,14 @@ export default class UploadVideo extends Component {
       if (this.state.isSelectImg) {
         formData.append("file", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
       }
-      formData.append("type", this.state.videoType);     
+      formData.append("type", this.state.videoType);
       upLoadVideo(formData).then(res => {
         if (res.code === 200) {
           Alert.alert('上传成功')
         }
       })
     } else {
-      Alert.alert('请选择视频')
-      return
+      Alert.alert('你没有选择视频')
     }
   }
   selectImg() {
@@ -115,7 +127,10 @@ export default class UploadVideo extends Component {
           <TextInput placeholder='请描述你的视频'
             onChangeText={(value) => { this.setState({ videoContent: value }) }} />
         </View>
-        <View><Button title='上传' onPress={this.subUploadVideo} /></View>
+        <View>
+          <Button title='上传' onPress={this.subUploadVideo} />
+          <Text>{this.state.progress}</Text>
+        </View>
       </View>
     )
   }

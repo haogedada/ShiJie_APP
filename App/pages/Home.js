@@ -40,10 +40,7 @@ export default class Home extends Component {
                 onRefresh={()=>this.onRef.bind(this)}
                 tintColor='gary'
                 />}>
-                <Text>12364654</Text>
-                <Text>12364654</Text>
-                <Text>12364654</Text>
-                <Text>12364654</Text>
+               <Button  title='播放视频'/>
                 </ScrollView>
             </View>
         )

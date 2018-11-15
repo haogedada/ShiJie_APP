@@ -3,8 +3,7 @@ import Storage from '../util/AsyncStorageUtil'
 import CryptoJS from 'crypto-js'
 import {key} from '../constants/base64Key'
 import {Actions} from 'react-native-router-flux'
-import {Alert} from 'react-native';
-
+import {Alert,DeviceEventEmitter} from 'react-native'
 var HTTPUtil = {};
 
 /**
@@ -137,7 +136,11 @@ HTTPUtil.upload = (url, data) => {
     let options = {
         url: url,
         method: method,
-        data: data
+        data: data, 
+        onUploadProgress: progressEvent => {
+            let complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
+            DeviceEventEmitter.emit('uploadProgress',complete)
+        }
     }
     return initialRequest(options)
 }

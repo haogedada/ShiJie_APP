@@ -101,14 +101,13 @@ export default class Me extends Component {
             console.log("等待2s");
             this.setState({ isRef: false })
         }, 2000);
-
     }
     render() {
         let login = (
             <View style={meStyle.loginBoxStyle}>
                 <View style={meStyle.headerBox}>
                     <TouchableOpacity onPress={() => {
-                        Actions.UserMsg()
+                        Actions.userMsg()
                     }}
                         style={meStyle.headerLeftStyle}>
                         <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
@@ -160,7 +159,7 @@ export default class Me extends Component {
                 </View>
             </View>
         );
-        let noLogin = (
+        let = (
             <View style={{ marginTop: 10, paddingBottom: 10, borderBottomWidth: 0.5 }}>
                 <TouchableOpacity onPress={() => {
                     Actions.Login();

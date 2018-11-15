@@ -21,7 +21,7 @@ import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
-import UpdateInfo from './pages/UpdateInfo'
+import UpdateVideo from './pages/UpdateVideo'
 import UserMsg from './pages/UserMsg'
 import {loadData} from './util/LoadDataUtil'
 class AppRoot extends Component {
@@ -81,7 +81,7 @@ const scenes = Actions.create(
         {/*个人中心*/}
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView} />
         {/*修改人信息*/}
-        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView} />
+        <Scene key="updateVideo" component={UpdateVideo} hideNavBar={true} navBar={CustomNavBarView} />
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
