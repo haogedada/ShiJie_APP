@@ -1,5 +1,16 @@
 import React, {Component} from 'react'
-import {View, FlatList, Text,RefreshControl, Image, ScrollView, TouchableOpacity, Button, StyleSheet, Dimensions} from 'react-native'
+import {
+    View,
+    FlatList,
+    Text,
+    RefreshControl,
+    Image,
+    ScrollView,
+    TouchableOpacity,
+    Button,
+    StyleSheet,
+    Dimensions
+} from 'react-native'
 import {getTypes, getVideoTypesCount} from "../netWork/api";
 import Video from 'react-native-video';
 
@@ -17,11 +28,12 @@ export default class Classification extends Component {
             videoTypeList: [],
             //分类视屏
             videoList: [],
-            isRef:false
-         
+            isRef: false
+
         };
-     
+
     }
+
     componentWillMount() {
 // 标题
         getTypes().then(item => {
@@ -55,9 +67,8 @@ export default class Classification extends Component {
      */
     titleData() {
         let title = this.state.typeList;
-
         return title.map(item => {
-            // console.log(item.id);
+            // console.log(item.id);ooo
             return (<Text onPress={() => {
                 this.titleClick(item);
             }} key={item.id} style={classStyle.classTitleText}>{item.name}</Text>);
@@ -65,46 +76,44 @@ export default class Classification extends Component {
     }
 
 
-
-  
     titleClick(item) {
-        console.log("点击的元素", item.name,item.id);
+        console.log("点击的元素", item.name, item.id);
     }
+
     /**
      * 刷新页面
      */
-    onRefreshLoaging(){
-    this.setState({isRef:true});
-        setTimeout(()=>{
+    onRefreshLoaging() {
+        this.setState({isRef: true});
+        setTimeout(() => {
             console.log("等待2s");
-          this.setState({isRef:false})
-        },2000);   
-    
+            this.setState({isRef: false})
+        }, 2000);
     }
+
     render() {
         return (
             <View style={{flex: 1}}>
-            {/* 标题栏 */}
+                {/* 标题栏 */}
                 <View style={{flex: 1}}>
-                    <ScrollView 
-                    style={classStyle.classTitle}
-                     showsHorizontalScrollIndicator={false} 
-                     horizontal={true}>
+                    <ScrollView
+                        style={classStyle.classTitle}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}>
                         {this.titleData()}
                     </ScrollView>
                 </View>
                 {/* 数据 */}
                 <View style={{flex: 9}}>
-                    <ScrollView 
-                    refreshControl={ <RefreshControl
-                    refreshing={this.state.isRef}
-                    onRefresh={
-                        this.onRefreshLoaging.bind(this)
-                    }
-                    tintColor='#fff'
-                    
-                    />} >
-                   
+                    <ScrollView
+                        refreshControl={<RefreshControl
+                            refreshing={this.state.isRef}
+                            onRefresh={
+                                this.onRefreshLoaging.bind(this)
+                            }
+                            tintColor='#fff'
+                        />}>
+
                     </ScrollView>
                 </View>
             </View>
@@ -118,7 +127,7 @@ const classStyle = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0,
-      },
+    },
     infoImage: {
         width: 30,
         height: 30,
@@ -180,7 +189,7 @@ const classStyle = StyleSheet.create({
         maxHeight: 30
     },
     classTitleText: {
-        width: width/4,
+        width: width / 4,
         height: 30,
         lineHeight: 30,
         textAlign: "center",
