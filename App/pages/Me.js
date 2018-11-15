@@ -92,17 +92,17 @@ export default class Me extends Component {
             this.setState({ loginState: false })
         }
     }
-    /**
-    * 刷新页面
-    */
-    onRefreshLoaging() {
-        this.setState({ isRef: true });
-        setTimeout(() => {
-            console.log("等待2s");
-            this.setState({ isRef: false })
-        }, 2000);
-
-    }
+  /**
+     * 刷新页面
+     */
+    onRefreshLoading(){
+        this.setState({isRef:true});
+            setTimeout(()=>{
+                console.log("等待2s");
+              this.setState({isRef:false})
+            },2000);   
+        
+        }
     render() {
         let login = (
             <View style={meStyle.loginBoxStyle}>
@@ -147,13 +147,13 @@ export default class Me extends Component {
                 </View>
                 <View style={{ flex: 6 }}>
                     <ScrollView
-                        refreshControl={<RefreshControl
-                            refreshing={this.state.isRef}
-                            onRefresh={
-                                this.onRefreshLoaging.bind(this)
-                            }
-                        />
-                        }
+                    refreshControl={<RefreshControl
+                    refreshing={this.state.isRef}
+                    onRefresh={
+                        this.onRefreshLoading.bind(this)
+                    }
+                    />
+                    }
                     >
                         {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
                     </ScrollView>
