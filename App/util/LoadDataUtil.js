@@ -6,7 +6,6 @@ export function loadData(key) {
     loadUserFriend()
   } else if (key === 'me') {
     loadUserInfo()
-    
   } else if (key === 'uploadVideo') {
     selectVideo()
   } else {
@@ -29,20 +28,19 @@ function selectVideo() {
     videoQuality: 'medium'
   };
   ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response);
     if (response.didCancel) {
       console.log('用户取消选择视频');
+      return
     }
     else if (response.error) {
       console.log('视频选择出错: ', response.error);
+      return    
     }
     else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
+      return    
     } else {
-      // this.setState({
-      //   videoSource: response.uri
-      // });
-      //选择的视频
+      
       DeviceEventEmitter.emit('selectVideo', response.uri)
     }
   })

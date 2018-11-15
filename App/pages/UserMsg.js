@@ -19,7 +19,8 @@ class UserMsg extends Component {
       sex: ' ',
       birthday: ' ',
       sign: ' ',
-      prompt: ' '
+      prompt: ' ',
+      isSelect: false,
     }
     this.submitMsg = this.submitMsg.bind(this)
     this.handleSelectImg = this.handleSelectImg.bind(this)
@@ -59,7 +60,8 @@ class UserMsg extends Component {
     SYImagePicker.showImagePicker(options, (err, photos) => {
       if (!err) {
         this.setState({
-          headerPath: photos
+          headerPath: photos,
+          isSelect: true
         })
       } else {
         Alert.alert('你还没有选择图片')
@@ -68,24 +70,30 @@ class UserMsg extends Component {
     })
   }
   submitMsg() {
-    if(!this.state.prompt.includes(' ')){
+    if (!this.state.prompt.includes(' ')) {
       Alert.alert('请正确输入表单')
+      return
     }
-    var form = new FormData();
-    form.append("nickname", this.state.nickname);
-    form.append("sex", this.state.sex);
-    form.append("birthday", this.state.birthday);
-    form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
-    form.append("sign", this.state.sign);
-    modifyUserMsg(form).then(data => {
-      if (data.code === 200) {
-        DeviceEventEmitter.emit('login')
-        Alert.alert('成功!!')
-        Actions.me()
-      }else{
-        Alert.alert(data.msg)
-      }
-    })
+    if (!this.state.isSelect) {
+      Alert.alert('请选择照片')
+      return
+    } else {
+      var form = new FormData();
+      form.append("nickname", this.state.nickname);
+      form.append("sex", this.state.sex);
+      form.append("birthday", this.state.birthday);
+      form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
+      form.append("sign", this.state.sign);
+      modifyUserMsg(form).then(data => {
+        if (data.code === 200) {
+          DeviceEventEmitter.emit('login')
+          Alert.alert('成功!!')
+          Actions.me()
+        } else {
+          Alert.alert(data.msg)
+        }
+      })
+    }
   }
   render() {
     return (
@@ -107,15 +115,15 @@ class UserMsg extends Component {
               if (value.includes(' ')) {
                 this.setState({ prompt: '昵称不能为空' })
               }
-              else { this.setState({ nickname: value , prompt: ' '}) }
+              else { this.setState({ nickname: value, prompt: ' ' }) }
             }}
           />
         </View>
         <View style={styles.msg_item}>
           <Text style={styles.textStyle}>性别:</Text>
           <View style={styles.inputStyle}>
-            <Text style={{lineHeight: 38}}
-                  onPress={() => {this.ActionSheet.show()}}>{this.state.sex}</Text>
+            <Text style={{ lineHeight: 38 }}
+              onPress={() => { this.ActionSheet.show() }}>{this.state.sex}</Text>
           </View>
         </View>
         <View style={styles.msg_item}>
@@ -123,9 +131,9 @@ class UserMsg extends Component {
           <TextInput defaultValue={this.state.birthday}
             onChangeText={(value) => {
               if (value.includes(' ')) {
-                this.setState({ prompt: '年龄不能为空'})
+                this.setState({ prompt: '年龄不能为空' })
               } else {
-                this.setState({ birthday: value, prompt: ' '  })
+                this.setState({ birthday: value, prompt: ' ' })
               }
             }
             }
@@ -141,7 +149,7 @@ class UserMsg extends Component {
             }}
             style={styles.inputStyle} />
         </View>
-        <Text style={{ fontSize: 15,color:'red',paddingBottom:5,paddingTop:5 }}>{this.state.prompt}</Text>
+        <Text style={{ fontSize: 15, color: 'red', paddingBottom: 5, paddingTop: 5 }}>{this.state.prompt}</Text>
         <View style={{ width: 0.7 * width }}>
           <Button title="完成"
             onPress={this.submitMsg} />
@@ -154,7 +162,7 @@ class UserMsg extends Component {
           onPress={(index) => {
             let sex = this.ActionSheet.props.options[index]
             if (index !== 2) {
-              this.setState({sex})
+              this.setState({ sex })
             }
           }}
         />

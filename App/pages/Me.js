@@ -102,7 +102,7 @@ export default class Me extends Component {
                 <View style={{ flex: 3 }}>
                     <TouchableOpacity onPress={
                         () => {
-                            Actions.UserMsg();
+                            Actions.userMsg();
                         }
                     }>
                         <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
