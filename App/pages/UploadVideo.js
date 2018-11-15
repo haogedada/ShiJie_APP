@@ -40,7 +40,6 @@ export default class UploadVideo extends Component {
     if (this.state.isSelectVideo) {
       var formData = new FormData();
       if (this.state.isSelectImg) {
-        console.log(this.state.VideoCoverfile.uri);
         formData.append("coverfile", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
       }
       formData.append("title", this.state.videoTitle);

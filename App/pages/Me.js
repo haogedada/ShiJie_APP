@@ -24,10 +24,6 @@ import {
 import Storage from '../util/AsyncStorageUtil';
 import MeHome from '../components/meCollectionHome/MeHome';
 import MeCollection from '../components/meCollectionHome/MeCollection';
-import ScrollableTabView, {
-    ScrollableTabBar,
-    DefaultTabBar
-} from 'react-native-scrollable-tab-view';
 
 let {
     width,
@@ -84,118 +80,105 @@ export default class Me extends Component {
         }
     }
 
-    listenerLoadUser() {
-        DeviceEventEmitter.addListener("loadUser", () => {
-            this.getInfo()
-            this.loadMyVideo()
-        })
-    }
-    listenerLogin() {
-        DeviceEventEmitter.addListener("login", () => {
-            this.setState({ loginState: true })
-            this.getInfo()
-        });
-    }
-    render() {
-        let login = (
-            <View style={{ flex: 1 }}>
-                <View style={{ flex: 3 }}>
-                    <TouchableOpacity onPress={
-                        () => {
-                            Actions.userMsg();
-                        }
-                    }>
-                        <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
-                        <Text>
-                            {this.state.userInfo.userNickname}
-                        </Text>
-                    </TouchableOpacity>
-                    <Text>{this.state.userInfo.bardianSign} </Text>
-                    <Button title="注销" onPress={() => {
-                        Storage.save('loginState', false);
-                        Storage.save('user', null);
-                        Storage.save('token', null);
-                        this.setState({
-                            loginState: false
-                        });
-                    }} />
-                </View>
-                <View style={{ flex: 1, backgroundColor: "#000" }}>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <View style={{ flex: 1 }}>
-                            <TouchableOpacity onPress={() => {
-                                this.setState({
-                                    collHome: true
-                                });
-                            }}>
-                                <Text style={meStyle.home}>
-                                    我的作品
-                                </Text>
-                            </ TouchableOpacity>
-                        </View>
-                        <View style={{ flex: 1 }}>
-                            <TouchableOpacity onPress={() => {
-                                this.setState({
-                                    collHome: false
-                                });
-                            }}>
-                                <Text style={meStyle.coll}>
-                                    我的收藏
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ flex: 5 }}>
-                    {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
-                </View>
-            </View>
-        );
-        let noLogin = (
+  render() {
+    let login = (
+      <View style={meStyle.loginBoxStyle}>
+        <View style={meStyle.headerBox}>
+          <TouchableOpacity onPress={() => {Actions.UserMsg()}}
+            style={meStyle.headerLeftStyle}>
+            <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
             <View>
-                <TouchableOpacity onPress={() => {
-                    Actions.Login();
-                }}>
-                    <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')} />
-                    <Text> 登录/注册 </Text>
-                </TouchableOpacity>
+              <Text style={{fontSize: 17, fontWeight: '500'}}>{this.state.userInfo.userNickname}</Text>
+              <Text>{this.state.userInfo.bardianSign} </Text>
             </View>
-        );
-        return (
+          </TouchableOpacity>
+          <View style={{justifyContent: 'center'}}>
+            <Button title="注销" onPress={() => {
+              Storage.save('loginState', false);
+              Storage.save('user', null);
+              Storage.save('token', null);
+              this.setState({
+                loginState: false
+              });
+            }} />
+          </View>
+
+        </View>
+        <View style={{ height: 36, width: width * 0.85, flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ flex: 1 }}>
-                {this.state.loginState ? login : noLogin}
+              <TouchableOpacity onPress={() => {this.setState({collHome: true})}}>
+                <Text style={meStyle.home}>我的作品</Text>
+              </TouchableOpacity>
             </View>
-        );
-    }
+            <View style={{ flex: 1 }}>
+              <TouchableOpacity onPress={() => {this.setState({collHome: false})}}>
+                <Text style={meStyle.coll}>我的收藏</Text>
+              </TouchableOpacity>
+            </View>
+        </View>
+        <View style={{ flex: 6 }}>
+          {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
+        </View>
+      </View>
+    );
+    let noLogin = (
+      <View style={{ marginTop: 10, paddingBottom: 10, borderBottomWidth: 0.5}}>
+        <TouchableOpacity onPress={() => {
+          Actions.Login();
+        }}
+        style={{flexDirection: 'row', marginLeft: 20, alignItems: 'center'}}>
+          <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')} />
+          <Text style={{fontSize: 17}}> 登录/注册 </Text>
+        </TouchableOpacity>
+      </View>
+    );
+    return (
+      <View style={{ flex: 1 }}>
+        {this.state.loginState ? login : noLogin}
+      </View>
+    );
+  }
 }
 const meStyle = StyleSheet.create({
-    noLoginImage: {
-        height: 60,
-        width: 60,
-        borderWidth: 1,
-        borderColor: '#ee2115',
-        borderRadius: 50
-    },
-    coll: {
-        height: 30,
-        lineHeight: 30,
-        width: width / 2,
-        textAlign: 'center',
-        backgroundColor: '#6a6e6d',
-        color: '#fff'
-    },
-    home: {
-        backgroundColor: '#9ec6ff',
-        color: '#6a6e6d',
-        height: 30,
-        lineHeight: 30,
-        width: width / 2,
-        textAlign: 'center'
-    },
-    collList: {
-        borderColor: '#fff',
-        borderWidth: 1,
-        marginTop: 3,
-        borderRadius: 4
-    }
+  noLoginImage: {
+    height: 60,
+    width: 60,
+    borderRadius: 50,
+    marginRight: 15
+  },
+  coll: {
+    lineHeight: 36,
+    textAlign: 'center',
+    backgroundColor: '#6a6e6d',
+    color: '#fff'
+  },
+  home: {
+    backgroundColor: '#9ec6ff',
+    color: '#6a6e6d',
+    lineHeight: 36,
+    textAlign: 'center'
+  },
+  collList: {
+    borderColor: '#fff',
+    borderWidth: 1,
+    marginTop: 3,
+    borderRadius: 4
+  },
+  loginBoxStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  headerBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: width * 0.85,
+    borderBottomWidth: 0.5,
+    marginBottom: 15
+  },
+  headerLeftStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });
