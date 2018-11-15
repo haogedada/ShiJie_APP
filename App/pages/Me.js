@@ -43,6 +43,7 @@ export default class Me extends Component {
         this.getInfo = this.getInfo.bind(this);
         this.loadMyVideo = this.loadMyVideo.bind(this);
         this.listenerLoadUser = this.listenerLoadUser.bind(this)
+        this.listenerLogin = this.listenerLogin.bind(this)
     }
     componentWillMount() {
         this.getInfo();
@@ -66,15 +67,18 @@ export default class Me extends Component {
             });
         });
     }
-
-    
     listenerLoadUser() {
         DeviceEventEmitter.addListener("loadUser", () => {
             this.getInfo()
             this.loadMyVideo()
         })
     }
-
+    listenerLogin() {
+        DeviceEventEmitter.addListener("login", () => {
+            this.setState({ loginState: true })
+            this.getInfo()
+        });
+    }
     async getInfo() {
         let loginState = await Storage.get('loginState')
         if (loginState) {
