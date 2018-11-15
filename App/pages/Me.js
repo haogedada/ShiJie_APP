@@ -44,6 +44,7 @@ export default class Me extends Component {
         this.loadMyVideo = this.loadMyVideo.bind(this);
         this.listenerLoadUser = this.listenerLoadUser.bind(this)
         this.listenerLogin = this.listenerLogin.bind(this)
+        this.onRefreshLoaging = this.onRefreshLoaging.bind(this)
     }
     componentWillMount() {
         this.getInfo();
