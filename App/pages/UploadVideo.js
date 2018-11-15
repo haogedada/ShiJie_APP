@@ -39,14 +39,13 @@ export default class UploadVideo extends Component {
     }
     if (this.state.isSelectVideo) {
       var formData = new FormData();
-      if (this.state.isSelectImg) {
-        console.log(this.state.VideoCoverfile.uri);
-        formData.append("coverfile", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
-      }
       formData.append("title", this.state.videoTitle);
       formData.append("content", this.state.videoContent);
-      formData.append("type", this.state.videoType);
       formData.append('file', FileUtil.creatFile(this.state.videoSource, 'uploadvideo'));
+      if (this.state.isSelectImg) {
+        formData.append("file", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
+      }
+      formData.append("type", this.state.videoType);     
       upLoadVideo(formData).then(res => {
         if (res.code === 200) {
           Alert.alert('上传成功')
