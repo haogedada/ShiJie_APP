@@ -89,7 +89,7 @@ export default class Me extends Component {
   /**
      * 刷新页面
      */
-    onRefreshLoaging(){
+    onRefreshLoading(){
         this.setState({isRef:true});
             setTimeout(()=>{
                 console.log("等待2s");
@@ -144,7 +144,7 @@ export default class Me extends Component {
                     refreshControl={<RefreshControl
                     refreshing={this.state.isRef}
                     onRefresh={
-                        this.onRefreshLoaging.bind(this)
+                        this.onRefreshLoading.bind(this)
                     }
                     />
                     }
