@@ -1,0 +1,37 @@
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "indexPage": 1,
+        "tatolPage": 6,
+        "list": [{
+            "videoTitle": "热门",
+            "videoContent": "热门",
+            "videoUrl": "http://www.haogedada.top/api/upLoadFile/videoFile/video1-222.mp4",
+            "videoCoverUrl": "http://www.haogedada.top/api/upLoadFile/videoCover/videocover-222.jpg",
+            "videoTime": "00:08",
+            "videoType": null,
+            "videoId": 222,
+            "userId": 1,
+            "playerCount": 1,
+            "videoTipNum": 0,
+            "videoTrampleNum": 0,
+            "videoCreatTime": "2018-08-14T10:41:39.000+0000",
+            "userBean": null
+        }, {
+            "videoTitle": "热门",
+            "videoContent": "热门",
+            "videoUrl": "http://www.haogedada.top/api/upLoadFile/videoFile/video1-221.mp4",
+            "videoCoverUrl": "http://www.haogedada.top/api/upLoadFile/videoCover/videocover-221.jpg",
+            "videoTime": "00:08",
+            "videoType": null,
+            "videoId": 221,
+            "userId": 1,
+            "playerCount": 0,
+            "videoTipNum": 0,
+            "videoTrampleNum": 0,
+            "videoCreatTime": "2018-08-14T10:41:00.000+0000",
+            "userBean": null
+        }]
+    }
+}
