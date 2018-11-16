@@ -9,8 +9,9 @@ export const url = {
     URL_FANSLIST: '/user/fansList',
     URL_VIDEO: "/video",
     URL_ALLVIDEOTYPE: '/video/allVideoType',
-    URL_VIDEOTYPE: "/videoType/1&&4",
+    URL_VIDEOTYPE: "/videoType",
     URL_USERHOME: '/user/userhome',
     URL_COLLECTIONS: '/user/collections',
-    URL_UPLOADVIDEO:'/user/video',
+    URL_UPLOADVIDEO: '/user/video',
+    URL_COMMENT: "/comment"
 }

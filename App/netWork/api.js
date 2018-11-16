@@ -1,6 +1,11 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
+export function getComment(params) {
+    return HttpUtil.post(url.URL_COMENT, params)
+
+}
+
 export function getHome() {
     return HttpUtil.get(url.URL_USERHOME);
 }
@@ -14,7 +19,9 @@ export function getTypes() {
 }
 
 export function getVideoTypesCount(params) {
-    return HttpUtil.get(url.URL_VIDEOTYPE, params);
+    return HttpUtil.get(url.URL_VIDEOTYPE + "/" + params.info + "&&" + params
+        .count + "?videoType=" + params.type
+    );
 }
 
 export function updateInfo(parms) {
@@ -62,6 +69,7 @@ export function getUserFansList() {
 export function getUserFollowList() {
     return HttpUtil.get(url.URL_FOLLOWLIST)
 }
+
 export function upLoadVideo(params) {
-    return HttpUtil.upload(url.URL_UPLOADVIDEO,params)
+    return HttpUtil.upload(url.URL_UPLOADVIDEO, params)
 }

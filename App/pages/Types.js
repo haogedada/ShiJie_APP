@@ -30,9 +30,10 @@ export default class Classification extends Component {
             isRef: false,
             selectColor: [],
             typeVideo: [],
-            showHidden: false
+            showHidden: false,
+            refCount: 1
         }
-        this.getTypesVideo("hot");
+        this.getTypesVideo({info: 1, count: 4, type: 'hot'});
     }
 
     componentWillMount() {
@@ -89,7 +90,8 @@ export default class Classification extends Component {
      */
     getTypesVideo(params) {
         // console.log("请求参数:", params);
-        getVideoTypesCount({videoType: params}).then(req => {
+        getVideoTypesCount(params).then(req => {
+
             if (req.data === null) {
                 this.setState({
                     showHidden: false
@@ -100,7 +102,7 @@ export default class Classification extends Component {
                     typeVideo: req.data
                 });
             }
-            // console.log("videoType:", req);
+            console.log("videoType:", req);
         });
     }
 
@@ -156,9 +158,13 @@ export default class Classification extends Component {
      * 刷新页面
      */
     onRefreshLoading() {
-        this.setState({isRef: true});
+        this.setState({
+            isRef: true,
+            refCount: this.state.refCount + 1
+        });
         setTimeout(() => {
             // console.log("等待2s");
+            this.getTypesVideo({info: this.state.refCount, count: 4, type: 'hot'})
             this.setState({isRef: false})
         }, 2000);
     }

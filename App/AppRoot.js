@@ -88,7 +88,9 @@ const scenes = Actions.create(
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView}/>
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView}/>
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView}/>
-        <Scene key="ClickVideoShowDetails" component={ClickVideoShowDetails} hideNavBar={false} title='视频详情'
+        <Scene key="ClickVideoShowDetails"
+               component={ClickVideoShowDetails}
+               hideNavBar={false} title='视频详情'
                navBar={CustomNavBarView}/>
         <Scene key="tabbar"
             initial

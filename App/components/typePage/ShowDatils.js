@@ -13,12 +13,13 @@ export default class ShowDatils extends Component {
         // console.log("data数据:", data);
         let dataList = [];
         let userDate = [];
-        return data.map((item) => {
+        return data.map((item, index) => {
             return (
-                <View style={{borderColor: "#ff394a", marginTop: 5, borderWidth: 1}}>
+                <View key={index} style={{borderColor: "#ff394a", marginTop: 5, borderWidth: 1}}>
                     <TouchableOpacity onPress={() => {
-                        Actions.ClickVideoShowDetails();
-                        DeviceEventEmitter.emit("left", data);
+                        // console.log("跳转到详情页面", item.videoBean);
+                        // DeviceEventEmitter.emit("left", data);
+                        // Actions.ClickVideoShowDetails({"show": item.videoBean});
                     }}>
                         <Text>昵称:{item.videoBean.userBean.userNickname}</Text>
                         <Text>标题:{item.videoBean.videoTitle}</Text>
