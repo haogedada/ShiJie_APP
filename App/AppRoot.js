@@ -24,6 +24,8 @@ import CustomNavBarView from './components/CustomNavBarView';
 import UpdateInfo from './pages/UpdateInfo'
 import UserMsg from './pages/UserMsg'
 import {loadData} from './util/LoadDataUtil'
+import ClickVideoShowDetails from "./components/typePage/ClickVideoShowDetails"
+
 class AppRoot extends Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -81,10 +83,13 @@ const scenes = Actions.create(
         {/*个人中心*/}
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView} />
         {/*修改人信息*/}
-        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView} />
-        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
-        <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
-        <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
+        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
+        <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
+        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView}/>
+        <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView}/>
+        <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView}/>
+        <Scene key="ClickVideoShowDetails" component={ClickVideoShowDetails} hideNavBar={false} title='视频详情'
+               navBar={CustomNavBarView}/>
         <Scene key="tabbar"
             initial
             tabs={true}
@@ -113,11 +118,12 @@ const scenes = Actions.create(
                 titleStyle={styles.titleStyle} />
             {/*添加视屏按钮*/}
             <Scene key="uploadVideo"
-                hideNavBar={true}
-                component={UploadVideo}
-                title='上传视频'
-                icon={TabIcon}
-                titleStyle={styles.titleStyle} />
+                   component={UploadVideo}
+                   hideTabBar={true}
+                   title='上传视频'
+                   navBar={CustomNavBarView}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
             {/*朋友*/}
             <Scene key="friends"
                 hideNavBar={true}
@@ -126,10 +132,10 @@ const scenes = Actions.create(
                 titleStyle={styles.titleStyle} />
             {/*我的*/}
             <Scene key="me"
-                hideNavBar={true}
-                component={Me}
-                icon={TabIcon}
-                titleStyle={styles.titleStyle} />
+                   hideNavBar={true}
+                   component={Me}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
         </Scene>
     </Scene>
 )

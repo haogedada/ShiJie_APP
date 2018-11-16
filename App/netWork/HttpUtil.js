@@ -18,7 +18,8 @@ async function initialRequest(options) {
         let instance;
         let header;
         let isLogin = options.url.includes("login");
-        if (token === null || token === " " || isLogin) {
+        let types = options.url.includes("videoType");
+        if (token === null || token === " " || isLogin || types) {
             header = {
                 'Content-Type': 'multipart/form-data'
             }
