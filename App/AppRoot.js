@@ -82,7 +82,6 @@ const scenes = Actions.create(
         {/*个人中心*/}
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView} />
         {/*修改人信息*/}
-        <Scene key="updateVideo" component={UpdateVideo} hideNavBar={true} navBar={CustomNavBarView} />
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
@@ -116,9 +115,7 @@ const scenes = Actions.create(
             {/*添加视屏按钮*/}
             <Scene key="uploadVideo"
                    component={UploadVideo}
-                   hideTabBar={true}
-                   title='上传视频'
-                   navBar={CustomNavBarView}
+                   hideNavBar={true}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
             {/*朋友*/}
