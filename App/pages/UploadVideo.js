@@ -6,7 +6,6 @@ import {
 import { upLoadVideo } from '../netWork/api'
 import FileUtil from '../util/FileUtil'
 import ImagePicker from 'react-native-image-picker'
-
 export default class UploadVideo extends Component {
   constructor(props) {
     super(props)

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Text, View, ScrollView,TouchableOpacity, Image, Button, FlatList, WebView,StyleSheet,RefreshControl} from 'react-native'
 import Storagge from '../util/AsyncStorageUtil'
 import {getVideo} from "../netWork/api"
-
+import {Actions} from 'react-native-router-flux';
 export default class Home extends Component {
     constructor(props) {
         super(props);
@@ -34,14 +34,9 @@ export default class Home extends Component {
     render() {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ScrollView  
-                refreshControl={<RefreshControl
-                refreshing={this.setState.isRef}
-                onRefresh={()=>this.onRef.bind(this)}
-                tintColor='gary'
-                />}>
-               <Button  title='播放视频'/>
-                </ScrollView>
+               
+               <Button  title='播放视频' onPress={()=>{Actions.video()}}/>
+              
             </View>
         )
     }

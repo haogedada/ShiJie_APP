@@ -13,6 +13,7 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 import com.imagepicker.ImagePickerPackage;
+import com.brentvatne.react.ReactVideoPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -27,7 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new BlurViewPackage(),
             new RNSyanImagePickerPackage(),
-            new ImagePickerPackage()
+            new ImagePickerPackage(),
+            new ReactVideoPackage()
       );
     }
     @Override

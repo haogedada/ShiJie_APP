@@ -159,7 +159,7 @@ export default class Me extends Component {
                 </View>
             </View>
         );
-        let = (
+        let noLogin = (
             <View style={{ marginTop: 10, paddingBottom: 10, borderBottomWidth: 0.5 }}>
                 <TouchableOpacity onPress={() => {
                     Actions.Login();
