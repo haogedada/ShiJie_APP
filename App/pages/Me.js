@@ -37,8 +37,9 @@ export default class Me extends Component {
             home: [],
             coll: [],
             homeVideo: [],
+            collHome: true,
             isRef: false,
-            collHome: true
+            isSwitch: true
         };
         this.getInfo = this.getInfo.bind(this);
         this.loadMyVideo = this.loadMyVideo.bind(this);
@@ -92,18 +93,57 @@ export default class Me extends Component {
             this.setState({ loginState: false })
         }
     }
-  /**
+
+    /**
      * 刷新页面
      */
-    onRefreshLoading(){
-        this.setState({isRef:true});
-            setTimeout(()=>{
-                console.log("等待2s");
-              this.setState({isRef:false})
-            },2000);   
-        
-        }
+    onRefreshLoading() {
+        this.setState({isRef: true});
+        setTimeout(() => {
+            console.log("等待2s");
+            this.setState({isRef: false})
+        }, 2000);
+
+    }
+
     render() {
+        let coll;
+        let home;
+        if (this.state.collHome) {
+            coll = {
+                // backgroundColor: '#9ec6ff',
+                color: '#515dff',
+                lineHeight: 36,
+                textAlign: 'center',
+                borderBottomWidth: 2,
+                borderColor: "#515dff"
+            }
+            home = {
+                // backgroundColor: '#9ec6ff',
+                color: '#6a6e6d',
+                lineHeight: 36,
+                textAlign: 'center'
+                // borderBottomWidth: 2,
+                // borderColor: "#6a6e6d"
+            }
+        } else {
+            home = {
+                // backgroundColor: '#9ec6ff',
+                color: '#515dff',
+                lineHeight: 36,
+                textAlign: 'center',
+                borderBottomWidth: 2,
+                borderColor: "#515dff"
+            }
+            coll = {
+                // backgroundColor: '#9ec6ff',
+                color: '#6a6e6d',
+                lineHeight: 36,
+                textAlign: 'center'
+                // borderBottomWidth: 2,
+                // borderColor: "#6a6e6d"
+            }
+        }
         let login = (
             <View style={meStyle.loginBoxStyle}>
                 <View style={meStyle.headerBox}>
@@ -127,33 +167,32 @@ export default class Me extends Component {
                             });
                         }} />
                     </View>
-
                 </View>
                 <View style={{ height: 36, width: width * 0.85, flexDirection: 'row', alignItems: 'center' }}>
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity onPress={() => {
                             this.setState({ collHome: true })
                         }}>
-                            <Text style={meStyle.home}>我的作品</Text>
+                            <Text style={coll}>我的作品</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1 }}>
                         <TouchableOpacity onPress={() => {
                             this.setState({ collHome: false })
                         }}>
-                            <Text style={meStyle.coll}>我的收藏</Text>
+                            <Text style={home}>我的收藏</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{ flex: 6 }}>
                     <ScrollView
-                    refreshControl={<RefreshControl
-                    refreshing={this.state.isRef}
-                    onRefresh={
-                        this.onRefreshLoading.bind(this)
-                    }
-                    />
-                    }
+                        refreshControl={<RefreshControl
+                            refreshing={this.state.isRef}
+                            onRefresh={
+                                this.onRefreshLoading.bind(this)
+                            }
+                        />
+                        }
                     >
                         {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
                     </ScrollView>
@@ -188,11 +227,11 @@ const meStyle = StyleSheet.create({
     coll: {
         lineHeight: 36,
         textAlign: 'center',
-        backgroundColor: '#6a6e6d',
-        color: '#fff'
+        // backgroundColor: '#6a6e6d',
+        color: '#6a6e6d'
     },
     home: {
-        backgroundColor: '#9ec6ff',
+        // backgroundColor: '#9ec6ff',
         color: '#6a6e6d',
         lineHeight: 36,
         textAlign: 'center'
