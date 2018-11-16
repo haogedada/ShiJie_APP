@@ -23,6 +23,8 @@ import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
 import UpdateInfo from './pages/UpdateInfo'
 import UserMsg from './pages/UserMsg'
+import ClickVideoShowDetails from "./components/typePage/ClickVideoShowDetails"
+
 class AppRoot extends Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -82,9 +84,11 @@ const scenes = Actions.create(
         {/*修改人信息*/}
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
-        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView} />
-        <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
-        <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
+        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView}/>
+        <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView}/>
+        <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView}/>
+        <Scene key="ClickVideoShowDetails" component={ClickVideoShowDetails} hideNavBar={false} title='视频详情'
+               navBar={CustomNavBarView}/>
         <Scene key="tabbar"
                initial
                tabs={true}
@@ -110,7 +114,7 @@ const scenes = Actions.create(
                    component={UploadVideo}
                    hideTabBar={true}
                    title='上传视频'
-                   navBar={CustomNavBarView} 
+                   navBar={CustomNavBarView}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
             {/*朋友*/}
@@ -126,6 +130,6 @@ const scenes = Actions.create(
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
         </Scene>
-        </Scene>
+    </Scene>
 )
 export default connect()(AppRoot);

@@ -13,8 +13,8 @@ export function getTypes() {
     return HttpUtil.get(url.URL_ALLVIDEOTYPE);
 }
 
-export function getVideoTypesCount() {
-    return HttpUtil.get(url.URL_VIDEOCOUNT);
+export function getVideoTypesCount(params) {
+    return HttpUtil.get(url.URL_VIDEOTYPE, params);
 }
 
 export function updateInfo(parms) {
