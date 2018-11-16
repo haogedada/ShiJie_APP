@@ -103,7 +103,6 @@ export default class Me extends Component {
             console.log("等待2s");
             this.setState({isRef: false})
         }, 2000);
-
     }
 
     render() {
