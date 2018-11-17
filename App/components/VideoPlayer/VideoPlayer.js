@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'; 
 import {
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  FlatList,
   Image,
   DeviceEventEmitter
 } from 'react-native';
@@ -100,8 +100,6 @@ export default class VideoPlayer extends Component {
         <View style={styles.pauseImgBox}>
            {this.state.isPlay ? <View></View> : puasImg}
         </View>
-
-
         </TouchableOpacity>)
         let noRenderVideo=(<View style={styles.backgroundVideo}> 
           <View style={styles.pauseImgBox}>
@@ -114,6 +112,11 @@ export default class VideoPlayer extends Component {
         </View>
     );
   }
+}
+
+VideoPlayer.propTypes = {
+  video:PropTypes.object.isRequired,
+  _index: PropTypes.number.isRequired
 }
 const styles = StyleSheet.create({
   container: {

@@ -84,6 +84,10 @@ export default class Video extends Component {
         );
     }
 }
+Video.propTypes={
+    index:PropTypes.number.isRequired,
+    videoList:PropTypes.arrayOf(PropTypes.object)
+}
 const styles = StyleSheet.create({
 
 });

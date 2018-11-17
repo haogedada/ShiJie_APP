@@ -10,11 +10,9 @@ class App extends Component<{}> {
     constructor(props) {
         super(props);
     }
-
     componentWillMount() {
         this.Login()
     }
-
     //获取token
     async Login() {
         let user = await Storage.get('user')
@@ -27,7 +25,6 @@ class App extends Component<{}> {
             })
         }
     }
-
     render() {
         return (
             <Provider store={store}>
