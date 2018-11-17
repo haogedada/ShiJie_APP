@@ -38,53 +38,39 @@ export default class MeCollection extends Component {
   loadingView() {
     return this.state.coll.map((item, index) => {
       return (
-        // <View style={meColl.coll}>
-        //     <TouchableOpacity onPress={() => {
-        //         alert(item.userId);
-        //     }
-        //     }>
-        //         <Text>视频名称:{item.videoTitle}</Text>
-        //         <Image style={{height: 40, width: 40, borderRadius: 50}} source={{uri: item.videoCoverUrl}}/>
-        //         <Text>时间:{item.videoTime}</Text>
-        //         <Text>类型:{item.videoType}</Text>
-        //         <Text>播放量:{item.playerCount}</Text>
-        //         <Text>顶:{item.videoTipNum}</Text>
-        //         <Text>踩:{item.videoTrampleNum}</Text>
-
-
-
-        //     </TouchableOpacity>
-        // </View>
-
-        <View style={meHomeStyle.showDate}>
+        <View style={styles.showDatilsStyle} key={index}>
           <TouchableOpacity onPress={() => {
+            Actions.ClickVideoShowDetails();
+            DeviceEventEmitter.emit("left", data);
           }}>
-            <Text style={{ fontSize: 16, marginBottom: 5 }}>{item.videoTitle}</Text>
-            <Image source={{ uri: item.videoCoverUrl }}
-              style={{ width: 0.85 * width, height: 180 }}
-              resizeMode='cover' />
-            <View style={meHomeStyle.videoMsgStyle}>
-              <View style={meHomeStyle.iconAndNumStyle}>
+            <Text style={styles.titleStyle}>{item.videoTitle}</Text>
+            <View style={styles.imageBoxStyle}>
+              <Image style={styles.ImageStyle}
+                source={{ uri: item.videoCoverUrl }}
+                resizeMode='cover' />
+            </View>
+            <View style={styles.msgStyle}>
+
+              <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/eye.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={meHomeStyle.videoMsgFontStyle}>{item.playerCount}</Text>
+                <Text style={styles.textStyle}>{item.playerCount}</Text>
               </View>
-              <View style={meHomeStyle.iconAndNumStyle}>
+              <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/top.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={meHomeStyle.videoMsgFontStyle}>{item.videoTipNum}</Text>
+                <Text style={styles.textStyle}>{item.videoTipNum}</Text>
               </View>
-              <View style={meHomeStyle.iconAndNumStyle}>
+              <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/trample.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={meHomeStyle.videoMsgFontStyle}>{item.videoTrampleNum}</Text>
+                <Text style={styles.textStyle}>{item.videoTrampleNum}</Text>
               </View>
-              <View style={[meHomeStyle.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
+              <View style={[styles.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoTime}</Text>
               </View>
             </View>
           </TouchableOpacity>
-
         </View>
 
       );
@@ -110,23 +96,39 @@ export default class MeCollection extends Component {
     </View>);
   }
 }
-const meHomeStyle = StyleSheet.create({
-  showDate: {
-    borderRadius: 5,
-    width: width * 0.85,
-    marginTop: 25
+const styles = StyleSheet.create({
+  showDatilsStyle: {
+    backgroundColor: '#fff',
+    padding: 10,
+    marginBottom: 10
   },
-  videoMsgStyle: {
+  imageBoxStyle: {
+
+  },
+  ImageStyle: {
+    width: width - 20,
+    height: (width - 20) / 2,
+    borderRadius: 5
+  },
+  msgStyle: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    height: 25,
-    marginTop: -25,
-    alignItems: 'center'
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    marginTop: -35,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5
   },
-  videoMsgFontStyle: {
-    fontSize: 15,
+  textStyle: {
     color: '#fff',
-    lineHeight: 25
+    lineHeight: 35,
+    fontSize: 16
+  },
+  titleStyle: {
+    color: '#fff',
+    fontSize: 18,
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1
   },
   iconAndNumStyle: {
     flexDirection: 'row',

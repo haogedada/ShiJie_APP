@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, findNodeHandle, 
     Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
-import { BlurView } from 'react-native-blur';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //网络请求
 import { login } from '../netWork/api'
@@ -20,14 +19,9 @@ class Login extends Component {
             //密码
             passWord: '',
             //以下为测试使用的属性名
-            str: '',
-            viewRef: null
+            str: ''
         };
         this.isInputEmpty = this.isInputEmpty.bind(this)
-    }
-
-    imageLoaded() {
-        this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
     }
 
     /**
@@ -90,16 +84,7 @@ class Login extends Component {
                     <Image
                         style={styles.bg}
                         source={require('./../resources/images/image_backgrund/bg_1.jpg')}
-                        ref={(img) => {
-                            this.backgroundImage = img;
-                        }}
-                        onLoadEnd={this.imageLoaded.bind(this)}
-                    />
-                    <BlurView
-                        style={styles.dark}
-                        viewRef={this.state.viewRef}
-                        blurType="light"
-                        blurAmount={15}
+                        blurRadius={10}
                     />
                     <View style={styles.tgInputBox}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
