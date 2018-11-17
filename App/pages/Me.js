@@ -23,7 +23,7 @@ import {
 import Storage from '../util/AsyncStorageUtil';
 import MeHome from '../components/meCollectionHome/MeHome';
 import MeCollection from '../components/meCollectionHome/MeCollection';
-
+import { scaleFont, scaleSize } from './../util/Adaptive'
 let {
   width,
   height
@@ -186,7 +186,7 @@ export default class Me extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{}}>
+        <View style={{paddingBottom: 120}}>
           <ScrollView
             refreshControl={<RefreshControl
               refreshing={this.state.isRef}
@@ -276,7 +276,7 @@ const meStyle = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 20,
     color: '#fff',
-    height: 40,
-    lineHeight: 40
+    height: scaleSize(70),
+    lineHeight: scaleSize(70)
   }
 });

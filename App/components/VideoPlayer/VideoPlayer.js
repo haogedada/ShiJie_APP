@@ -10,11 +10,12 @@ import {
   DeviceEventEmitter
 } from 'react-native';
 import Video from 'react-native-video'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 let {
   width,
   height
 } = Dimensions.get('window');
+import { scaleFont, scaleSize } from './../../util/Adaptive'
 export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
@@ -103,84 +104,84 @@ export default class VideoPlayer extends Component {
         {this.state.isPlay ? <View></View> : puasImg}
       </View>
       <View style={styles.playerMsgBoxStyle}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={() => {
             Actions.pop()
           }}>
-          <Image style={styles.iconStyle}
-                 source={require('./../../resources/images/icon/back_white.png')} />
+            <Image style={styles.iconStyle}
+              source={require('./../../resources/images/icon/back_white.png')} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() =>{
+          <TouchableOpacity onPress={() => {
             alert('点击转发')
           }}>
-          <Image style={styles.iconStyle}
-                 source={require('./../../resources/images/icon/share_white.png')} />
+            <Image style={styles.iconStyle}
+              source={require('./../../resources/images/icon/share_white.png')} />
           </TouchableOpacity>
         </View>
-        <View style={{alignItems: 'flex-end', top: height * 0.4}}>
+        <View style={{ alignItems: 'flex-end', top: scaleSize(400) }}>
           <View>
             <TouchableOpacity onPress={() => {
               alert('点击收藏')
             }}>
-            <Image style={styles.iconStyle}
-                  source={require('./../../resources/images/icon/collect_white.png')} />
-            <Text style={styles.msgNumberStyle}>
-              {12345>10000?(((12345-12345%1000)/10000+'W')):(12345)}
-            </Text>
+              <Image style={styles.iconStyle}
+                source={require('./../../resources/images/icon/collect_white.png')} />
+              <Text style={styles.msgNumberStyle}>
+                {12345 > 10000 ? (((12345 - 12345 % 1000) / 10000 + 'W')) : (12345)}
+              </Text>
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => {
               alert('点击评论数')
             }}>
-            <Image style={styles.iconStyle}
-                  source={require('./../../resources/images/icon/comment_white.png')} />
-            <Text style={styles.msgNumberStyle}>
-              {12345>10000?(((12345-12345%1000)/10000+'W')):(12345)}
-            </Text>
+              <Image style={styles.iconStyle}
+                source={require('./../../resources/images/icon/comment_white.png')} />
+              <Text style={styles.msgNumberStyle}>
+                {12345 > 10000 ? (((12345 - 12345 % 1000) / 10000 + 'W')) : (12345)}
+              </Text>
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => {
               alert('点击赞')
             }}>
-            <Image style={styles.iconStyle}
-                 source={require('./../../resources/images/icon/top.png')} />
-            <Text style={styles.msgNumberStyle}>
-              {(this.props.video.videoTipNum)>10000?
-                ((((this.props.video.videoTipNum)-(this.props.video.videoTipNum)%1000)/10000+'W')):
-                ((this.props.video.videoTipNum))}
-            </Text>
+              <Image style={styles.iconStyle}
+                source={require('./../../resources/images/icon/top_140.png')} />
+              <Text style={styles.msgNumberStyle}>
+                {(this.props.video.videoTipNum) > 10000 ?
+                  ((((this.props.video.videoTipNum) - (this.props.video.videoTipNum) % 1000) / 10000 + 'W')) :
+                  ((this.props.video.videoTipNum))}
+              </Text>
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => {
               alert('点击踩')
             }}>
-            <Image style={styles.iconStyle}
-                 source={require('./../../resources/images/icon/trample.png')} />
-            <Text style={styles.msgNumberStyle}>
-              {(this.props.video.videoTrampleNum)>10000?
-                ((((this.props.video.videoTrampleNum)-(this.props.video.videoTrampleNum)%1000)/10000+'W')):
-                ((this.props.video.videoTrampleNum))}
-            </Text>
+              <Image style={styles.iconStyle}
+                source={require('./../../resources/images/icon/trample_140.png')} />
+              <Text style={styles.msgNumberStyle}>
+                {(this.props.video.videoTrampleNum) > 10000 ?
+                  ((((this.props.video.videoTrampleNum) - (this.props.video.videoTrampleNum) % 1000) / 10000 + 'W')) :
+                  ((this.props.video.videoTrampleNum))}
+              </Text>
             </TouchableOpacity>
           </View>
 
         </View>
         <View style={styles.leftMsgStyle}>
-        <TouchableOpacity onPress={() => {
-          alert('点击头像')
-        }}>
-          <Image style={styles.headerStyle}
-                 source={require('./../../resources/images/icon/header.png')} />
+          <TouchableOpacity onPress={() => {
+            alert('点击头像')
+          }} style={{width: scaleSize(140)}}>
+            <Image style={styles.headerStyle}
+              source={require('./../../resources/images/icon/header.png')} />
+          </TouchableOpacity>
           <Image style={styles.addConcernStyle}
-                 source={require('./../../resources/images/icon/add_concern.png')} />
-        </TouchableOpacity>
-          <Text style={[styles.msgNumberStyle, {textAlign: 'auto'}]}
-                numberOfLines={1}>@名字再取{}</Text>
+            source={require('./../../resources/images/icon/add_concern.png')} />
+          <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: -30 }]}
+            numberOfLines={1}>@名字再取{}</Text>
           <Text style={styles.videoContentStyle}
-                numberOfLines={5}>{this.props.video.videoContent}</Text>
+            numberOfLines={5}>{this.props.video.videoContent}</Text>
         </View>
       </View>
     </TouchableOpacity>)
@@ -231,14 +232,14 @@ const styles = StyleSheet.create({
     left: 0,
   },
   iconStyle: {
-    width: 33,
-    height: 33,
+    width: scaleSize(50),
+    height: scaleSize(50),
     margin: 20
   },
   msgNumberStyle: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: 19,
+    fontSize: scaleFont(27),
     marginTop: -20
   },
   leftMsgStyle: {
@@ -251,19 +252,18 @@ const styles = StyleSheet.create({
   videoContentStyle: {
     color: '#fff',
     marginLeft: 15,
-    fontSize: 16,
+    fontSize: scaleFont(23),
     marginTop: 10
   },
   headerStyle: {
-    width: 60,
-    height: 60,
+    width: scaleSize(70),
+    height: scaleSize(70),
     margin: 20,
   },
   addConcernStyle: {
-    width: 30,
-    height: 30,
-    position: 'relative',
-    top: -35,
-    left: 35
+    width: scaleSize(40),
+    height: scaleSize(40),
+    top: scaleSize(-58),
+    left: scaleSize(58)
   }
 });
