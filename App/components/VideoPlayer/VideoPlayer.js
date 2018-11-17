@@ -69,7 +69,7 @@ export default class VideoPlayer extends Component {
   }
   render() {
     let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/paus.png') }/>)
-    let videoPlayer = ( <TouchableOpacity 
+    let videoPlayer = (<TouchableOpacity 
       activeOpacity={0.9}
       style={styles.backgroundVideo}
           onPress={() => {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     width:width,
     height:height,
-   // backgroundColor: '#fff',
+    backgroundColor:'#464748'
   },
   backgroundVideo:
   {
