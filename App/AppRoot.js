@@ -25,6 +25,7 @@ import CustomNavBarView from './components/CustomNavBarView';
 import UpdateVideo from './pages/UpdateVideo'
 import UserMsg from './pages/UserMsg'
 import Video from './pages/Video'
+import ClickVideo from './components/typePage/ClickVideoShowDetails'
 class AppRoot extends Component {
     static propTypes = {
         dispatch: PropTypes.func
@@ -86,6 +87,7 @@ const scenes = Actions.create(
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
         <Scene key="video" component={Video} hideNavBar={true} navBar={CustomNavBarView} />
+        <Scene key="ClickVideo" component={ClickVideo} hideNavBar={true} navBar={CustomNavBarView} />
         <Scene key="tabbar"
             initial
             tabs={true}

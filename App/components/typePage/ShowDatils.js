@@ -17,7 +17,7 @@ export default class ShowDatils extends Component {
             return (
                 <View style={{borderColor: "#ff394a", marginTop: 5, borderWidth: 1}}>
                     <TouchableOpacity onPress={() => {
-                        Actions.ClickVideoShowDetails();
+                        Actions.ClickVideo();
                         DeviceEventEmitter.emit("left", data);
                     }}>
                         <Text>昵称:{item.videoBean.userBean.userNickname}</Text>
