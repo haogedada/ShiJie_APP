@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, ImageBackground, Text, TouchableOpacity, Image, Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 import { getHome } from "../../netWork/api";
+import { Actions } from 'react-native-router-flux';
 const { width, height } = Dimensions.get('window')
 
 export default class MeHome extends Component {
@@ -42,10 +43,11 @@ export default class MeHome extends Component {
   }
 
   loadingView() {
-    return this.state.videoList.map(item => {
+    return this.state.videoList.map((item,index) => {
       return (
         <View style={meHomeStyle.showDate}>
           <TouchableOpacity onPress={() => {
+            Actions.video({ 'index': index+1,'videoList':this.state.videoList});
           }}>
             <Text style={{ fontSize: 16, marginBottom: 5 }}>{item.videoTitle}</Text>
             <Image source={{ uri: item.videoCoverUrl }}

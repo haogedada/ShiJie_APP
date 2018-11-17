@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {View, Text, DeviceEventEmitter} from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, DeviceEventEmitter } from 'react-native'
 
 export default class ClickVideoShowDetails extends Component {
     constructor(props) {
@@ -7,6 +7,7 @@ export default class ClickVideoShowDetails extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.show);
         this.deEmitter = DeviceEventEmitter.addListener('left', (a) => {
             alert('收到通知：' + a);
         });

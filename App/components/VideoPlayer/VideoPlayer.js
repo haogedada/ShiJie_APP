@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  Image
+  Image,
+  DeviceEventEmitter
 } from 'react-native';
 import Video from 'react-native-video'
 let {
@@ -17,20 +18,37 @@ export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlay: false,
+      isPlay: true,
+      _index:this.props._index,
+      currentPage:this.props.currentPage,
     };
     this.loadStart = this.loadStart.bind(this);
     this.setDuration = this.setDuration.bind(this);
     this.setTime = this.setTime.bind(this);
     this.onEnd = this.onEnd.bind(this);
     this.videoError = this.videoError.bind(this);
+    this.listenerCurrentPage = this.listenerCurrentPage.bind(this)
+  }
+  componentWillMount(){
+   this.listenerCurrentPage()
+  }
+  componentDidMount(){
+   this.listenerCurrentPage()
+  }
+  componentWillUnmount(){
+    DeviceEventEmitter.removeListener('ChangeCurrentPage')
+  }
+  listenerCurrentPage(){
+    DeviceEventEmitter.addListener('ChangeCurrentPage',(currentPage)=>{
+      this.setState({currentPage:currentPage})
+    })
   }
   loadStart() {
     console.log('视频开始加载');
   }
   setDuration(value) {
     console.log('视频加载完成，即将播放');
-    console.log(value.currentPosition,value.duration)
+    console.log(value.duration)
   }
   setTime({
     currentTime,
@@ -42,37 +60,31 @@ export default class VideoPlayer extends Component {
   }
   onEnd() {
     console.log('视频播放完成');
-
   }
   videoError() {
     console.log('视频播放出错');
-
   }
   onBuffer(){
     console.log('视频正在缓冲');
   }
   render() {
     let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/paus.png') }/>)
-    return (
-      <View style={styles.container}>
-      <TouchableOpacity 
+    let videoPlayer = ( <TouchableOpacity 
       activeOpacity={0.9}
+      style={styles.backgroundVideo}
           onPress={() => {
             this.setState({
               isPlay: !this.state.isPlay,
             })
-            let isPlay = this.state.isPlay ? '播放':'暂停'
-            console.log(isPlay);
           }}
           >
         <Video
-       // source={{uri:'http://www.haogedada.top/apiep/upLoadFile/videoFile/video-1-251.mp4'}}
-          source={require('../../resources/videoFile/douyin.mp4')} // 视频的URL地址，或者本地地址，都可以.
+       source={{uri:this.props.video.videoUrl}} // 视频的URL地址，或者本地地址，都可以.
           ref='player'
           rate={1}                   // 控制暂停/播放，0 代表暂停paused, 1代表播放normal.
           volume={1.0}                 // 声音的放声音的放大倍数大倍数，0 代表没有声音，就是静音muted, 1 代表正常音量 normal，更大的数字表示放大的倍数
           muted={false}                // true代表静音，默认为false.
-          paused={this.state.isPlay}               // true代表暂停，默认为false
+          paused={!this.state.isPlay}               // true代表暂停，默认为false
           resizeMode="contain"           // 视频的自适应伸缩铺放行为，contain、stretch、cover
           repeat={true}                // 是否重复播放
           playInBackground={true}     // 当app转到后台运行的时候，播放是否暂停
@@ -86,9 +98,19 @@ export default class VideoPlayer extends Component {
           onBuffer={this.onBuffer}   
         />
         <View style={styles.pauseImgBox}>
-           {this.state.isPlay ? puasImg : <View></View>}
+           {this.state.isPlay ? <View></View> : puasImg}
         </View>
-        </TouchableOpacity>
+
+
+        </TouchableOpacity>)
+        let noRenderVideo=(<View style={styles.backgroundVideo}> 
+          <View style={styles.pauseImgBox}>
+          {puasImg}
+          </View></View>)
+    return (
+      <View style={styles.container}>
+     {this.state.currentPage===this.state._index ? 
+      videoPlayer : noRenderVideo}
         </View>
     );
   }
