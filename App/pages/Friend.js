@@ -59,7 +59,7 @@ export default class Friend extends Component {
   }
   render() {
     return (
-      <ScrollableTabView tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
+      <ScrollableTabView tabBarBackgroundColor='#fff' tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
         <FansAndConcernContain refreshCallBack={this.refreshCallBack}
           data={this.state.fansList} tabLabel="粉丝" />
         <FansAndConcernContain refreshCallBack={this.refreshCallBack}

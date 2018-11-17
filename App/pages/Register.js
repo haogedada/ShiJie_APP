@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, StyleSheet, 
     Button, Dimensions, Image, findNodeHandle,Alert } from 'react-native'
-import { BlurView } from 'react-native-blur'
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -18,7 +17,6 @@ class Register extends Component {
             prompt: '',
             random: randomNumber(),
             btn_disabled: true,
-            viewRef: null,
             promptCount: 0,
             prompt_str:[
                 '用户名为长度3至20的英文字母数字组合',
@@ -37,10 +35,6 @@ class Register extends Component {
         this.handlePromptOkPassword =  this.handlePromptOkPassword.bind(this)
         this.handlePromptYzm =  this.handlePromptYzm.bind(this)
 
-    }
-
-    imageLoaded() {
-        this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
     }
 
     /**
@@ -153,14 +147,7 @@ class Register extends Component {
                     <Image
                         style={styles.bg}
                         source={require('./../resources/images/image_backgrund/bg_1.jpg')}
-                        ref={(img) => { this.backgroundImage = img; }}
-                        onLoadEnd={this.imageLoaded.bind(this)}
-                    />
-                    <BlurView
-                        style={styles.dark}
-                        viewRef={this.state.viewRef}
-                        blurType="light"
-                        blurAmount={15}
+                        blurRadius={10}
                     />
                     <View style={styles.row}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
