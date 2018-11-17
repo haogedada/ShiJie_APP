@@ -24,7 +24,8 @@ export function getVideoTypesCount(params) {
     );
 }
 
-export function updateInfo(parms) {
+export function getHomeDate(parms) {
+    return HttpUtil.get(url.URL_HOME + "/" + parms + "&&4");
 }
 
 export function login(params) {

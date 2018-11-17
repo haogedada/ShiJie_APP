@@ -13,5 +13,6 @@ export const url = {
     URL_USERHOME: '/user/userhome',
     URL_COLLECTIONS: '/user/collections',
     URL_UPLOADVIDEO: '/user/video',
-    URL_COMMENT: "/comment"
+    URL_COMMENT: "/comment",
+    URL_HOME:"/home"
 }
