@@ -43,17 +43,16 @@ export default class Home extends Component {
             clickSwitch: 1,
             isPage: true,
             defaultSearch: '请输入搜索类型',
-            page: 1
+            page: 1,
+            hotList: '',
+            recomList: '',
+            newList: '',
+            all: ""
         }
     }
 
-    netWork(page) {
-        getHomeDate(page).then(req => {
-            console.log("首页数据:", req);
-        })
-    }
-
     componentWillMount() {
+        this.netWork(this.state.page);
         let select = [];
         for (let i = 0; i < titleJson.length; i++) {
             if (i === 1) {
@@ -76,7 +75,7 @@ export default class Home extends Component {
                 titleColor: select
             }
         );
-        this.netWork(this.state.page);
+
     }
 
     homTitle() {
@@ -119,15 +118,29 @@ export default class Home extends Component {
         })
     }
 
+    /**
+     * 网络请求
+     * @param page
+     */
+    netWork(page) {
+        getHomeDate(page).then(req => {
+            this.setState({all: req.data});
+        });
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         if (nextState.clickSwitch !== this.state.clickSwitch) {
-            console.log("重新渲染", nextState.clickSwitch, this.state.clickSwitch);
+            // console.log("重新渲染", nextState.clickSwitch, this.state.clickSwitch);
             return true;
         } else {
             return true;
         }
     }
 
+    /**
+     * 标题
+     * @param e
+     */
     titleBar(e) {
         let clickTitle = [];
         for (let i = 0; i < titleJson.length; i++) {
@@ -148,7 +161,8 @@ export default class Home extends Component {
             }
         }
         this.setState({
-            titleColor: clickTitle
+            titleColor: clickTitle,
+            clickSwitch: e
         });
     }
 
@@ -158,11 +172,19 @@ export default class Home extends Component {
     onRefreshLoading() {
         this.setState({isRef: true});
         setTimeout(() => {
-            console.log("等待2s");
-            this.setState({isRef: false})
+            this.setState({
+                isRef: false,
+                page: this.state.page + 1
+            })
+            this.netWork(this.state.page)
+            console.log("刷新:", this.state.page);
         }, 2000);
     }
 
+    /**
+     * 渲染视频页面
+     * @returns {any[]}
+     */
     pageView() {
         return titleJson.map((item, index) => {
             return (<View style={homeStyle.pageStyle} key={index}>
@@ -173,11 +195,39 @@ export default class Home extends Component {
                             this.onRefreshLoading.bind(this)
                         }
                     />
-                    }>
-                    <Text>{item.name}{index}</Text>
+                    }>{this.renderDate(index)}
                 </ScrollView>
             </View>);
         })
+    }
+
+    /**
+     * 详细信息
+     * @param num
+     * @returns {*}
+     */
+    renderDate(num) {
+        let str = this.state.all;
+        for (let i = this.state.clickSwitch; i < str.length; i++) {
+            if (i === this.state.clickSwitch) {
+                return str[i].map((item, index) => {
+                    return (<View style={{
+                            borderBottomWidth: 2,
+                            borderBottomColor: "#ee2115"
+                        }}>
+                            <Text>时长:{item.playerCount}</Text>
+                            <Text>描述{item.videoContent}</Text>
+                            <Image style={[{height: height / 2, width: width}]}
+                                   source={{uri: item.videoCoverUrl}}
+                            />
+                            <Text>类型:{item.videoType}</Text>
+                            <Text>顶:{item.videoTipNum}</Text>
+                            <Text>踩:{item.videoTrampleNum}</Text>
+                        </View>
+                    );
+                })
+            }
+        }
     }
 
     isVideoView() {
