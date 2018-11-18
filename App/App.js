@@ -11,23 +11,6 @@ class App extends Component<{}> {
         super(props);
     }
 
-    componentWillMount() {
-        this.Login()
-    }
-
-    //获取token
-    async Login() {
-        let user = await Storage.get('user')
-        let isLogin = await Storage.get('loginState')
-        if (isLogin) {
-            login(user).then(res => {
-                if (res.data) {
-                    Storage.save('token', res.data)
-                }
-            })
-        }
-    }
-
     render() {
         return (
             <Provider store={store}>

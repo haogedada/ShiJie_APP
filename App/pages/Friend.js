@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import FansAndConcernContain from '../components/friend/FansAndConcernContain';
 import { getUserFansList, getUserFollowList } from '../netWork/api'
-import { DeviceEventEmitter } from 'react-native'
+import { DeviceEventEmitter,StyleSheet ,TouchableOpacity,Dimensions,View,Text} from 'react-native'
+let { width, height } = Dimensions.get("window")
 export default class Friend extends Component {
     constructor(props) {
         super(props)
@@ -15,6 +16,7 @@ export default class Friend extends Component {
     this.listenerLoadFriend = this.listenerLoadFriend.bind(this)
   }
   componentWillMount() {
+    this.showLoadDialog()
     this.loadUserFriend()
   }
   componentDidMount() {
@@ -22,6 +24,7 @@ export default class Friend extends Component {
   }
   listenerLoadFriend() {
     DeviceEventEmitter.addListener('loadFriend', () => {
+      this.setState({ modalVisible: true})
       this.loadUserFriend()
     })
   }
@@ -51,12 +54,19 @@ export default class Friend extends Component {
           avatar: item.headimgUrl
         })
       });
-      this.setState({ fansList: newFansList })
+      this.setState({ fansList: newFansList,  modalVisible: false })
+      this.showLoadDialog()
     })
   }
   refreshCallBack(fansList, followList) {
     this.setState({ fansList: fansList, followList: followList })
   }
+showLoadDialog(){
+    this.refs.RNAlertLoad && this.refs.RNAlertLoad.showLoad();
+}
+dissmissLoadDialog(){
+    this.refs.RNAlertLoad && this.refs.RNAlertLoad.dissmiss(0.5);
+}
   render() {
     return (
       <ScrollableTabView tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
@@ -68,3 +78,6 @@ export default class Friend extends Component {
     )
   }
 }
+const styles =StyleSheet.create({
+ 
+})

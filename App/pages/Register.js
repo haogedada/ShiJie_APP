@@ -42,18 +42,26 @@ class Register extends Component {
     imageLoaded() {
         this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
     }
+    showLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.showLoad();
+    }
+    dissmissLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.dissmiss(0.5);
+    }
 
     /**
        * 注册事件
        * @param {*} e 
        */
     btn_register() {
+        this.showLoadDialog();
         let form = {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email
         }
         register(form).then(response => {
+            this.dissmissLoadDialog()
             if (response.code === 200) {
                 Alert.alert('注册成功!','请在邮箱内激活')
                 this.setState({
@@ -153,14 +161,7 @@ class Register extends Component {
                     <Image
                         style={styles.bg}
                         source={require('./../resources/images/image_backgrund/bg_1.jpg')}
-                        ref={(img) => { this.backgroundImage = img; }}
-                        onLoadEnd={this.imageLoaded.bind(this)}
-                    />
-                    <BlurView
-                        style={styles.dark}
-                        viewRef={this.state.viewRef}
-                        blurType="light"
-                        blurAmount={15}
+                        blurRadius={10}
                     />
                     <View style={styles.row}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
@@ -226,6 +227,7 @@ class Register extends Component {
                         </View>
                     </View>
                 </View>
+              <RNAlertLoad ref='RNAlertLoad' content={'注册中...'}/>
             </KeyboardAwareScrollView>
         )
     }
