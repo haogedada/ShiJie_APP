@@ -139,7 +139,7 @@ HTTPUtil.upload = (url, data) => {
         method: method,
         data: data, 
         onUploadProgress: progressEvent => {
-            let complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
+            let complete = (progressEvent.loaded / progressEvent.total * 100 | 0)
             DeviceEventEmitter.emit('uploadProgress',complete)
         }
     }

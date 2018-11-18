@@ -21,9 +21,11 @@ class UserMsg extends Component {
       sign: ' ',
       prompt: ' ',
       isSelect: false,
+      progress: 0,
     }
     this.submitMsg = this.submitMsg.bind(this)
     this.handleSelectImg = this.handleSelectImg.bind(this)
+    this.listenerUploadProgress = this.listenerUploadProgress.bind(this)
   }
   componentWillMount() {
     getUserInfo().then(userInfo => {
@@ -40,10 +42,15 @@ class UserMsg extends Component {
     })
   }
   componentDidMount() {
-
+    this.listenerUploadProgress()
   }
   componentWillUnmount() {
-
+    DeviceEventEmitter.removeListener('uploadProgress')
+  }
+  listenerUploadProgress() {
+    DeviceEventEmitter.addListener('uploadProgress', (_progress) => {
+      this.setState({ progress: _progress })
+    })
   }
   handleSelectImg() {
     let options = {
@@ -69,6 +76,16 @@ class UserMsg extends Component {
       }
     })
   }
+  showProgressBar() {
+    this.refs.RNProgressDialog && this.refs.RNProgressDialog.showProgressBar()
+  }
+  dissmissProgressBar() {
+    this.refs.RNProgressDialog && this.refs.RNProgressDialog.dissmiss(0.5);
+  }
+  progressBarCancel() {
+    this.dissmissProgressBar()
+    return
+  }
   submitMsg() {
     if (!this.state.prompt.includes(' ')) {
       Alert.alert('请正确输入表单')
@@ -84,10 +101,12 @@ class UserMsg extends Component {
       form.append("birthday", this.state.birthday);
       form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
       form.append("sign", this.state.sign);
+      this.showProgressBar()
       modifyUserMsg(form).then(data => {
         if (data.code === 200) {
+          this.dissmissProgressBar()
+          Alert.alert('上传成功!!')
           DeviceEventEmitter.emit('login')
-          Alert.alert('成功!!')
           Actions.me()
         } else {
           Alert.alert(data.msg)
@@ -98,7 +117,7 @@ class UserMsg extends Component {
   render() {
     return (
       <View style={styles.msg}>
-        <View>
+        <View> 
           <TouchableOpacity onPress={this.handleSelectImg}
             style={styles.imageBox}>
             <Image
@@ -166,12 +185,13 @@ class UserMsg extends Component {
             }
           }}
         />
+        <RNProgressDialog ref='RNProgressDialog' content='上传中...'
+          dissmissClick={() => { this.progressBarCancel() }} progress={this.state.progress}/>
       </View>
     )
   }
 }
 export default UserMsg
-
 const styles = StyleSheet.create({
   msg: {
     flex: 1,

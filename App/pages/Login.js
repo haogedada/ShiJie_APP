@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, findNodeHandle, 
-    Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
+import {
+    Text, View, TextInput, findNodeHandle, TouchableOpacity,
+    Dimensions, Image, StyleSheet, Button, Alert, DeviceEventEmitter
+} from 'react-native'
 import { BlurView } from 'react-native-blur';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //网络请求
@@ -10,6 +12,7 @@ import { Actions } from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 //警告
 import { prompt } from '../util/Warning'
+
 let { width, height } = Dimensions.get("window")
 class Login extends Component {
     constructor(props) {
@@ -53,6 +56,7 @@ class Login extends Component {
             return;
         }
         //用户进行网络请求
+        this.showLoadDialog()
         login({
             username: user,
             password: pass
@@ -62,29 +66,35 @@ class Login extends Component {
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token',res.data)
+                Storage.save('token', res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
+                this.setState({ modalVisible: false })
                 DeviceEventEmitter.emit('login')
                 Actions.me()
-            } if(res.code === 199){
+            } if (res.code === 199) {
                 this.setState({
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token',res.data)
+                Storage.save('token', res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
+                this.dissmissLoadDialog()
                 Actions.firstLogin()
             }
         })
-
-
     }
-
+    showLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.showLoad();
+    }
+    dissmissLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.dissmiss(0.5);
+    }
     //render函数渲染
     render() {
         return (
+            <View>
             <KeyboardAwareScrollView>
                 <View style={styles.container}>
                     <Image
@@ -116,16 +126,18 @@ class Login extends Component {
                             placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.tgLoginBtnStyle}>
-                        <Button style={styles.tgLoginBtnStyle} 
-                        onPress={this.isInputEmpty}
+                        <Button style={styles.tgLoginBtnStyle}
+                            onPress={this.isInputEmpty}
                             title='登          陆' />
                     </View>
                     <View style={styles.tgSettingStyle}>
-                        <Text style={{color: '#fff'}}>忘记密码</Text>
-                        <Text style={{color: '#fff'}} onPress={() => Actions.Register()}>新用户</Text>
+                        <Text style={{ color: '#fff' }}>忘记密码</Text>
+                        <Text style={{ color: '#fff' }} onPress={() => Actions.Register()}>新用户</Text>
                     </View>
                 </View>
+                <RNAlertLoad ref='RNAlertLoad' content={'加载中...'}/>
             </KeyboardAwareScrollView>
+         </View>
         );
     }
 }
@@ -136,7 +148,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: width,
-        height: height - 70
+        height: height
     },
     inputStyle: {
         height: 38,

@@ -29,6 +29,7 @@ let {
     height
 } = Dimensions.get('window');
 export default class Me extends Component {
+   
     constructor(props) {
         super(props);
         this.state = {
@@ -41,6 +42,7 @@ export default class Me extends Component {
             isRef: false,
             isSwitch: true
         };
+     
         this.getInfo = this.getInfo.bind(this);
         this.loadMyVideo = this.loadMyVideo.bind(this);
         this.listenerLoadUser = this.listenerLoadUser.bind(this)
@@ -51,7 +53,6 @@ export default class Me extends Component {
         this.getInfo();
         this.loadMyVideo();
     }
-
     componentDidMount() {
         this.listenerLoadUser()
         this.listenerLogin()
@@ -61,12 +62,14 @@ export default class Me extends Component {
         DeviceEventEmitter.removeListener('login')
         DeviceEventEmitter.removeListener('loadUser')
     }
+   
     loadMyVideo() {
         //作品
         getHome().then((req) => {
             this.setState({
                 home: req.data
             });
+            this.dissmissLoadDialog()
         });
     }
     listenerLoadUser() {
@@ -104,7 +107,7 @@ export default class Me extends Component {
             this.setState({isRef: false})
         }, 2000);
     }
-
+    
     render() {
         let coll;
         let home;
@@ -203,7 +206,7 @@ export default class Me extends Component {
                 <TouchableOpacity onPress={() => {
                     Actions.Login();
                 }}
-                    style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>
+                    style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>                                
                     <Image style={meStyle.noLoginImage} source={require('../resources/images/icon/me.png')} />
                     <Text style={{ fontSize: 17 }}> 登录/注册 </Text>
                 </TouchableOpacity>
@@ -211,7 +214,7 @@ export default class Me extends Component {
         );
         return (
             <View style={{ flex: 1 }}>
-                {this.state.loginState ? login : noLogin}
+                {this.state.loginState ? login : noLogin }
             </View>
         );
     }
