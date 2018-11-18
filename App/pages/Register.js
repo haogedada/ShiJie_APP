@@ -37,17 +37,29 @@ class Register extends Component {
 
     }
 
+    imageLoaded() {
+        this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+    }
+    showLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.showLoad();
+    }
+    dissmissLoadDialog(){
+        this.refs.RNAlertLoad && this.refs.RNAlertLoad.dissmiss(0.5);
+    }
+
     /**
        * 注册事件
        * @param {*} e 
        */
     btn_register() {
+        this.showLoadDialog();
         let form = {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email
         }
         register(form).then(response => {
+            this.dissmissLoadDialog()
             if (response.code === 200) {
                 Alert.alert('注册成功!','请在邮箱内激活')
                 this.setState({
@@ -213,6 +225,7 @@ class Register extends Component {
                         </View>
                     </View>
                 </View>
+              <RNAlertLoad ref='RNAlertLoad' content={'注册中...'}/>
             </KeyboardAwareScrollView>
         )
     }

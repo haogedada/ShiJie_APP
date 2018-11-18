@@ -73,8 +73,8 @@ export default class UploadVideo extends Component {
       VideoCoverfile: require('./../resources/images/icon/cover.png'),
       isSelectImg: false,
       isSelectVideo: false,
-      progress: "0%",
-      curveContent: ''
+      progress: 0,
+      curveContent: '',
     }
     this.subUploadVideo = this.subUploadVideo.bind(this)
     this.selectImg = this.selectImg.bind(this)
@@ -99,6 +99,16 @@ export default class UploadVideo extends Component {
       this.setState({ progress: _progress })
     })
   }
+  showProgressBar(){
+    this.refs.RNProgressDialog && this.refs.RNProgressDialog.showProgressBar()
+}
+dissmissProgressBar(){
+  this.refs.RNProgressDialog && this.refs.RNProgressDialog.dissmiss(0.5);
+}
+ProgressBarCancel(){
+  this.dissmissProgressBar()
+  return
+}
   subUploadVideo() {
     if (this.state.videoTitle.includes(' ') ||
       this.state.videoContent.includes(' ') ||
@@ -115,9 +125,11 @@ export default class UploadVideo extends Component {
         formData.append("file", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
       }
       formData.append("type", this.state.videoType);
+      this.showProgressBar()
       upLoadVideo(formData).then(res => {
         if (res.code === 200) {
-          Alert.alert('上传成功')
+          this.dissmissProgressBar();
+          alert('上传成功')
         }
       })
     } else {
@@ -196,9 +208,10 @@ export default class UploadVideo extends Component {
             this.setState({videoType: types[index].type, curveContent: types[index].content})
           }}
         />
+        <RNProgressDialog ref='RNProgressDialog' content='上传中...'
+          dissmissClick={() => { this.ProgressBarCancel() }} progress={this.state.progress}/>
         <View style={{marginTop: 30}}>
           <Button title='上传' onPress={this.subUploadVideo} />
-          <Text>{this.state.progress}</Text>
         </View>
       </View>
     )

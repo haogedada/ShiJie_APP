@@ -17,7 +17,6 @@ export default class FansAndConcernContain extends Component {
     let _followList = await getUserFollowList();
     let _fansList = await getUserFansList();
     if(_followList.code===200&&_fansList.code===200){
-    
       let newFollowList = [];
       let newFansList = []
       _followList.data.forEach(item => {
@@ -49,6 +48,8 @@ export default class FansAndConcernContain extends Component {
   render() {
     _keyExtractor = (item, index) => index;
     return (
+      <View>
+      <RNAlertLoad ref='RNAlertLoad' content={'加载中...'}/>
       <FlatList
         data={this.props.data}
         renderItem={({ item }) => <FansAndConcernItem dataItem={item} />}
@@ -56,6 +57,7 @@ export default class FansAndConcernContain extends Component {
         refreshing={this.state.isRefreshing}
         onRefresh={this.onRefresh}
       />
+      </View>
     )
   }
 }
