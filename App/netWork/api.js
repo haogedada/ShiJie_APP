@@ -2,7 +2,9 @@ import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
 export function forgetPassword(params) {
-    return HttpUtil.put(url.URL_FORGET, params)
+    // console.log("参数", params);
+    return HttpUtil.put(url.URL_FORGET + "?username=" + params.username + "&password=" + params.password + "&code=" + params.code
+    )
 }
 
 export function verfly(params) {
