@@ -1,16 +1,20 @@
-import React, { Component } from 'react'
-import { Text, View, TextInput, findNodeHandle, 
-    Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
-import { BlurView } from 'react-native-blur';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, {Component} from 'react'
+import {
+    Text, View, TextInput, findNodeHandle,
+    Dimensions, Image, StyleSheet, Button, Alert, DeviceEventEmitter
+} from 'react-native'
+import {BlurView} from 'react-native-blur';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 //网络请求
-import { login } from '../netWork/api'
+import {login} from '../netWork/api'
 //请求网址
-import { Actions } from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 //警告
-import { prompt } from '../util/Warning'
-let { width, height } = Dimensions.get("window")
+import {prompt} from '../util/Warning'
+
+let {width, height} = Dimensions.get("window")
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +31,7 @@ class Login extends Component {
     }
 
     imageLoaded() {
-        this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
+        this.setState({viewRef: findNodeHandle(this.backgroundImage)});
     }
 
     /**
@@ -62,18 +66,19 @@ class Login extends Component {
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token',res.data)
-                Storage.save('user', { username: user, password: pass })
+                Storage.save('token', res.data)
+                Storage.save('user', {username: user, password: pass})
                 Storage.save('loginState', true)
                 DeviceEventEmitter.emit('login')
                 Actions.me()
-            } if(res.code === 199){
+            }
+            if (res.code === 199) {
                 this.setState({
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token',res.data)
-                Storage.save('user', { username: user, password: pass })
+                Storage.save('token', res.data)
+                Storage.save('user', {username: user, password: pass})
                 Storage.save('loginState', true)
                 Actions.firstLogin()
             }
@@ -104,24 +109,26 @@ class Login extends Component {
                     <View style={styles.tgInputBox}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
                         <TextInput style={styles.inputStyle} placeholder="用户名"
-                            onChangeText={(text) => this.setState({ userName: text })}
-                            defaultValue={this.state.userName}
-                            placeholderTextColor='#d4d4d4' />
+                                   onChangeText={(text) => this.setState({userName: text})}
+                                   defaultValue={this.state.userName}
+                                   placeholderTextColor='#d4d4d4'/>
                     </View>
                     <View style={styles.tgInputBox}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.inputStyle} password={true} placeholder="密码" secureTextEntry={true}
-                            onChangeText={(text) => this.setState({ passWord: text })}
-                            defaultValue={this.state.passWord}
-                            placeholderTextColor='#d4d4d4' />
+                                   onChangeText={(text) => this.setState({passWord: text})}
+                                   defaultValue={this.state.passWord}
+                                   placeholderTextColor='#d4d4d4'/>
                     </View>
                     <View style={styles.tgLoginBtnStyle}>
-                        <Button style={styles.tgLoginBtnStyle} 
-                        onPress={this.isInputEmpty}
-                            title='登          陆' />
+                        <Button style={styles.tgLoginBtnStyle}
+                                onPress={this.isInputEmpty}
+                                title='登          陆'/>
                     </View>
                     <View style={styles.tgSettingStyle}>
-                        <Text style={{color: '#fff'}}>忘记密码</Text>
+                        <Text style={{color: '#fff'}} onPress={() => {
+                            Actions.Forget();
+                        }}>忘记密码</Text>
                         <Text style={{color: '#fff'}} onPress={() => Actions.Register()}>新用户</Text>
                     </View>
                 </View>

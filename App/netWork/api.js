@@ -1,6 +1,15 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
+export function forgetPassword(params) {
+    return HttpUtil.put(url.URL_FORGET, params)
+}
+
+export function verfly(params) {
+    // console.log("请求路劲:",url.URL_USERNAME, params);
+    return HttpUtil.get(url.URL_EMAILCODE, params)
+}
+
 export function getComment(params) {
     return HttpUtil.post(url.URL_COMENT, params)
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -7,8 +7,8 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';
-import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } from 'react-native-router-flux';
-import { connect } from 'react-redux';
+import {Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst} from 'react-native-router-flux';
+import {connect} from 'react-redux';
 import TabIcon from './components/tabIcon';
 //导入各个界面page文件
 import Register from './pages/Register'
@@ -25,6 +25,7 @@ import UpdateInfo from './pages/UpdateInfo'
 import UserMsg from './pages/UserMsg'
 import {loadData} from './util/LoadDataUtil'
 import ClickVideoShowDetails from "./components/typePage/ClickVideoShowDetails"
+import Forget from './components/Forget'
 
 class AppRoot extends Component {
     static propTypes = {
@@ -51,8 +52,8 @@ class AppRoot extends Component {
     render() {
         return (
             <Router onExitApp={this.onExitApp}
-                createReducer={this.createReducer.bind(this)}
-                scenes={scenes}
+                    createReducer={this.createReducer.bind(this)}
+                    scenes={scenes}
             >
             </Router>
         )
@@ -77,47 +78,48 @@ const styles = StyleSheet.create({
 const scenes = Actions.create(
     <Scene key="root" hideNavBar={true}>
         {/*登录*/}
-        <Scene key="Login" component={Login} hideNavBar={false} title='登陆' navBar={CustomNavBarView} />
+        <Scene key="Login" component={Login} hideNavBar={false} title='登陆' navBar={CustomNavBarView}/>
         {/*注册*/}
-        <Scene key="Register" component={Register} hideNavBar={false} title='注册' navBar={CustomNavBarView} />
+        <Scene key="Register" component={Register} hideNavBar={false} title='注册' navBar={CustomNavBarView}/>
         {/*个人中心*/}
-        <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView} />
+        <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         {/*修改人信息*/}
         <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
         <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView}/>
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView}/>
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView}/>
+        <Scene key="Forget" component={Forget} hideNavBar={false} title='找回密码' navBar={CustomNavBarView}/>
         <Scene key="ClickVideoShowDetails"
                component={ClickVideoShowDetails}
                hideNavBar={false} title='视频详情'
                navBar={CustomNavBarView}/>
         <Scene key="tabbar"
-            initial
-            tabs={true}
-            tabBarPosition="bottom"
-            showLabel={false}
-            tabBarOnPress={(action) => {
-                let next = action.navigation.state.key
-                loadData(next);
-                Actions[next].call()
-            }
-            }
-            tabBarStyle={styles.tabBarStyle}
-            tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
-            titleStyle={styles.titleStyle}>
+               initial
+               tabs={true}
+               tabBarPosition="bottom"
+               showLabel={false}
+               tabBarOnPress={(action) => {
+                   let next = action.navigation.state.key
+                   loadData(next);
+                   Actions[next].call()
+               }
+               }
+               tabBarStyle={styles.tabBarStyle}
+               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+               titleStyle={styles.titleStyle}>
             {/*首页*/}
             <Scene key="home"
-                hideNavBar={true}
-                component={Home}
-                icon={TabIcon}
-                titleStyle={styles.titleStyle} />
+                   hideNavBar={true}
+                   component={Home}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
             {/*分类*/}
             <Scene key="types"
-                hideNavBar={true}
-                component={Types}
-                icon={TabIcon}
-                titleStyle={styles.titleStyle} />
+                   hideNavBar={true}
+                   component={Types}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
             {/*添加视屏按钮*/}
             <Scene key="uploadVideo"
                    component={UploadVideo}
@@ -128,10 +130,10 @@ const scenes = Actions.create(
                    titleStyle={styles.titleStyle}/>
             {/*朋友*/}
             <Scene key="friends"
-                hideNavBar={true}
-                component={Friend}
-                icon={TabIcon}
-                titleStyle={styles.titleStyle} />
+                   hideNavBar={true}
+                   component={Friend}
+                   icon={TabIcon}
+                   titleStyle={styles.titleStyle}/>
             {/*我的*/}
             <Scene key="me"
                    hideNavBar={true}

@@ -31,9 +31,11 @@ export default class Classification extends Component {
             selectColor: [],
             typeVideo: [],
             showHidden: false,
-            refCount: 1
+            refCount: 1,
+            typeNew: 'hot'
+
         }
-        this.getTypesVideo({info: 1, count: 4, type: 'hot'});
+        this.getTypesVideo({info: 1, count: 4, type: this.state.typeNew});
     }
 
     componentWillMount() {
@@ -91,7 +93,6 @@ export default class Classification extends Component {
     getTypesVideo(params) {
         // console.log("请求参数:", params);
         getVideoTypesCount(params).then(req => {
-
             if (req.data === null) {
                 this.setState({
                     showHidden: false
@@ -102,7 +103,7 @@ export default class Classification extends Component {
                     typeVideo: req.data
                 });
             }
-            console.log("videoType:", req);
+            // console.log("videoType:", req);
         });
     }
 
@@ -111,7 +112,8 @@ export default class Classification extends Component {
      * @param clickTitle
      */
     userClickTypeTitle(clickTitle) {
-        this.getTypesVideo(clickTitle);
+        console.log("标题", clickTitle);
+        this.getTypesVideo({info: this.state.refCount, count: 4, type: clickTitle});
     }
 
     /**
@@ -133,6 +135,9 @@ export default class Classification extends Component {
                             bc: "#515dff",
                             bw: 4
                         })
+                        this.setState({
+                            typeNew: key[index]
+                        });
                         this.userClickTypeTitle(key[i]);
                     } else {
                         styleList.push({
@@ -169,6 +174,32 @@ export default class Classification extends Component {
         }, 2000);
     }
 
+    /**
+     * 上拉加载
+     * @private
+     */
+    _onEndfresh() {
+        this.setState({
+            isRef: true,
+            refCount: this.state.refCount + 1
+        });
+        setTimeout(() => {
+            // console.log("等待2s");
+            this.userClickTypeTitle(this.state.typeNew);
+            this.setState({isRef: false})
+            this.refs.typsRef.scrollTo({x: 0, y: 0, animated: true});
+        }, 2000);
+    }
+
+    handleScroll(e) {
+        let scrollH = e.nativeEvent.contentSize.height;
+        let y = e.nativeEvent.contentOffset.y;
+        let height = e.nativeEvent.layoutMeasurement.height;
+        if (scrollH - height < y) {
+            this._onEndfresh();
+        }
+    }
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -184,6 +215,11 @@ export default class Classification extends Component {
                 {/* 数据 */}
                 <View style={{flex: 9}}>
                     <ScrollView
+                        ref={"typsRef"}
+                        onScroll={(e) => {
+                            this.handleScroll(e)
+                        }
+                        }
                         refreshControl={<RefreshControl
                             refreshing={this.state.isRef}
                             onRefresh={

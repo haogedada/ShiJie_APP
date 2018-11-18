@@ -14,6 +14,7 @@ import {
     RefreshControl,
     ViewPagerAndroid
 } from 'react-native'
+import {Actions} from 'react-native-router-flux'
 import Storagge from '../util/AsyncStorageUtil'
 import {getHomeDate} from "../netWork/api"
 import HomeShow from '../components/HomeShow'
@@ -78,6 +79,10 @@ export default class Home extends Component {
 
     }
 
+    /**
+     * 渲染标题
+     * @returns {any[]}
+     */
     homTitle() {
         let clickTitle = [];
         return titleJson.map((item, index) => {
@@ -124,7 +129,7 @@ export default class Home extends Component {
      */
     netWork(page) {
         getHomeDate(page).then(req => {
-            this.setState({all: req.data});
+            this.setState({all: req.data.concat(this.state.all)});
         });
     }
 
@@ -167,7 +172,7 @@ export default class Home extends Component {
     }
 
     /**
-     * 刷新页面
+     * 下拉刷新页面
      */
     onRefreshLoading() {
         this.setState({isRef: true});
@@ -177,8 +182,33 @@ export default class Home extends Component {
                 page: this.state.page + 1
             })
             this.netWork(this.state.page)
-            console.log("刷新:", this.state.page);
         }, 2000);
+    }
+
+    /**
+     * 上拉加载
+     * @private
+     */
+    _onEndfresh() {
+        this.setState({isRef: true});
+        setTimeout(() => {
+            this.setState({
+                isRef: false,
+                page: this.state.page + 1
+            })
+            this.netWork(this.state.page);
+            //滚动条会滚到顶部
+            this.refs.totop.scrollTo({x: 0, y: 0, animated: true});
+        }, 2000);
+    }
+
+    handleScroll(e) {
+        let scrollH = e.nativeEvent.contentSize.height;
+        let y = e.nativeEvent.contentOffset.y;
+        let height = e.nativeEvent.layoutMeasurement.height;
+        if (scrollH - height < y) {
+            this._onEndfresh();
+        }
     }
 
     /**
@@ -189,6 +219,11 @@ export default class Home extends Component {
         return titleJson.map((item, index) => {
             return (<View style={homeStyle.pageStyle} key={index}>
                 <ScrollView
+                    ref={"totop"}
+                    onScroll={(e) => {
+                        this.handleScroll(e)
+                    }
+                    }
                     refreshControl={<RefreshControl
                         refreshing={this.state.isRef}
                         onRefresh={
@@ -234,6 +269,7 @@ export default class Home extends Component {
         return (
             <View style={[homeStyle.barOuter]}>
                 <View style={[homeStyle.barTitle]}>
+                    {/*搜索*/}
                     <TouchableOpacity onPress={() => {
                         this.setState({
                             isPage: false
@@ -241,8 +277,17 @@ export default class Home extends Component {
                     }}>
                         <Image style={homeStyle.search}
                                source={require('../resources/images/icon/search.png')}/></TouchableOpacity>
+                    {/*标题栏*/}
                     {this.homTitle()}
-                    <Image style={homeStyle.search} source={require('../resources/images/icon/comment.png')}/>
+                    {/*上传视频*/}
+                    <TouchableOpacity
+                        onPress={
+                            () => {
+                                Actions.uploadVideo();
+                            }
+                        }>
+                        <Image style={homeStyle.search} source={require('../resources/images/icon/came.png')}/>
+                    </TouchableOpacity>
                 </View>
                 <ViewPagerAndroid
                     ref="viewPage"
@@ -265,14 +310,21 @@ export default class Home extends Component {
 
     isSearch() {
         return (<View style={[homeStyle.barOuter]}>
-
             <View style={{flex: 1, flexDirection: "row"}}>
                 <View style={{flex: 1}}>
                     <TouchableOpacity onPress={() => {
+                        this.setState({
+                            isPage: true
+                        });
                     }}>
-                        <Image style={homeStyle.search}
-                               source={require('../resources/images/icon/search.png')}/></TouchableOpacity>
+                        <Text style={{
+                            // backgroundColor: "#ff5fb2",
+                            height: 50,
+                            textAlign: 'center',
+                            textAlignVertical: "center"
+                        }}>取消</Text></TouchableOpacity>
                 </View>
+                {/*搜索*/}
                 <View style={{flex: 5}}>
                     <TextInput
                         ref={'InputText'}
@@ -287,19 +339,23 @@ export default class Home extends Component {
                 </View>
                 <View style={{flex: 1}}>
                     <TouchableOpacity onPress={() => {
-                        this.setState({
-                            isPage: true
-                        });
                     }}>
                         <Text style={{
                             // backgroundColor: "#ff5fb2",
                             height: 50,
                             textAlign: 'center',
-                            textAlignVertical: "center"
-                        }}>取消</Text></TouchableOpacity>
+                            textAlignVertical: "center",
+                            borderLeftColor: "#6a6e6d",
+                            borderBottomColor: "#6a6e6d",
+                            borderBottomWidth: 1,
+                            borderLeftWidth: 1
+                        }}>确认</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <View style={{flex: 9, backgroundColor: "#ff5fb2"}}>
+            <View style={{
+                flex: 9,
+            }}>
                 <Text>{this.state.defaultSearch}</Text>
             </View>
         </View>)
@@ -307,6 +363,7 @@ export default class Home extends Component {
 
     render() {
         return (<View style={[homeStyle.barOuter]}>
+                {/*是否渲染搜索页面*/}
                 {this.state.isPage ? this.isVideoView() : this.isSearch()}
             </View>
         )
@@ -325,10 +382,9 @@ const homeStyle = StyleSheet.create({
         height: 50,
         textAlign: "center",
         textAlignVertical: "center"
-
     },
     search: {
-        height: 50,
+        height: 40,
         width: 40
     },
     barOuter: {

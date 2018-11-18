@@ -14,5 +14,12 @@ export const url = {
     URL_COLLECTIONS: '/user/collections',
     URL_UPLOADVIDEO: '/user/video',
     URL_COMMENT: "/comment",
-    URL_HOME:"/home"
+    URL_HOME: "/home",
+    //验证用户名是否正确
+    URL_USERNAME: "/register/username",
+    //获取验证码
+    URL_EMAILCODE: '/forgetPassword/code',
+    //修改密码
+    URL_FORGET: "/forgetPassword"
+
 }
