@@ -69,8 +69,7 @@ async function initialRequest(options) {
                     resolve(response.data)
                 }
                 // 把请求到的数据发到引用请求的地方
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.log("请求异常",error.request);
                 console.log("返回异常",error.response);
                 if (error.response.status === 400) { //400状态码,一些正常的响应

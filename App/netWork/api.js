@@ -65,3 +65,15 @@ export function getUserFollowList() {
 export function upLoadVideo(params) {
     return HttpUtil.upload(url.URL_UPLOADVIDEO,params)
 }
+export function playerCountAdd(params){
+    return HttpUtil.put(url.URL_PUT_PLAYERCOUNT+params) 
+}
+export function praiseVideo(params){
+    return HttpUtil.put(url.URL_PUT_PRAISEVIDEO+params) 
+}
+export function trampleVideo(params){
+    return HttpUtil.put(url.URL_PUT_TRAMPLEVIDEO+params) 
+}
+export function followUser(params){
+    return HttpUtil.put(url.URL_PUT_FOLLOW+params) 
+}

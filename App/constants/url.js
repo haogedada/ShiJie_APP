@@ -13,4 +13,8 @@ export const url = {
     URL_USERHOME: '/user/userhome',
     URL_COLLECTIONS: '/user/collections',
     URL_UPLOADVIDEO:'/user/video',
+    URL_PUT_PLAYERCOUNT:'/video/playcount/',
+    URL_PUT_PRAISEVIDEO:'/video/top/',
+    URL_PUT_TRAMPLEVIDEO:'/video/trample/',
+    URL_PUT_FOLLOW:'/user/follow/',
 }

@@ -10,8 +10,6 @@ export default class Error extends Component {
         super(props);
 
     }
-
-
     render() {
         return (
             <View>

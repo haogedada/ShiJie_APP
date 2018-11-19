@@ -22,6 +22,9 @@ export default class Home extends Component {
     showProgressBar(){
         this.refs.RNProgressDialog && this.refs.RNProgressDialog.showProgressBar()
     }
+    showVideoLoad(){
+        this.refs.RNVideoLoad && this.refs.RNVideoLoad.showVideoLoad()
+    }
  
     _sure=()=>{
       Alert.alert('点击了确定')
@@ -41,14 +44,15 @@ export default class Home extends Component {
                         dissmissClick={() => { this._cancel() }}/>
                  <RNProgressDialog ref='RNProgressDialog' content={'上传中'} 
                  dissmissClick={() => { this._cancel() }} progress={0.3} btnTxt={'取消'}/>
+                
+                 <RNVideoLoad ref='RNVideoLoad' />
                     <Text style={styles.welcome} onPress={() => this._show()}>
                         点我->弹出框 </Text>
-                         <Text style={styles.welcome} onPress={() => this.showLoad()}>
+                         <Text style={styles.welcome} onPress={() => this.showVideoLoad()}>
                          点我->加载框 </Text>
                          <Text style={styles.welcome} onPress={() => this.showProgressBar()}>
                          点我->进度框 </Text>
                          </View>
-                         
         )
     }
 }

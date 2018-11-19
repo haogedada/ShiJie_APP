@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  Alert
 } from 'react-native';
 import Video from 'react-native-video'
 import { Actions } from 'react-native-router-flux'
@@ -16,6 +17,8 @@ let {
   height
 } = Dimensions.get('window');
 import { scaleFont, scaleSize } from './../../util/Adaptive'
+import {playerCountAdd,praiseVideo,trampleVideo,followUser
+} from '../../netWork/api'
 export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +26,10 @@ export default class VideoPlayer extends Component {
       isPlay: true,
       _index: this.props._index,
       currentPage: this.props.currentPage,
+      praiseNum:this.props.video.videoTipNum,
+      trampleNum:this.props.video.videoTrampleNum,
+      commentNum:0,
+      videoId:this.props.video.videoId,
     };
     this.loadStart = this.loadStart.bind(this);
     this.setDuration = this.setDuration.bind(this);
@@ -31,6 +38,7 @@ export default class VideoPlayer extends Component {
     this.videoError = this.videoError.bind(this);
     this.listenerCurrentPage = this.listenerCurrentPage.bind(this)
     this.initData = this.initData.bind(this)
+    this.onBuffer = this.onBuffer.bind(this)
   }
   componentWillMount() {
     this.initData()
@@ -59,33 +67,55 @@ export default class VideoPlayer extends Component {
       }
     })
   }
+  showVideoLoad(){
+    this.refs.RNVideoLoad && this.refs.RNVideoLoad.showVideoLoad()
+}
+dissmissVideoLoad(){
+   this.refs.RNVideoLoad && this.refs.RNVideoLoad.dissmiss(0.5)
+}
   loadStart() {
-    console.log('视频开始加载');
-    console.log(this.props)
+    //console.log('视频开始加载');
+    if(this.state.currentPage===this.state._index){
+      this.showVideoLoad()
+    }
   }
   setDuration(value) {
-    //console.log('视频加载完成，即将播放');
-    //console.log(value.duration)
+   // console.log('视频加载完成，即将播放');
+  //  console.log(value.duration)
+  if(this.state.currentPage===this.state._index){
+    this.showVideoLoad()
   }
-  setTime({
-    currentTime,
-    playableDuration,
-    seekableDuration
-  }) {
+  }
+  setTime(e) {
    // console.log('setTime');
    // console.log(currentTime, playableDuration, seekableDuration);
+   if(this.state.currentPage===this.state._index){
+    this.dissmissVideoLoad()
+  }
   }
   onEnd() {
-    //console.log('视频播放完成');
+    console.log('视频播放完成');
+   playerCountAdd(this.state.videoId).then(resp=>{
+     if(resp ===200){
+       console.log('播放视频一次');
+       
+     }
+   })
+   
   }
   videoError() {
    // console.log('视频播放出错');
+   Alert.alert('视频播放出错')
   }
   onBuffer() {
-    //console.log('视频正在缓冲');
+   // console.log('视频正在缓冲');
+    if(this.state.currentPage===this.state._index){
+      this.showVideoLoad()
+    }
   }
+  
   render() {
-    let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/paus.png')} />)
+    let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/player.png')} />)
     let videoPlayer = (<TouchableOpacity
       activeOpacity={0.9}
       style={styles.backgroundVideo}
@@ -138,9 +168,6 @@ export default class VideoPlayer extends Component {
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/collect_white.png')} />
-              <Text style={styles.msgNumberStyle}>
-                {12345 > 10000 ? (((12345 - 12345 % 1000) / 10000 + 'W')) : (12345)}
-              </Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -156,27 +183,42 @@ export default class VideoPlayer extends Component {
           </View>
           <View>
             <TouchableOpacity onPress={() => {
-              alert('点击赞')
-            }}>
+              //赞一下
+            let _praiseNum = this.state.praiseNum
+            this.setState({praiseNum:this.state.praiseNum+1})
+             praiseVideo(this.state.videoId).then(resp=>{
+               if(resp.code!=200){
+                this.setState({praiseNum:_praiseNum})
+               }
+             })
+            } 
+            }>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/top_140.png')} />
               <Text style={styles.msgNumberStyle}>
-                {(this.props.video.videoTipNum) > 10000 ?
-                  ((((this.props.video.videoTipNum) - (this.props.video.videoTipNum) % 1000) / 10000 + 'W')) :
-                  ((this.props.video.videoTipNum))}
+                {(this.state.praiseNum) > 10000 ?
+                  ((((this.state.praiseNum) - (this.state.praiseNum) % 1000) / 10000 + 'W')) :
+                  ((this.state.praiseNum))}
               </Text>
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => {
-              alert('点击踩')
+              //踩一下
+            let _trampleNum = this.state.trampleNum
+            this.setState({trampleNum:this.state.trampleNum+1})
+            trampleVideo(this.state.videoId).then(resp=>{
+               if(resp.code!=200){
+                this.setState({trampleNum:_trampleNum})
+               }
+             })
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/trample_140.png')} />
               <Text style={styles.msgNumberStyle}>
-                {(this.props.video.videoTrampleNum) > 10000 ?
-                  ((((this.props.video.videoTrampleNum) - (this.props.video.videoTrampleNum) % 1000) / 10000 + 'W')) :
-                  ((this.props.video.videoTrampleNum))}
+                {(this.state.trampleNum) > 10000 ?
+                  ((((this.state.trampleNum) - (this.state.trampleNum) % 1000) / 10000 + 'W')) :
+                  ((this.state.trampleNum))}
               </Text>
             </TouchableOpacity>
           </View>
@@ -184,15 +226,21 @@ export default class VideoPlayer extends Component {
         </View>
         <View style={styles.leftMsgStyle}>
           <TouchableOpacity onPress={() => {
-            alert('点击头像')
+           followUser(this.props.video.userId).then(resp=>{
+             if(resp.code===200){
+               Alert.alert('关注成功')
+             }else{
+              Alert.alert(resp.msg)
+             }
+           })
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
-              source={require('./../../resources/images/icon/header.png')} />
+              source={{uri:this.props.video.userBean.headimgUrl}} />
           </TouchableOpacity>
           <Image style={styles.addConcernStyle}
             source={require('./../../resources/images/icon/add_concern.png')} />
           <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: -30 }]}
-            numberOfLines={1}>@名字再取{}</Text>
+            numberOfLines={1}>{this.props.video.userBean.userNickname}</Text>
           <Text style={styles.videoContentStyle}
             numberOfLines={5}>{this.props.video.videoContent}</Text>
         </View>
@@ -204,6 +252,7 @@ export default class VideoPlayer extends Component {
       </View></View>)
     return (
       <View style={styles.container}>
+        <RNVideoLoad ref='RNVideoLoad' />
         {(this.state.currentPage >= this.state._index -1) &&
           (this.state.currentPage <= this.state._index + 1)
           ? videoPlayer : noRenderVideo

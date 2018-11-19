@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, DeviceEventEmitter } from "react-native"
 import { Actions } from 'react-native-router-flux'
-
 const { height, width } = Dimensions.get("window");
 export default class ShowDatils extends Component {
   constructor(props) {
@@ -10,18 +9,19 @@ export default class ShowDatils extends Component {
 
   showDetails() {
     let data = this.props.data.list;
-    // console.log("data数据:", data);
     let dataList = [];
     let userDate = [];
+    let videoList = []
+    data.forEach(element => {
+      videoList.push(element.videoBean)
+    });
     return data.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
           <TouchableOpacity onPress={() => {
-            Actions.ClickVideoShowDetails();
+            Actions.video({ 'index': index+1,'videoList':videoList});
             DeviceEventEmitter.emit("left", data);
           }}>
-            {/* <Text>昵称:{item.videoBean.userBean.userNickname}</Text> */}
-            {/* <Text>描述:{item.videoBean.videoContent}</Text> */}
             <Text style={styles.titleStyle}>{item.videoBean.videoTitle}</Text>
             <View style={styles.imageBoxStyle}>
               <Image style={styles.ImageStyle}
@@ -29,7 +29,6 @@ export default class ShowDatils extends Component {
                 resizeMode='cover' />
             </View>
             <View style={styles.msgStyle}>
-
               <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/eye.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />

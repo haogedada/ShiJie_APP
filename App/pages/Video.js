@@ -76,7 +76,7 @@ export default class Video extends Component {
                     style={{ height: height ,backgroundColor: '#464748'}}
                     ref={viewPager => { this.viewPager = viewPager; }}
                     onPageSelected={this._onPageSelected}
-                    pageMargin={10}
+                    pageMargin={5}
                     peekEnabled={true}
                 >
                     {this._renderPagers()}
