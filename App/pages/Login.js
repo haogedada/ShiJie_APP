@@ -3,7 +3,6 @@ import {
     Text, View, TextInput, findNodeHandle,
     Dimensions, Image, StyleSheet, Button, Alert, DeviceEventEmitter
 } from 'react-native'
-import {BlurView} from 'react-native-blur';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 //网络请求
 import { login } from '../netWork/api'
