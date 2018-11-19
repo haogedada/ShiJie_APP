@@ -3,7 +3,8 @@ import Storage from '../util/AsyncStorageUtil'
 import CryptoJS from 'crypto-js'
 import {key} from '../constants/base64Key'
 import {Actions} from 'react-native-router-flux'
-import {Alert,DeviceEventEmitter} from 'react-native'
+import {Alert, DeviceEventEmitter} from 'react-native'
+
 var HTTPUtil = {};
 
 /**
@@ -72,8 +73,8 @@ async function initialRequest(options) {
                 // 把请求到的数据发到引用请求的地方
             })
             .catch(error => {
-                console.log("请求异常",error.request);
-                console.log("返回异常",error.response);
+                console.log("请求异常", error.request);
+                console.log("返回异常", error.response);
                 if (error.response.status === 400) { //400状态码,一些正常的响应
                     if (error.response.msg === "Missing request header 'Authorization' for method parameter of type String") {
                         Actions.notLogin()
@@ -138,10 +139,10 @@ HTTPUtil.upload = (url, data) => {
     let options = {
         url: url,
         method: method,
-        data: data, 
+        data: data,
         onUploadProgress: progressEvent => {
             let complete = (progressEvent.loaded / progressEvent.total * 100 | 0)
-            DeviceEventEmitter.emit('uploadProgress',complete)
+            DeviceEventEmitter.emit('uploadProgress', complete)
         }
     }
     return initialRequest(options)
