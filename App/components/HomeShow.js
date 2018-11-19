@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, Text, PanResponder, Button, Image, FlatList, Dimensions, StyleSheet, TouchableOpacity} from 'react-native'
-import {PullList, PullView} from 'react-native-pullview'
 import {getVideoTypesCount, getTypes} from '../netWork/api'
 
 export default class HomeShow extends Component {
@@ -11,7 +10,6 @@ export default class HomeShow extends Component {
             page: 1
         }
     }
-
 
     render() {
         return (
