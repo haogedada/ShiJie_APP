@@ -3,10 +3,65 @@ import {
   Text, View, Button, DeviceEventEmitter, StyleSheet, TextInput,
   Image, Alert, TouchableOpacity
 } from 'react-native'
+import ActionSheet from 'react-native-actionsheet'
 import { upLoadVideo } from '../netWork/api'
 import FileUtil from '../util/FileUtil'
 import ImagePicker from 'react-native-image-picker'
 
+const types = [
+  {
+    type: 'sociology',
+    content : '社会'
+  },
+  {
+    type: 'world',
+    content : '世界'
+  },
+  {
+    type: 'sports',
+    content : '体育'
+  },
+  {
+    type: 'life',
+    content : '生活'
+  },
+  {
+    type: 'tech',
+    content : '科技'
+  },
+  {
+    type: 'entertainment',
+    content : '娱乐'
+  },
+  {
+    type: 'movie',
+    content : '电影'
+  },
+  {
+    type: 'auto',
+    content : '汽车'
+  },
+  {
+    type: 'taste',
+    content : '美食'
+  },
+  {
+    type: 'music',
+    content : '音乐'
+  },
+  {
+    type: 'business',
+    content : '商业'
+  },
+  {
+    type: 'hot',
+    content : '热门'
+  },
+  {
+    type: '',
+    content : '取消'
+  }
+]
 export default class UploadVideo extends Component {
   constructor(props) {
     super(props)
@@ -14,22 +69,46 @@ export default class UploadVideo extends Component {
       videoSource: ' ',
       videoTitle: ' ',
       videoContent: ' ',
-      videoType: ' ',
-      VideoCoverfile: require('./../resources/images/icon/header.png'),
+      videoType: '',
+      VideoCoverfile: require('./../resources/images/icon/cover.png'),
       isSelectImg: false,
-      isSelectVideo: false
+      isSelectVideo: false,
+      progress: 0,
+      curveContent: '',
     }
     this.subUploadVideo = this.subUploadVideo.bind(this)
     this.selectImg = this.selectImg.bind(this)
+    this.listenerSelectVideo = this.listenerSelectVideo.bind(this)
+    this.listenerUploadProgress = this.listenerUploadProgress.bind(this)
   }
   componentDidMount() {
+    this.listenerSelectVideo()
+    this.listenerUploadProgress()
+  }
+  componentWillUnmount() {
+    DeviceEventEmitter.removeListener('selectVideo')
+    DeviceEventEmitter.removeListener('uploadProgress')
+  }
+  listenerSelectVideo() {
     DeviceEventEmitter.addListener('selectVideo', (videoPath) => {
       this.setState({ videoSource: videoPath, isSelectVideo: true })
     })
   }
-  componentWillUnmount() {
-    DeviceEventEmitter.removeListener('selectVideo')
+  listenerUploadProgress() {
+    DeviceEventEmitter.addListener('uploadProgress', (_progress) => {
+      this.setState({ progress: _progress })
+    })
   }
+  showProgressBar(){
+    this.refs.RNProgressDialog && this.refs.RNProgressDialog.showProgressBar()
+}
+dissmissProgressBar(){
+  this.refs.RNProgressDialog && this.refs.RNProgressDialog.dissmiss(0.5);
+}
+ProgressBarCancel(){
+  this.dissmissProgressBar()
+  return
+}
   subUploadVideo() {
     if (this.state.videoTitle.includes(' ') ||
       this.state.videoContent.includes(' ') ||
@@ -39,21 +118,22 @@ export default class UploadVideo extends Component {
     }
     if (this.state.isSelectVideo) {
       var formData = new FormData();
-      if (this.state.isSelectImg) {
-        formData.append("coverfile", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
-      }
       formData.append("title", this.state.videoTitle);
       formData.append("content", this.state.videoContent);
-      formData.append("type", this.state.videoType);
       formData.append('file', FileUtil.creatFile(this.state.videoSource, 'uploadvideo'));
+      if (this.state.isSelectImg) {
+        formData.append("file", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
+      }
+      formData.append("type", this.state.videoType);
+      this.showProgressBar()
       upLoadVideo(formData).then(res => {
         if (res.code === 200) {
-          Alert.alert('上传成功')
+          this.dissmissProgressBar();
+          alert('上传成功')
         }
       })
     } else {
-      Alert.alert('请选择视频')
-      return
+      Alert.alert('你没有选择视频')
     }
   }
   selectImg() {
@@ -96,41 +176,60 @@ export default class UploadVideo extends Component {
         <View style={styles.form_title}>
           <Text style={{ fontSize: 18 }}>上传自己美好的一瞬间</Text>
         </View>
+        <View style={styles.form_row}>
+          <TextInput placeholder='请输入你的视频名称'
+            onChangeText={(value) => { this.setState({ videoTitle: value }) }}
+            style={{borderWidth: .3,
+                    borderRadius: 3}} />
+        </View>
+        <View style={styles.form_row}>
+          <TextInput placeholder='请描述你的视频'
+            onChangeText={(value) => { this.setState({ videoContent: value }) }}
+            multiline
+            style={{height: 160,
+                    borderWidth: .3,
+                    textAlignVertical: 'top',
+                    borderRadius: 3}} />
+        </View>
         <TouchableOpacity onPress={this.selectImg}>
           <Image style={{ width: 70, height: 70 }} source={this.state.VideoCoverfile} />
-          <Text>选择视频封面图片(可选)</Text>
         </TouchableOpacity>
         <View style={styles.form_row}>
-          <Text>视频标题</Text>
-          <TextInput placeholder='请输入你的视频'
-            onChangeText={(value) => { this.setState({ videoTitle: value }) }} />
+            {this.state.videoType === '' ?
+            <Text style={[styles.typeFontStyle, {width: 135}]} onPress={() => { this.ActionSheet.show() }}>请选择视频类型</Text>:
+            <Text style={styles.typeFontStyle} onPress={() => { this.ActionSheet.show() }}>{this.state.curveContent}</Text>}
         </View>
-        <View style={styles.form_row}>
-          <Text>视频类型(例如热门,娱乐)</Text>
-          <TextInput placeholder='请选择分类'
-            onChangeText={(value) => { this.setState({ videoType: value }) }} />
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          title={'选择'}
+          options={types.map((value) =>  value.content)}
+          cancelButtonIndex={12}
+          onPress={(index) => {
+            this.setState({videoType: types[index].type, curveContent: types[index].content})
+          }}
+        />
+        <RNProgressDialog ref='RNProgressDialog' content='上传中...'
+          dissmissClick={() => { this.ProgressBarCancel() }} progress={this.state.progress}/>
+        <View style={{marginTop: 30}}>
+          <Button title='上传' onPress={this.subUploadVideo} />
         </View>
-        <View style={styles.form_row}>
-          <Text>视频内容</Text>
-          <TextInput placeholder='请描述你的视频'
-            onChangeText={(value) => { this.setState({ videoContent: value }) }} />
-        </View>
-        <View><Button title='上传' onPress={this.subUploadVideo} /></View>
       </View>
     )
   }
 }
 const styles = StyleSheet.create({
   form: {
-    flexDirection: 'column'
+    flex: 1,
+    flexDirection: 'column',
+    padding: 20,
+    backgroundColor: '#fff'
   },
   form_title: {
     alignItems: 'center',
-    paddingBottom: 40,
-    paddingTop: 60,
+    marginBottom: 30
   },
   form_row: {
-    flexDirection: 'row'
+    marginVertical: 10
   },
   imgBox: {
     alignItems: 'center',
@@ -138,6 +237,14 @@ const styles = StyleSheet.create({
   imgStyle: {
     width: 80,
     height: 80
+  },
+  typeFontStyle: {
+    backgroundColor: '#259de6',
+    borderRadius: 25,
+    lineHeight: 30,
+    color: '#fff',
+    width: 50,
+    textAlign: 'center'
   }
 })
 

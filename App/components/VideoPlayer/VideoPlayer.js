@@ -30,19 +30,33 @@ export default class VideoPlayer extends Component {
     this.onEnd = this.onEnd.bind(this);
     this.videoError = this.videoError.bind(this);
     this.listenerCurrentPage = this.listenerCurrentPage.bind(this)
+    this.initData = this.initData.bind(this)
   }
   componentWillMount() {
+    this.initData()
     this.listenerCurrentPage()
   }
   componentDidMount() {
+    this.initData()
     this.listenerCurrentPage()
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('ChangeCurrentPage')
   }
+  initData() {
+    if (this.state.currentPage === this.state._index) {
+      this.setState({ isPlay: true })
+    }else{
+      this.setState({ isPlay: false })
+    }
+  }
   listenerCurrentPage() {
     DeviceEventEmitter.addListener('ChangeCurrentPage', (currentPage) => {
-      this.setState({ currentPage: currentPage })
+      if (currentPage === this.state._index) {
+        this.setState({ isPlay: true ,currentPage: currentPage})
+      }else{
+        this.setState({isPlay:false})
+      }
     })
   }
   loadStart() {
@@ -50,28 +64,28 @@ export default class VideoPlayer extends Component {
     console.log(this.props)
   }
   setDuration(value) {
-    console.log('视频加载完成，即将播放');
-    console.log(value.duration)
+    //console.log('视频加载完成，即将播放');
+    //console.log(value.duration)
   }
   setTime({
     currentTime,
     playableDuration,
     seekableDuration
   }) {
-    console.log('setTime');
-    console.log(currentTime, playableDuration, seekableDuration);
+   // console.log('setTime');
+   // console.log(currentTime, playableDuration, seekableDuration);
   }
   onEnd() {
-    console.log('视频播放完成');
+    //console.log('视频播放完成');
   }
   videoError() {
-    console.log('视频播放出错');
+   // console.log('视频播放出错');
   }
   onBuffer() {
-    console.log('视频正在缓冲');
+    //console.log('视频正在缓冲');
   }
   render() {
-    let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/player.png')} />)
+    let puasImg = (<Image style={styles.pauseImg} source={require('../../resources/images/icon/paus.png')} />)
     let videoPlayer = (<TouchableOpacity
       activeOpacity={0.9}
       style={styles.backgroundVideo}
@@ -79,8 +93,7 @@ export default class VideoPlayer extends Component {
         this.setState({
           isPlay: !this.state.isPlay,
         })
-      }}
-    >
+      }}>
       <Video
         source={{ uri: this.props.video.videoUrl }} // 视频的URL地址，或者本地地址，都可以.
         ref='player'
@@ -191,9 +204,10 @@ export default class VideoPlayer extends Component {
       </View></View>)
     return (
       <View style={styles.container}>
-        {this.state.currentPage === this.state._index ?
-          videoPlayer : noRenderVideo}
-      </View>
+        {(this.state.currentPage >= this.state._index -1) &&
+          (this.state.currentPage <= this.state._index + 1)
+          ? videoPlayer : noRenderVideo
+        }</View>
     );
   }
 }

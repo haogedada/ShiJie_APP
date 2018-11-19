@@ -73,7 +73,7 @@ export default class Video extends Component {
             <View>
                 <ViewPagerAndroid
                     initialPage={this.props.index}
-                    style={{ height: height }}
+                    style={{ height: height ,backgroundColor: '#464748'}}
                     ref={viewPager => { this.viewPager = viewPager; }}
                     onPageSelected={this._onPageSelected}
                     pageMargin={10}
@@ -90,5 +90,5 @@ Video.propTypes={
     videoList:PropTypes.arrayOf(PropTypes.object)
 }
 const styles = StyleSheet.create({
-
+    
 });
