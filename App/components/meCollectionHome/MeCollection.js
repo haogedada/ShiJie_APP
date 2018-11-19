@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Image, Dimensions, TouchableOpacity, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 import { getCollections } from "../../netWork/api";
 const { width, height } = Dimensions.get('window')
-
+import {Actions} from 'react-native-router-flux'
 export default class MeCollection extends Component {
   constructor(props) {
     super(props);
@@ -36,12 +36,12 @@ export default class MeCollection extends Component {
   }
 
   loadingView() {
+    console.log("周仓：",this.state.coll);
     return this.state.coll.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
           <TouchableOpacity onPress={() => {
-            Actions.ClickVideoShowDetails();
-            DeviceEventEmitter.emit("left", data);
+            Actions.video({ 'index': index+1,'videoList':this.state.coll})
           }}>
             <Text style={styles.titleStyle}>{item.videoTitle}</Text>
             <View style={styles.imageBoxStyle}>

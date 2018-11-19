@@ -65,7 +65,8 @@ export default class Me extends Component {
     //作品
     getHome().then((req) => {
       this.setState({
-        home: req.data
+        home: req.data,
+        isRef: false
       });
     });
   }
@@ -99,10 +100,9 @@ export default class Me extends Component {
    */
   onRefreshLoading() {
     this.setState({ isRef: true });
-    setTimeout(() => {
-      console.log("等待2s");
-      this.setState({ isRef: false })
-    }, 2000);
+    this.loadMyVideo();
+   
+    
   }
 
   render() {

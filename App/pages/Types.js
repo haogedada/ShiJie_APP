@@ -112,7 +112,7 @@ export default class Classification extends Component {
      */
     userClickTypeTitle(clickTitle) {
         console.log("标题", clickTitle);
-        this.getTypesVideo({info: this.state.refCount, count: 4, type: clickTitle});
+        this.getTypesVideo({info: this.state.refCount, count: 10, type: clickTitle});
     }
 
     /**
@@ -166,11 +166,10 @@ export default class Classification extends Component {
             isRef: true,
             refCount: this.state.refCount + 1
         });
-        setTimeout(() => {
-            // console.log("等待2s");
-            this.getTypesVideo({info: this.state.refCount, count: 4, type: 'hot'})
+       
+            this.getTypesVideo({info: this.state.refCount, count: 10, type: 'hot'})
             this.setState({isRef: false})
-        }, 2000);
+      
     }
 
     /**
@@ -182,12 +181,9 @@ export default class Classification extends Component {
             isRef: true,
             refCount: this.state.refCount + 1
         });
-        setTimeout(() => {
-            // console.log("等待2s");
             this.userClickTypeTitle(this.state.typeNew);
             this.setState({isRef: false})
             this.refs.typsRef.scrollTo({x: 0, y: 0, animated: true});
-        }, 2000);
     }
 
     handleScroll(e) {
