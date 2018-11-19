@@ -70,7 +70,6 @@ export default class MeHome extends Component {
               <View style={[meHomeStyle.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoTime}</Text>
               </View>
-
             </View>
           </TouchableOpacity>
 
