@@ -23,7 +23,7 @@ import {
 import Storage from '../util/AsyncStorageUtil';
 import MeHome from '../components/meCollectionHome/MeHome';
 import MeCollection from '../components/meCollectionHome/MeCollection';
-import { scaleFont, scaleSize } from './../util/Adaptive'
+
 let {
   width,
   height
@@ -276,7 +276,7 @@ const meStyle = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 20,
     color: '#fff',
-    height: scaleSize(70),
-    lineHeight: scaleSize(70)
+    height: 40,
+    lineHeight: 40
   }
 });

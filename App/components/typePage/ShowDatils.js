@@ -3,9 +3,9 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, DeviceEven
 import { Actions } from 'react-native-router-flux'
 const { height, width } = Dimensions.get("window");
 export default class ShowDatils extends Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
   showDetails() {
     let data = this.props.data.list;

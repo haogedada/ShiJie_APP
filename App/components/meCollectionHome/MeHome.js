@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, ImageBackground, Text, TouchableOpacity, Image, Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
 import { getHome } from "../../netWork/api";
-import { Actions } from 'react-native-router-flux';
 const { width, height } = Dimensions.get('window')
 
 export default class MeHome extends Component {
@@ -43,41 +42,38 @@ export default class MeHome extends Component {
   }
 
   loadingView() {
-    return this.state.videoList.map((item, index) => {
+    return this.state.videoList.map(item => {
       return (
-        <View style={styles.showDatilsStyle} key={index}>
-
+        <View style={meHomeStyle.showDate}>
           <TouchableOpacity onPress={() => {
-            Actions.video({ 'index': index+1,'videoList':this.state.videoList});
           }}>
-            <Text style={styles.titleStyle}>{item.videoTitle}</Text>
-            <View style={styles.imageBoxStyle}>
-              <Image style={styles.ImageStyle}
-                source={{ uri: item.videoCoverUrl }}
-                resizeMode='cover' />
-            </View>
-            <View style={styles.msgStyle}>
-
-              <View style={styles.iconAndNumStyle}>
+            <Text style={{ fontSize: 16, marginBottom: 5 }}>{item.videoTitle}</Text>
+            <Image source={{ uri: item.videoCoverUrl }}
+              style={{ width: 0.85 * width, height: 180 }}
+              resizeMode='cover' />
+            <View style={meHomeStyle.videoMsgStyle}>
+              <View style={meHomeStyle.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/eye.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.playerCount}</Text>
+                <Text style={meHomeStyle.videoMsgFontStyle}>{item.playerCount}</Text>
               </View>
-              <View style={styles.iconAndNumStyle}>
+              <View style={meHomeStyle.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/top.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.videoTipNum}</Text>
+                <Text style={meHomeStyle.videoMsgFontStyle}>{item.videoTipNum}</Text>
               </View>
-              <View style={styles.iconAndNumStyle}>
+              <View style={meHomeStyle.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/trample.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.videoTrampleNum}</Text>
+                <Text style={meHomeStyle.videoMsgFontStyle}>{item.videoTrampleNum}</Text>
               </View>
-              <View style={[styles.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
+              <View style={[meHomeStyle.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoTime}</Text>
               </View>
+
             </View>
           </TouchableOpacity>
+
         </View>
       )
         ;
@@ -86,7 +82,7 @@ export default class MeHome extends Component {
 
   render() {
     return (
-      <View>
+      <View stylt={meHomeStyle.prevent}>
         {/*<Text>作品{this.state.homeData.nickName}</Text>*/}
         <ScrollView
           refreshControl={
@@ -106,39 +102,23 @@ export default class MeHome extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  showDatilsStyle: {
-    backgroundColor: '#fff',
-    padding: 10,
-    marginBottom: 10
+const meHomeStyle = StyleSheet.create({
+  showDate: {
+    borderRadius: 5,
+    width: width * 0.85,
+    marginTop: 25
   },
-  imageBoxStyle: {
-
-  },
-  ImageStyle: {
-    width: width - 20,
-    height: (width - 20) / 2,
-    borderRadius: 5
-  },
-  msgStyle: {
+  videoMsgStyle: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    marginTop: -35,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    height: 25,
+    marginTop: -25,
+    alignItems: 'center'
   },
-  textStyle: {
+  videoMsgFontStyle: {
+    fontSize: 15,
     color: '#fff',
-    lineHeight: 35,
-    fontSize: 16
-  },
-  titleStyle: {
-    color: '#fff',
-    fontSize: 18,
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1
+    lineHeight: 25
   },
   iconAndNumStyle: {
     flexDirection: 'row',

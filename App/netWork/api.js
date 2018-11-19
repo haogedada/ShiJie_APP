@@ -1,6 +1,22 @@
 import HttpUtil from './HttpUtil'
 import {url} from '../constants/url'
 
+export function forgetPassword(params) {
+    // console.log("参数", params);
+    return HttpUtil.put(url.URL_FORGET + "?username=" + params.username + "&password=" + params.password + "&code=" + params.code
+    )
+}
+
+export function verfly(params) {
+    // console.log("请求路劲:",url.URL_USERNAME, params);
+    return HttpUtil.get(url.URL_EMAILCODE, params)
+}
+
+export function getComment(params) {
+    return HttpUtil.post(url.URL_COMENT, params)
+
+}
+
 export function getHome() {
     return HttpUtil.get(url.URL_USERHOME);
 }
@@ -14,10 +30,13 @@ export function getTypes() {
 }
 
 export function getVideoTypesCount(params) {
-    return HttpUtil.get(url.URL_VIDEOTYPE, params);
+    return HttpUtil.get(url.URL_VIDEOTYPE + "/" + params.info + "&&" + params
+        .count + "?videoType=" + params.type
+    );
 }
 
-export function updateInfo(parms) {
+export function getHomeDate(parms) {
+    return HttpUtil.get(url.URL_HOME + "/" + parms + "&&4");
 }
 
 export function login(params) {
@@ -62,6 +81,7 @@ export function getUserFansList() {
 export function getUserFollowList() {
     return HttpUtil.get(url.URL_FOLLOWLIST)
 }
+
 export function upLoadVideo(params) {
     return HttpUtil.upload(url.URL_UPLOADVIDEO,params)
 }

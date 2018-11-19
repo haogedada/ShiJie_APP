@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import { Text, View, TextInput, findNodeHandle, 
-    Dimensions, Image, StyleSheet, Button ,Alert,DeviceEventEmitter} from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, {Component} from 'react'
+import {
+    Text, View, TextInput, findNodeHandle,
+    Dimensions, Image, StyleSheet, Button, Alert, DeviceEventEmitter
+} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 //网络请求
 import { login } from '../netWork/api'
 //请求网址
@@ -9,7 +11,6 @@ import { Actions } from 'react-native-router-flux'
 import Storage from '../util/AsyncStorageUtil'
 //警告
 import { prompt } from '../util/Warning'
-
 let { width, height } = Dimensions.get("window")
 class Login extends Component {
     constructor(props) {
@@ -58,18 +59,18 @@ class Login extends Component {
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token', res.data)
+                Storage.save('token',res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
                 this.setState({ modalVisible: false })
                 DeviceEventEmitter.emit('login')
                 Actions.me()
-            } if (res.code === 199) {
+            } if(res.code === 199){
                 this.setState({
                     userName: '',
                     passWord: ''
                 })
-                Storage.save('token', res.data)
+                Storage.save('token',res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
                 this.dissmissLoadDialog()
@@ -109,13 +110,15 @@ class Login extends Component {
                             placeholderTextColor='#d4d4d4' />
                     </View>
                     <View style={styles.tgLoginBtnStyle}>
-                        <Button style={styles.tgLoginBtnStyle}
-                            onPress={this.isInputEmpty}
+                        <Button style={styles.tgLoginBtnStyle} 
+                        onPress={this.isInputEmpty}
                             title='登          陆' />
                     </View>
                     <View style={styles.tgSettingStyle}>
-                        <Text style={{ color: '#fff' }}>忘记密码</Text>
-                        <Text style={{ color: '#fff' }} onPress={() => Actions.Register()}>新用户</Text>
+                        <Text style={{color: '#fff'}} onPress={() => {
+                            Actions.Forget();
+                        }}>忘记密码</Text>
+                        <Text style={{color: '#fff'}} onPress={() => Actions.Register()}>新用户</Text>
                     </View>
                 </View>
                 <RNAlertLoad ref='RNAlertLoad' content={'加载中...'}/>

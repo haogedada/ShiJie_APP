@@ -18,6 +18,7 @@ async function initialRequest(options) {
         let header;
         let isLogin = options.url.includes("login");
         let types = options.url.includes("videoType");
+        // let forgetPassword = options.url.includes("forgetPassword");
         if (token === null || token === " " || isLogin || types) {
             header = {
                 'Content-Type': 'multipart/form-data'
@@ -136,10 +137,10 @@ HTTPUtil.upload = (url, data) => {
     let options = {
         url: url,
         method: method,
-        data: data, 
+        data: data,
         onUploadProgress: progressEvent => {
             let complete = (progressEvent.loaded / progressEvent.total * 100 | 0)
-            DeviceEventEmitter.emit('uploadProgress',complete)
+            DeviceEventEmitter.emit('uploadProgress', complete)
         }
     }
     return initialRequest(options)

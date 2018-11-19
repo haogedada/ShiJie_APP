@@ -1,6 +1,5 @@
 import { DeviceEventEmitter } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
-import {Actions} from 'react-native-router-flux'
 
 export function loadData(key) {
   if (key === 'friends') {
@@ -29,10 +28,8 @@ function selectVideo() {
     videoQuality: 'medium'
   };
   ImagePicker.showImagePicker(options, (response) => {
-    console.log(response)
     if (response.didCancel) {
       console.log('用户取消选择视频');
-      // Actions.home()
       return
     }
     else if (response.error) {
