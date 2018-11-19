@@ -33,9 +33,8 @@ export default class Classification extends Component {
             showHidden: false,
             refCount: 1,
             typeNew: 'hot'
-
         }
-        this.getTypesVideo({info: 1, count: 4, type: this.state.typeNew});
+        this.getTypesVideo({info: 1, count: 10, type: this.state.typeNew});
     }
 
     componentWillMount() {

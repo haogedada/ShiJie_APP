@@ -86,7 +86,7 @@ export default class Home extends Component {
     homTitle() {
         let clickTitle = [];
         return titleJson.map((item, index) => {
-            return (<View style={homeStyle.titleView}>
+            return (<View style={homeStyle.titleView} key={index}>
                 <Text key={index.id} onPress={() => {
                     for (let i = 0; i < titleJson.length; i++) {
                         if (i === index) {
@@ -246,7 +246,7 @@ export default class Home extends Component {
         for (let i = this.state.clickSwitch; i < str.length; i++) {
             if (i === this.state.clickSwitch) {
                 return str[i].map((item, index) => {
-                    return (<View style={{
+                    return (<View key={index} style={{
                             borderBottomWidth: 2,
                             borderBottomColor: "#ee2115"
                         }}>
