@@ -26,7 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNSyanImagePickerPackage(),
-            new ImagePickerPackage()
+            new ImagePickerPackage(),
             new ReactVideoPackage()
       );
     }
