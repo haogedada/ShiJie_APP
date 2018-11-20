@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, ImageBackground, Text, TouchableOpacity, Image, Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
-import { getHome } from "../../netWork/api";
+import { View, ImageBackground, Text, TouchableOpacity, Image,Alert,
+   Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
+import { getHome,removeVideo } from "../../netWork/api";
 import { Actions } from 'react-native-router-flux';
 const { width, height } = Dimensions.get('window')
 
@@ -27,37 +28,53 @@ export default class MeHome extends Component {
       videoList = req.data.videos;
       this.setState({
         homeData: list,
-        videoList: videoList
+        videoList: videoList,
+        isRefreshing: false
       });
     });
   }
 
   _onRefresh() {
-    var self = this;
     this.setState({
       isRefreshing: true
     });
-    setTimeout(() => {
       this.getFetch();
-    }, 2000)
   }
 
   loadingView() {
     return this.state.videoList.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
-
           <TouchableOpacity onPress={() => {
             Actions.video({ 'index': index+1,'videoList':this.state.videoList});
           }}>
             <Text style={styles.titleStyle}>{item.videoTitle}</Text>
+            <TouchableOpacity onPress={()=>{
+                Actions.updateVideo({"videoBean":item});
+            }}>
+              <Text>修改</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+               Alert.alert('提示', '你确定要删除这个视频?',
+                [{text: '确定', onPress: () =>{
+                    removeVideo(item.videoId).then(res=>{
+                      if(res.code===200){
+                        Alert.alert('删除成功')
+                        Actions.me()
+                      }else{
+                        Alert.alert(res.msg)
+                      }
+                    })}}, 
+                {text: '取消', onPress: () =>{return}}])
+            }}>
+              <Text>删除</Text>
+            </TouchableOpacity>
             <View style={styles.imageBoxStyle}>
               <Image style={styles.ImageStyle}
                 source={{ uri: item.videoCoverUrl }}
                 resizeMode='cover' />
             </View>
             <View style={styles.msgStyle}>
-
               <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/eye.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />
@@ -77,6 +94,7 @@ export default class MeHome extends Component {
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoTime}</Text>
               </View>
             </View>
+            
           </TouchableOpacity>
         </View>
       )

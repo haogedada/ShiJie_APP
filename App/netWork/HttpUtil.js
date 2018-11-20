@@ -58,7 +58,7 @@ async function initialRequest(options) {
                     Storage.save('token', response.headers.Authorization)
                 }
                 if (response.data.code === 401) {
-                    Actions.notLogin()
+                    Actions.me()
                 }
                 try {
                     let data = response.data
@@ -74,12 +74,14 @@ async function initialRequest(options) {
                 console.log("请求异常",error.request);
                 console.log("返回异常",error.response);
                 if (error.response.status === 400) { //400状态码,一些正常的响应
-                    if (error.response.msg === "Missing request header 'Authorization' for method parameter of type String") {
-                        Actions.notLogin()
+                    if (error.response.data.msg.includes("Missing request header 'Authorization' for method parameter of type String")) {
+                        Alert.alert('你还没有登录!\n请登录')
+                        Actions.me()
+                        reject(error)
                     }
                     resolve(error.response.data)
-                } else if (error.request.code === 401) {
-                    Actions.notLogin()
+                } else if (error.response.data.code === 401) {
+                    Actions.me()
                 } else if (error.request) {
                     // 发送请求但是没有响应返回
                     console.log(error.request);

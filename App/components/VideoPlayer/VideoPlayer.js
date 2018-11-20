@@ -18,7 +18,7 @@ let {
 } = Dimensions.get('window');
 // let comment = null
 import { scaleFont, scaleSize } from './../../util/Adaptive'
-import {playerCountAdd,praiseVideo,trampleVideo,followUser,getComment
+import {playerCountAdd,praiseVideo,trampleVideo,followUser,getComment,collectVideo
 } from '../../netWork/api'
 export default class VideoPlayer extends Component {
   constructor(props) {
@@ -109,11 +109,10 @@ dissmissVideoLoad(){
   }
   }
   onEnd() {
-    console.log('视频播放完成');
+    //console.log('视频播放完成');
    playerCountAdd(this.state.videoId).then(resp=>{
      if(resp ===200){
-       console.log('播放视频一次');
-       
+       console.log('播放视频了一次');
      }
    })
    
@@ -179,7 +178,13 @@ dissmissVideoLoad(){
         <View style={{ alignItems: 'flex-end', top: scaleSize(400) }}>
           <View>
             <TouchableOpacity onPress={() => {
-              alert('点击收藏')
+            collectVideo(this.state.videoId).then(res=>{
+              if(res.code===200){
+              Alert.alert("收藏成功")
+              }else{
+                Alert.alert(res.msg)
+              }
+            })
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/collect_white.png')} />
@@ -336,11 +341,13 @@ const styles = StyleSheet.create({
   headerStyle: {
     width: scaleSize(70),
     height: scaleSize(70),
-    margin: 20
+    margin: 20,
+    borderRadius: 50
   },
   addConcernStyle: {
     width: scaleSize(40),
     height: scaleSize(40),
     top: scaleSize(-53),
+    left: scaleSize(48)
   }
 });

@@ -15,11 +15,8 @@ import {
     ViewPagerAndroid
 } from 'react-native'
 import {Actions} from 'react-native-router-flux'
-import Storagge from '../util/AsyncStorageUtil'
 import {getHomeDate} from "../netWork/api"
-import HomeShow from '../components/HomeShow'
-import Error from '../components/typePage/error'
-
+import {loadData} from '../util/LoadDataUtil'
 const {width, height} = Dimensions.get("window");
 const titleJson = [{
     id: 0,
@@ -283,6 +280,7 @@ export default class Home extends Component {
                     <TouchableOpacity
                         onPress={
                             () => {
+                                loadData('uploadVideo')
                                 Actions.uploadVideo();
                             }
                         }>

@@ -98,3 +98,15 @@ export function getComment(videoId) {
 export function commentVideo(videoId, params) {
   return HttpUtil.post(url.URL_COMMENTVIDEO+videoId, params)
 }
+export function collectVideo(params){
+    return HttpUtil.post(url.URL_COLLECT_VIDEO+params) 
+}
+export function cancelCollectVideo(params){
+    return HttpUtil.delete(url.URL_COLLECT_VIDEO+params) 
+}
+export function modifyVideo(params){
+    return HttpUtil.upload(url.URL_MODIFY_VIDOE,params) 
+}
+export function removeVideo(params){
+    return HttpUtil.delete(url.URL_REMOVE_VIDEO+params) 
+}

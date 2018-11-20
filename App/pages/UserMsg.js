@@ -14,11 +14,11 @@ class UserMsg extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      headerPath: require('./../resources/images/icon/header.png'),
-      nickname: ' ',
-      sex: ' ',
-      birthday: ' ',
-      sign: ' ',
+      headerPath: {uri: this.props.userInfo.headimgUrl },
+      nickname: this.props.userInfo.userNickname,
+      sex:this.props.userInfo.userSex,
+      birthday:this.props.userInfo.userBirthday,
+      sign: this.props.userInfo.bardianSign,
       prompt: ' ',
       isSelect: false,
       progress: 0,
@@ -26,20 +26,6 @@ class UserMsg extends Component {
     this.submitMsg = this.submitMsg.bind(this)
     this.handleSelectImg = this.handleSelectImg.bind(this)
     this.listenerUploadProgress = this.listenerUploadProgress.bind(this)
-  }
-  componentWillMount() {
-    getUserInfo().then(userInfo => {
-      if (userInfo.data) {
-        _userInfo = userInfo.data;
-        this.setState({
-          headerPath: { uri: _userInfo.headimgUrl },
-          nickname: _userInfo.userNickname,
-          sex: _userInfo.userSex,
-          birthday: _userInfo.userBirthday,
-          sign: _userInfo.bardianSign
-        })
-      }
-    })
   }
   componentDidMount() {
     this.listenerUploadProgress()

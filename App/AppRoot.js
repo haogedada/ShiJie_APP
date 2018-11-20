@@ -17,11 +17,10 @@ import Home from './pages/Home';
 import Types from './pages/Types';
 import UploadVideo from './pages/UploadVideo';
 import Friend from './pages/Friend';
-import NotLogin from './pages/NotLogin';
 import Me from './pages/Me';
 import MeInfo from './pages/MeInfo'
 import CustomNavBarView from './components/CustomNavBarView';
-import UpdateInfo from './pages/UpdateInfo'
+import UpdateVideo from './pages/UpdateVideo'
 import UserMsg from './pages/UserMsg'
 import Video from './pages/Video'
 import {loadData} from './util/LoadDataUtil'
@@ -36,19 +35,17 @@ class AppRoot extends Component {
     super(props);
   }
 
-  createReducer(params) {
-    const defaultReducer = Reducer(params);
-    return (state, action) => {
-      this.props.dispatch(action);
-      return defaultReducer(state, action);
-    };
-  }
-
-  onExitApp() {
-    BackAndroid.exitApp();
-    return true;
-  }
-
+    createReducer(params) {
+        const defaultReducer = Reducer(params);
+        return (state, action) => {
+            this.props.dispatch(action);
+            return defaultReducer(state, action);
+        };
+    }
+    onExitApp() {
+        BackAndroid.exitApp();
+        return true;
+    }
     render() {
         return (
             <Router onExitApp={this.onExitApp}
@@ -86,9 +83,7 @@ const scenes = Actions.create(
         <Scene key="MeInfo" component={MeInfo} hideNavBar={true} navBar={CustomNavBarView}/>
         {/*修改人信息*/}
         <Scene key="video" component={Video} hideNavBar={true} navBar={CustomNavBarView} />
-        <Scene key="UpdateInfo" component={UpdateInfo} hideNavBar={true} navBar={CustomNavBarView}/>
-        <Scene key="UserMsg" component={UserMsg} hideNavBar={true} navBar={CustomNavBarView}/>
-        <Scene key="notLogin" component={NotLogin} hideNavBar={false} title='未登录' navBar={CustomNavBarView}/>
+        <Scene key="updateVideo" component={UpdateVideo} hideNavBar={false} title='修改视频' navBar={CustomNavBarView}/>
         <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView}/>
         <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView}/>
         <Scene key="Forget" component={Forget} hideNavBar={false} title='找回密码' navBar={CustomNavBarView}/>

@@ -7,61 +7,7 @@ import ActionSheet from 'react-native-actionsheet'
 import { upLoadVideo } from '../netWork/api'
 import FileUtil from '../util/FileUtil'
 import ImagePicker from 'react-native-image-picker'
-
-const types = [
-  {
-    type: 'sociology',
-    content : '社会'
-  },
-  {
-    type: 'world',
-    content : '世界'
-  },
-  {
-    type: 'sports',
-    content : '体育'
-  },
-  {
-    type: 'life',
-    content : '生活'
-  },
-  {
-    type: 'tech',
-    content : '科技'
-  },
-  {
-    type: 'entertainment',
-    content : '娱乐'
-  },
-  {
-    type: 'movie',
-    content : '电影'
-  },
-  {
-    type: 'auto',
-    content : '汽车'
-  },
-  {
-    type: 'taste',
-    content : '美食'
-  },
-  {
-    type: 'music',
-    content : '音乐'
-  },
-  {
-    type: 'business',
-    content : '商业'
-  },
-  {
-    type: 'hot',
-    content : '热门'
-  },
-  {
-    type: '',
-    content : '取消'
-  }
-]
+import {types} from '../constants/videoTypes'
 export default class UploadVideo extends Component {
   constructor(props) {
     super(props)
@@ -129,7 +75,9 @@ ProgressBarCancel(){
       upLoadVideo(formData).then(res => {
         if (res.code === 200) {
           this.dissmissProgressBar();
-          alert('上传成功')
+          Alert.alert('上传成功')
+        }else{
+          Alert.alert(res.msg)
         }
       })
     } else {
@@ -193,6 +141,7 @@ ProgressBarCancel(){
         </View>
         <TouchableOpacity onPress={this.selectImg}>
           <Image style={{ width: 70, height: 70 }} source={this.state.VideoCoverfile} />
+          <Text>(可选)</Text>
         </TouchableOpacity>
         <View style={styles.form_row}>
             {this.state.videoType === '' ?
