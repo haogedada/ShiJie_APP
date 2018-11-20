@@ -120,7 +120,7 @@ const scenes = Actions.create(
             {/*添加视屏按钮*/}
             <Scene key="uploadVideo"
                    component={UploadVideo}
-                   hideTabBar={true}
+                   hideNavBar={true}
                    title='上传视频'
                    navBar={CustomNavBarView}
                    icon={TabIcon}
