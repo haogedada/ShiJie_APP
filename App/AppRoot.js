@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
-    Text,
-    BackAndroid,
-    StyleSheet,
-    Alert
+  View,
+  Text,
+  BackAndroid,
+  StyleSheet,
+  Alert
 } from 'react-native';
-import {Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst} from 'react-native-router-flux';
 import {connect} from 'react-redux';
+import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst, Lightbox } from 'react-native-router-flux';
 import TabIcon from './components/tabIcon';
 //导入各个界面page文件
 import Register from './pages/Register'
@@ -26,28 +26,28 @@ import UserMsg from './pages/UserMsg'
 import Video from './pages/Video'
 import {loadData} from './util/LoadDataUtil'
 import Forget from './components/Forget'
-
+import Comment from './pages/Comment';
 class AppRoot extends Component {
-    static propTypes = {
-        dispatch: PropTypes.func
-    }
+  static propTypes = {
+    dispatch: PropTypes.func
+  }
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    createReducer(params) {
-        const defaultReducer = Reducer(params);
-        return (state, action) => {
-            this.props.dispatch(action);
-            return defaultReducer(state, action);
-        };
-    }
+  createReducer(params) {
+    const defaultReducer = Reducer(params);
+    return (state, action) => {
+      this.props.dispatch(action);
+      return defaultReducer(state, action);
+    };
+  }
 
-    onExitApp() {
-        BackAndroid.exitApp();
-        return true;
-    }
+  onExitApp() {
+    BackAndroid.exitApp();
+    return true;
+  }
 
     render() {
         return (
@@ -61,21 +61,22 @@ class AppRoot extends Component {
 }
 
 const styles = StyleSheet.create({
-    tabBarStyle: {
-        backgroundColor: '#fff',
-        height: 64
-    },
-    tabBarSelectedItemStyle: {
-        backgroundColor: '#fff'
-    },
-    titleStyle: {
-        color: '#fff'
-    },
-    navStyle: {
-        shadowRadius: 0
-    }
+  tabBarStyle: {
+    backgroundColor: '#fff',
+    height: 64
+  },
+  tabBarSelectedItemStyle: {
+    backgroundColor: '#fff'
+  },
+  titleStyle: {
+    color: '#fff'
+  },
+  navStyle: {
+    shadowRadius: 0
+  }
 })
 const scenes = Actions.create(
+  <Lightbox key='lightbox' hideNavBar>
     <Scene key="root" hideNavBar={true}>
         {/*登录*/}
         <Scene key="Login" component={Login} hideNavBar={false} title='登陆' navBar={CustomNavBarView}/>
@@ -122,7 +123,6 @@ const scenes = Actions.create(
                    component={UploadVideo}
                    hideNavBar={true}
                    title='上传视频'
-                   navBar={CustomNavBarView}
                    icon={TabIcon}
                    titleStyle={styles.titleStyle}/>
             {/*朋友*/}
@@ -139,5 +139,7 @@ const scenes = Actions.create(
                    titleStyle={styles.titleStyle}/>
         </Scene>
     </Scene>
+    <Scene key='comment' component={Comment}></Scene>
+  </Lightbox>
 )
 export default connect()(AppRoot);
