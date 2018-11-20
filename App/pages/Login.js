@@ -74,7 +74,13 @@ class Login extends Component {
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
                 this.dissmissLoadDialog()
-                Actions.firstLogin()
+                let userInfo={
+                headimgUrl: require('../resources/images/icon/header.png'),
+                userNickname:'',
+                userSex:'',
+                userBirthday:'',
+                bardianSign: ''}
+                Actions.firstLogin({userInfo:userInfo})
             }
         })
     }

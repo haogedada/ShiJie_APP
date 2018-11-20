@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, Image, Dimensions, TouchableOpacity, RefreshControl, ScrollView, StyleSheet } from 'react-native'
-import { getCollections } from "../../netWork/api";
+import { View, Text, Image, Dimensions, TouchableOpacity, 
+  Alert,RefreshControl, ScrollView, StyleSheet } from 'react-native'
+import { getCollections,cancelCollectVideo } from "../../netWork/api";
 const { width, height } = Dimensions.get('window')
 import {Actions} from 'react-native-router-flux'
 export default class MeCollection extends Component {
@@ -19,6 +20,7 @@ export default class MeCollection extends Component {
     getCollections().then(req => {
       this.setState({
         coll: req.data
+        ,isRefreshing:false
       });
     }
     )
@@ -28,21 +30,31 @@ export default class MeCollection extends Component {
     this.setState({
       isRefreshing: true
     });
-
-    var self = this;
-    setTimeout(() => {
-      this.getFetch();
-    }, 2000)
+      this.getFetch()
   }
 
   loadingView() {
-    console.log("周仓：",this.state.coll);
     return this.state.coll.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
           <TouchableOpacity onPress={() => {
             Actions.video({ 'index': index+1,'videoList':this.state.coll})
           }}>
+           <TouchableOpacity onPress={()=>{
+               Alert.alert('提示', '你确定要取消收藏这个视频?',
+                [{text: '确定', onPress: () =>{
+                  cancelCollectVideo(item.videoId).then(res=>{
+                      if(res.code===200){
+                        Alert.alert('成功')
+                        Actions.me()
+                      }else{
+                        Alert.alert(res.msg)
+                      }
+                    })}}, 
+                {text: '取消', onPress: () =>{return}}])
+            }}>
+              <Text>取消收藏</Text>
+            </TouchableOpacity>
             <Text style={styles.titleStyle}>{item.videoTitle}</Text>
             <View style={styles.imageBoxStyle}>
               <Image style={styles.ImageStyle}
@@ -50,7 +62,6 @@ export default class MeCollection extends Component {
                 resizeMode='cover' />
             </View>
             <View style={styles.msgStyle}>
-
               <View style={styles.iconAndNumStyle}>
                 <Image source={require('./../../resources/images/icon/eye.png')}
                   style={{ width: 20, height: 20, marginTop: 3 }} />

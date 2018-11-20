@@ -101,8 +101,6 @@ export default class Me extends Component {
   onRefreshLoading() {
     this.setState({ isRef: true });
     this.loadMyVideo();
-   
-    
   }
 
   render() {
@@ -147,7 +145,7 @@ export default class Me extends Component {
       <View style={meStyle.loginBoxStyle}>
         <View style={meStyle.headerBox}>
           <TouchableOpacity onPress={() => {
-            Actions.userMsg()
+            Actions.userMsg({userInfo:this.state.userInfo})
           }}
             style={meStyle.headerLeftStyle}>
             <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
