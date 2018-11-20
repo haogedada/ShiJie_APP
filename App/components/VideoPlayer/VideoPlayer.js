@@ -31,6 +31,7 @@ export default class VideoPlayer extends Component {
       trampleNum:this.props.video.videoTrampleNum,
       commentNum:0,
       videoId:this.props.video.videoId,
+      comment:{data:[]}
     };
     this.loadStart = this.loadStart.bind(this);
     this.setDuration = this.setDuration.bind(this);
@@ -45,12 +46,11 @@ export default class VideoPlayer extends Component {
   componentWillMount() {
     this.initData()
     this.listenerCurrentPage()
-    this.getCommentData()
+   
   }
   componentDidMount() {
     this.initData()
     this.listenerCurrentPage()
-  
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('ChangeCurrentPage')
@@ -58,6 +58,7 @@ export default class VideoPlayer extends Component {
   initData() {
     if (this.state.currentPage === this.state._index) {
       this.setState({ isPlay: true })
+      this.getCommentData()
     }else{
       this.setState({ isPlay: false })
     }
@@ -65,6 +66,7 @@ export default class VideoPlayer extends Component {
   listenerCurrentPage() {
     DeviceEventEmitter.addListener('ChangeCurrentPage', (currentPage) => {
       if (currentPage === this.state._index) {
+        this.getCommentData()
         this.setState({ isPlay: true ,currentPage: currentPage})
       }else{
         this.setState({isPlay:false, currentPage: currentPage})
@@ -73,11 +75,13 @@ export default class VideoPlayer extends Component {
   }
 
   getCommentData () {
-    // if(this.state.currentPage===this.state._index){
-      // console.log("视频id",this.state.videoId);
     getComment(this.state.videoId).then(res => {
       if (res.code === 200) {
+      if(res.data==null){
+        this.setState({comment: {data:[]},videoId:this.state.videoId})
+      }else{
         this.setState({comment: res})
+      }
       }
     })
   }
@@ -197,7 +201,7 @@ dissmissVideoLoad(){
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/comment_white.png')} />
               <Text style={styles.msgNumberStyle}>
-                {12345 > 10000 ? (((12345 - 12345 % 1000) / 10000 + 'W')) : (12345)}
+                {this.state.comment.data.length > 10000 ? (((12345 - 12345 % 1000) / 10000 + 'W')) : (this.state.comment.data.length)}
               </Text>
             </TouchableOpacity>
           </View>

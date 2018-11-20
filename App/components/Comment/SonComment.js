@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { scaleFont, scaleSize } from './../../util/Adaptive'
+import Time from '../../util/DateUtil'
 
 export default class SonComment extends Component {
   render() {
+    let timestamp = Date.parse(new Date(this.props.sonComment.txtCreatTime));
     return (
       <View style={styles.sonCommentStyle}>
         <Text style={styles.nameStyle}>{this.props.sonComment.userBean.userNickname}
           <Text style={{ color: '#fff' }}> 回复</Text>
         </Text>
         <Text style={styles.replyStyle}>{this.props.sonComment.txtContext}</Text>
-        <Text style={styles.dateStyle}>{this.props.sonComment.txtCreatTime.substr(0, 10)}</Text>
+        <Text style={styles.dateStyle}>{Time.getFormatTime(timestamp)}</Text>
         <TouchableOpacity onPress={this.props.sonCommentHideOrShow}>
           <Text style={styles.putStyle}>收起ˆ</Text>
         </TouchableOpacity>

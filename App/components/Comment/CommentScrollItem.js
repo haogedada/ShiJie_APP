@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import { scaleFont, scaleSize } from './../../util/Adaptive'
 import SonComment from './SonComment';
-
+import Time from '../../util/DateUtil'
 export default class CommentScrollItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isHideSonComment: true
+      isHideSonComment: true,
     }
 
     this.sonCommentHideOrShow = this.sonCommentHideOrShow.bind(this)
@@ -23,7 +23,8 @@ export default class CommentScrollItem extends Component {
     let sonComments = this.props.comment.comments.map((item, index) => {
       return (<SonComment sonCommentHideOrShow={this.sonCommentHideOrShow} sonComment={item} key={index} />)
     })
-    return (
+    let timestamp = Date.parse(new Date(this.props.comment.comment.txtCreatTime));
+   return (
       <View style={styles.commentStyle}>
         <View style={{ flex: 1 }}>
           <Image style={styles.headerStyle}
@@ -37,7 +38,7 @@ export default class CommentScrollItem extends Component {
             <View>
               <Text style={styles.nameStyle}>{this.props.comment.comment.userBean.userNickname}</Text>
               <Text style={styles.replyStyle}>{this.props.comment.comment.txtContext}</Text>
-              <Text style={styles.dateStyle}>{this.props.comment.comment.txtCreatTime.substr(0, 10)}</Text>
+              <Text style={styles.dateStyle}>{Time.getFormatTime(timestamp)}</Text>
             </View>
           </TouchableWithoutFeedback>
           <View style={{ flexDirection: 'row' }}>

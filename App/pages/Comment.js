@@ -13,7 +13,7 @@ export default class Comment extends Component {
       placeholder: '说点什么...',
       userId: '',
       isShowAndHide: true,
-      videoId: '',
+      videoId: this.props.videoId,
       commentContext: ''
     }
     this.moveAnimated = new Animated.Value(0);
@@ -59,7 +59,7 @@ export default class Comment extends Component {
   }
 
   render() {
-    let commentsy = this.props.commentData.data === null ?
+    let commentsy = this.props.commentData.data.length===0 ?
       (<Text style={styles.noCommentStyle}>暂时还没有评论</Text>) :
       this.props.commentData.data.map((item, index) => {
         return (
@@ -79,7 +79,7 @@ export default class Comment extends Component {
         opacity: this.fadeInAnimated
       }]}>
         <View style={styles.closeFontBoxStyle}>
-          <Text style={styles.closeFontStyle}>评论 {this.props.commentData.data === null ?
+          <Text style={styles.closeFontStyle}>评论 {this.props.commentData.data.length === 0 ?
              0 :
               this.props.commentData.data.length}</Text>
           <Text style={styles.closeFontStyle} onPress={() => {
