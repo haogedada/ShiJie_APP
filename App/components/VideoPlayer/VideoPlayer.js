@@ -16,8 +16,9 @@ let {
   width,
   height
 } = Dimensions.get('window');
+// let comment = null
 import { scaleFont, scaleSize } from './../../util/Adaptive'
-import {playerCountAdd,praiseVideo,trampleVideo,followUser,cancelCollectVideo,collectVideo
+import {playerCountAdd,praiseVideo,trampleVideo,followUser,getComment,collectVideo
 } from '../../netWork/api'
 export default class VideoPlayer extends Component {
   constructor(props) {
@@ -39,14 +40,17 @@ export default class VideoPlayer extends Component {
     this.listenerCurrentPage = this.listenerCurrentPage.bind(this)
     this.initData = this.initData.bind(this)
     this.onBuffer = this.onBuffer.bind(this)
+    this.getCommentData = this.getCommentData.bind(this)
   }
   componentWillMount() {
     this.initData()
     this.listenerCurrentPage()
+    this.getCommentData()
   }
   componentDidMount() {
     this.initData()
     this.listenerCurrentPage()
+  
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('ChangeCurrentPage')
@@ -63,10 +67,21 @@ export default class VideoPlayer extends Component {
       if (currentPage === this.state._index) {
         this.setState({ isPlay: true ,currentPage: currentPage})
       }else{
-        this.setState({isPlay:false})
+        this.setState({isPlay:false, currentPage: currentPage})
       }
     })
   }
+
+  getCommentData () {
+    // if(this.state.currentPage===this.state._index){
+      // console.log("视频id",this.state.videoId);
+    getComment(this.state.videoId).then(res => {
+      if (res.code === 200) {
+        this.setState({comment: res})
+      }
+    })
+  }
+
   showVideoLoad(){
     this.refs.RNVideoLoad && this.refs.RNVideoLoad.showVideoLoad()
 }
@@ -177,7 +192,7 @@ dissmissVideoLoad(){
           </View>
           <View>
             <TouchableOpacity onPress={() => {
-              alert('点击评论数')
+              Actions.push('comment', {commentData: this.state.comment})
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/comment_white.png')} />
@@ -241,9 +256,9 @@ dissmissVideoLoad(){
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />
+            <Image style={styles.addConcernStyle}
+              source={require('./../../resources/images/icon/add_concern.png')} />
           </TouchableOpacity>
-          <Image style={styles.addConcernStyle}
-            source={require('./../../resources/images/icon/add_concern.png')} />
           <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: -30 }]}
             numberOfLines={1}>{this.props.video.userBean.userNickname}</Text>
           <Text style={styles.videoContentStyle}
@@ -327,11 +342,12 @@ const styles = StyleSheet.create({
     width: scaleSize(70),
     height: scaleSize(70),
     margin: 20,
+    borderRadius: 50
   },
   addConcernStyle: {
     width: scaleSize(40),
     height: scaleSize(40),
-    top: scaleSize(-58),
-    left: scaleSize(58)
+    top: scaleSize(-53),
+    left: scaleSize(48)
   }
 });

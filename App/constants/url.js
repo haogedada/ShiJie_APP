@@ -26,6 +26,9 @@ export const url = {
     URL_EMAILCODE: '/forgetPassword/code',
     //修改密码
     URL_FORGET: "/forgetPassword",
+
+    URL_COMMENT: '/comments/',
+    URL_COMMENTVIDEO: '/comment/',
     URL_COLLECT_VIDEO:"/collectVideo/",
     URL_MODIFY_VIDOE:'/user/modifyVideo',
     URL_REMOVE_VIDEO:'/user/video/',

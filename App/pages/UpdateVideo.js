@@ -15,7 +15,7 @@ export default class UpdateVideo extends Component {
     this.state = {
       videoTitle: this.props.videoBean.videoTitle,
       videoContent: this.props.videoBean.videoContent,
-      videoType: ' ',
+      videoType: '',
       VideoCoverfile:{uri:this.props.videoBean.videoCoverUrl},
       isSelectImg: false,
       progress: 0,

@@ -12,11 +12,6 @@ export function verfly(params) {
     return HttpUtil.get(url.URL_EMAILCODE, params)
 }
 
-export function getComment(params) {
-    return HttpUtil.post(url.URL_COMENT, params)
-
-}
-
 export function getHome() {
     return HttpUtil.get(url.URL_USERHOME);
 }
@@ -96,6 +91,12 @@ export function trampleVideo(params){
 }
 export function followUser(params){
     return HttpUtil.put(url.URL_PUT_FOLLOW+params) 
+}
+export function getComment(videoId) {
+  return HttpUtil.get(url.URL_COMMENT+videoId)
+}
+export function commentVideo(videoId, params) {
+  return HttpUtil.post(url.URL_COMMENTVIDEO+videoId, params)
 }
 export function collectVideo(params){
     return HttpUtil.post(url.URL_COLLECT_VIDEO+params) 
