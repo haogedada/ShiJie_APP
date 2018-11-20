@@ -18,7 +18,7 @@ class TabIcon extends Component {
       },
       uploadVideo: {
         title: "添加",
-        icon: !selected ? require("../resources/images/icon/add.png") : require("../resources/images/icon/add_select.png")
+        icon: !selected ? require("../resources/images/icon/add_concern.png") : require("../resources/images/icon/add_concern.png")
       },
       friends: {
         title: "朋友",
