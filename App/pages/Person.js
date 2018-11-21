@@ -37,7 +37,7 @@ export default class Person extends Component {
     return (
       <View style={styles.userInfo}>
        <View style={{alignContent:'center',justifyContent:'center'}}><Image style={{width:50,height:50}} source={{uri:this.state.userInfo.heardUrl}}/></View>
-       <Text>昵称:{this.state.userInfo.nickName ==null ? `这个人好懒....`:this.state.userInfo.nickName }</Text>
+       <Text>昵称:{this.state.userInfo.nickName ==null ? `这个人好懒....什么都没写`:this.state.userInfo.nickName }</Text>
        <View style={styles.userInfo_num}>
        <Text>关注:{this.state.userInfo.followNum}</Text>
        <Text>粉丝:{this.state.userInfo.fansNum}</Text>
