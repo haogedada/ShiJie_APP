@@ -34,4 +34,6 @@ export const url = {
     URL_REMOVE_VIDEO:'/user/video/',
     URL_USER:'/user/',
            
+    TOP_COMMENT: '/comment/top/',
+    TRAMPLE_COMMENT: '/comment/trample/'
 }

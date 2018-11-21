@@ -113,3 +113,9 @@ export function removeVideo(params){
 export function getUser(params){
     return HttpUtil.get(url.URL_USER+params) 
 }
+export function topComment(commentId){
+  return HttpUtil.put(url.TOP_COMMENT + commentId) 
+}
+export function trampleComment(commentId){
+  return HttpUtil.put(url.TRAMPLE_COMMENT + commentId) 
+}
