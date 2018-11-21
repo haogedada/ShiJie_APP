@@ -110,3 +110,9 @@ export function modifyVideo(params){
 export function removeVideo(params){
     return HttpUtil.delete(url.URL_REMOVE_VIDEO+params) 
 }
+export function topComment(commentId){
+  return HttpUtil.put(url.TOP_COMMENT + commentId) 
+}
+export function trampleComment(commentId){
+  return HttpUtil.put(url.TRAMPLE_COMMENT + commentId) 
+}

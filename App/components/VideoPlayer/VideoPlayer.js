@@ -51,9 +51,17 @@ export default class VideoPlayer extends Component {
   componentDidMount() {
     this.initData()
     this.listenerCurrentPage()
+    this.listenerLoadcomment()
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('ChangeCurrentPage')
+  }
+  listenerLoadcomment(){
+    DeviceEventEmitter.addListener('loadcomment', () => {
+      if (this.state.currentPage === this.state._index) {
+        this.getCommentData()
+      }
+    })
   }
   initData() {
     if (this.state.currentPage === this.state._index) {
@@ -77,6 +85,8 @@ export default class VideoPlayer extends Component {
   getCommentData () {
     getComment(this.state.videoId).then(res => {
       if (res.code === 200) {
+        console.log(res);
+        
       if(res.data==null){
         this.setState({comment: {data:[]},videoId:this.state.videoId})
       }else{
@@ -196,7 +206,7 @@ dissmissVideoLoad(){
           </View>
           <View>
             <TouchableOpacity onPress={() => {
-              Actions.push('comment', {commentData: this.state.comment})
+              Actions.push('comment', {commentData: this.state.comment, videoId: this.state.videoId})
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/comment_white.png')} />

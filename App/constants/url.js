@@ -32,5 +32,6 @@ export const url = {
     URL_COLLECT_VIDEO:"/collectVideo/",
     URL_MODIFY_VIDOE:'/user/modifyVideo',
     URL_REMOVE_VIDEO:'/user/video/',
-           
+    TOP_COMMENT: '/comment/top/',
+    TRAMPLE_COMMENT: '/comment/trample/'
 }
