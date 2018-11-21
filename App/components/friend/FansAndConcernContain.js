@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, Alert } from 'react-native'
+import { Text, View, Alert,ScrollView ,RefreshControl} from 'react-native'
 import FansAndConcernItem from './FansAndConcernItem';
 import { getUserFansList, getUserFollowList } from '../../netWork/api'
 
@@ -46,17 +46,22 @@ export default class FansAndConcernContain extends Component {
     this.loadUserFriend()
   }
   render() {
-    _keyExtractor = (item, index) => index;
+    const fansAndConcernItem = this.props.data.map((item,index) => {
+        return  (<FansAndConcernItem key={index} dataItem={item}/>)
+      }) 
+    
     return (
-      <View>
-      <RNAlertLoad ref='RNAlertLoad' content={'加载中...'}/>
-      <FlatList
-        data={this.props.data}
-        renderItem={({ item }) => <FansAndConcernItem dataItem={item} />}
-        keyExtractor={item => item.id.toString()}
-        refreshing={this.state.isRefreshing}
-        onRefresh={this.onRefresh}
-      />
+    <View><ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={this.state.isRefreshing}
+          onRefresh={this.onRefresh}
+          tintColor="#fff"
+          progressBackgroundColor="#fff"
+        />}
+      >
+      {fansAndConcernItem}
+      </ScrollView>
       </View>
     )
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
-
+import {Actions} from 'react-native-router-flux'
 let {width, height} = Dimensions.get("window")
 export default class FansAndConcernItem extends Component {
   constructor (props) {
@@ -8,13 +8,17 @@ export default class FansAndConcernItem extends Component {
   }
   render() {
     return (
-      <TouchableOpacity style={styles.itemBoxStyle}>
+      <View>
+      <TouchableOpacity style={styles.itemBoxStyle} onPress={()=>{
+            Actions.person({'userId':this.props.dataItem.id})
+      }}>
         <Image style={styles.avatar} source={{uri:this.props.dataItem.avatar}} />
         <View>
           <Text style={styles.nameStyle} numberOfLines={1}>{this.props.dataItem.name}</Text>
           <Text style={styles.signatureStyle} numberOfLines={1}>{this.props.dataItem.signature}</Text>
         </View>
       </TouchableOpacity>
+      </View>
     )
   }
 }

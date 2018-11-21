@@ -249,10 +249,14 @@ export default class Home extends Component {
             <View key={index} style={homeStyle.videoItemStyle}>
               <View style={homeStyle.coverStyle}>
                 <Text style={homeStyle.videoTitleStyle}>{item.videoTitle}</Text>
+                <TouchableOpacity onPress={()=>{
+                  Actions.video({index:index+1,videoList:str[i]})
+                }}>
                 <Image style={homeStyle.coverImgStyle}
                   source={{ uri: item.videoCoverUrl }}
                   resizeMode='cover'
                 />
+                </TouchableOpacity>
               </View>
               <View style={homeStyle.textBoxStyle}>
                 <View style={homeStyle.userMsgStyle}>
@@ -314,6 +318,7 @@ export default class Home extends Component {
           ref="viewPage"
           style={homeStyle.viewPager}
           initialPage={this.state.clickSwitch}
+          pageMargin={10}
           onPageSelected={(event) => {
             this.titleBar(event.nativeEvent.position);
           }}

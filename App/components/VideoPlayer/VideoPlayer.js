@@ -16,7 +16,6 @@ let {
   width,
   height
 } = Dimensions.get('window');
-// let comment = null
 import { scaleFont, scaleSize } from './../../util/Adaptive'
 import {playerCountAdd,praiseVideo,trampleVideo,followUser,getComment,collectVideo
 } from '../../netWork/api'
@@ -123,7 +122,7 @@ dissmissVideoLoad(){
   }
   videoError() {
    // console.log('视频播放出错');
-   Alert.alert('视频播放出错')
+   Alert.alert('视频播放出错,尝试重新播放')
   }
   onBuffer() {
    // console.log('视频正在缓冲');

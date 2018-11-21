@@ -16,7 +16,6 @@ export default class Friend extends Component {
     this.listenerLoadFriend = this.listenerLoadFriend.bind(this)
   }
   componentWillMount() {
-    this.showLoadDialog()
     this.loadUserFriend()
   }
   componentDidMount() {
@@ -24,7 +23,6 @@ export default class Friend extends Component {
   }
   listenerLoadFriend() {
     DeviceEventEmitter.addListener('loadFriend', () => {
-      this.setState({ modalVisible: true})
       this.loadUserFriend()
     })
   }
@@ -54,25 +52,19 @@ export default class Friend extends Component {
           avatar: item.headimgUrl
         })
       });
-      this.setState({ fansList: newFansList,  modalVisible: false })
-      this.showLoadDialog()
+      this.setState({ fansList: newFansList})
     })
   }
   refreshCallBack(fansList, followList) {
     this.setState({ fansList: fansList, followList: followList })
   }
-showLoadDialog(){
-    this.refs.RNAlertLoad && this.refs.RNAlertLoad.showLoad();
-}
-dissmissLoadDialog(){
-    this.refs.RNAlertLoad && this.refs.RNAlertLoad.dissmiss(0.5);
-}
+
   render() {
     return (
-      <ScrollableTabView tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
+      <ScrollableTabView locked={false} tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
         <FansAndConcernContain refreshCallBack={this.refreshCallBack}
           data={this.state.fansList} tabLabel="粉丝" />
-        <FansAndConcernContain refreshCallBack={this.refreshCallBack}
+        <FansAndConcernContain locked={false} refreshCallBack={this.refreshCallBack}
           data={this.state.followList} tabLabel="关注" />
       </ScrollableTabView>
     )

@@ -31,7 +31,7 @@ export function getVideoTypesCount(params) {
 }
 
 export function getHomeDate(parms) {
-    return HttpUtil.get(url.URL_HOME + "/" + parms + "&&4");
+    return HttpUtil.get(url.URL_HOME + "/" + parms + "&&15");
 }
 
 export function login(params) {
@@ -109,4 +109,7 @@ export function modifyVideo(params){
 }
 export function removeVideo(params){
     return HttpUtil.delete(url.URL_REMOVE_VIDEO+params) 
+}
+export function getUser(params){
+    return HttpUtil.get(url.URL_USER+params) 
 }

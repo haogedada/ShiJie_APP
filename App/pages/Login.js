@@ -62,7 +62,6 @@ class Login extends Component {
                 Storage.save('token',res.data)
                 Storage.save('user', { username: user, password: pass })
                 Storage.save('loginState', true)
-                this.setState({ modalVisible: false })
                 DeviceEventEmitter.emit('login')
                 Actions.me()
             } if(res.code === 199){
@@ -80,7 +79,7 @@ class Login extends Component {
                 userSex:'',
                 userBirthday:'',
                 bardianSign: ''}
-                Actions.firstLogin({userInfo:userInfo})
+                Actions.firstLogin({'userInfo':userInfo})
             }
         })
     }

@@ -57,7 +57,7 @@ async function initialRequest(options) {
                 if (response.headers.Authorization) {
                     Storage.save('token', response.headers.Authorization)
                 }
-                if (response.data.code === 401) {
+                if (response.data.code === 401 && response.data.msg.includes('unlawful request')) {
                     Actions.me()
                 }
                 try {

@@ -191,3 +191,29 @@
     ]
   }
 }
+
+{
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "nickName": "哈哈",
+    "heardUrl": "无",
+    "followNum": 0,
+    "fansNum": 0,
+    "videoNum": 1,
+    "videos": [
+      {
+        "videoTitle": "2的视频",
+        "videoContent": "2的视频",
+        "videoUrl": "无",
+        "videoId": 2,
+        "userId": 2,
+        "playerCount": 0,
+        "videoTipNum": 0,
+        "videoTrampleNum": 0,
+        "videoCreatTime": "2018-07-28T03:11:17.000+0000",
+        "userBean": null
+      }
+    ]
+  }
+}

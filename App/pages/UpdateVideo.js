@@ -50,9 +50,11 @@ ProgressBarCancel(){
 }
   subUploadVideo() {
     if (this.state.videoTitle.includes(' ') ||
-      this.state.videoContent.includes(' ') ||
-      this.state.videoType.includes(' ')) {
+      this.state.videoContent.includes(' ')) {
       Alert.alert('输入内容不能含有空格')
+      return
+    }else if(this.state.videoType.includes('')){
+      Alert.alert('你还没有选择视频类型')
       return
     }
       var formData = new FormData();
