@@ -101,7 +101,7 @@ export default class UserName extends Component {
       }
       forgetPassword(str).then(req => {
         if (req.code === 200) {
-          console.log("修改后", req);
+
           Actions.me();
         }
         if (req.code === 500) {
@@ -118,140 +118,150 @@ export default class UserName extends Component {
 
   render() {
     return (
-        <View style={userStyle.forgetBoxStyle}>
-          <Image source={require('./../resources/images/image_backgrund/bg_1.png')}
-            style={userStyle.backStyle}
-            blurRadius={10} />
-          <View style={[userStyle.outer]}>
-            <TextInput
-              ref={"user"}
-              style={userStyle.inputStyle}
-              placeholder={'请输入用户名'}
-              placeholderTextColor={'#d4d4d4'}
-              onChangeText={(text) => {
-                this.setState({
-                  userName: text
-                });
-              }}
-              onSubmitEditing={() => {
-                if (this.state.userName.indexOf(" ") === -1) {
-                  this.isUserName();
-                } else {
-                  Alert.alert("警告", "不能包含空格", [
-                    {
-                      text: '确认', onPress: () => {
-                        this.refs.user.focus();
-                      }
-                    }, {
-                      text: '取消', onPress: () => {
-                        this.refs.user.focus();
-                      }
+      <View style={userStyle.forgetBoxStyle}>
+        <Image source={require('./../resources/images/image_backgrund/bg_1.png')}
+          style={userStyle.backStyle}
+          blurRadius={10} />
+        <View style={[userStyle.outer]}>
+          <TextInput
+            ref={"user"}
+            style={userStyle.inputStyle}
+            placeholder={'请输入用户名'}
+            placeholderTextColor={'#d4d4d4'}
+            onChangeText={(text) => {
+              this.setState({
+                userName: text
+              });
+            }}
+            onSubmitEditing={() => {
+              if (this.state.userName.indexOf(" ") === -1) {
+                this.isUserName();
+              } else {
+                Alert.alert("警告", "不能包含空格", [
+                  {
+                    text: '确认', onPress: () => {
+                      this.refs.user.focus();
                     }
-                  ])
-                }
-                if (this.state.emailFocus) {
-                  this.refs.email.focus();
-                }
-              }}
-            />
-          </View>
-          <View style={[userStyle.outer]}>
-            <TextInput
-              rer={"emailRef"}
-              placeholderTextColor={'#d4d4d4'}
-              style={userStyle.inputStyle}
-              placeholder={'请输入邮箱'}
-              onFocus={() => {
-                if (this.state.userName === "") {
-                  this.refs.user.focus();
-                }
+                  }, {
+                    text: '取消', onPress: () => {
+                      this.refs.user.focus();
+                    }
+                  }
+                ])
               }
+              if (this.state.emailFocus) {
+                this.refs.email.focus();
               }
-              onChangeText={(text) => {
-                this.setState({
-                  userEmail: text
-                });
+            }}
+          />
+        </View>
+        <View style={[userStyle.outer]}>
+          <TextInput
+            rer={"emailRef"}
+            placeholderTextColor={'#d4d4d4'}
+            style={userStyle.inputStyle}
+            placeholder={'请输入邮箱'}
+            onFocus={() => {
+              if (this.state.userName === "") {
+                this.refs.user.focus();
+              }
+            }
+            }
+            onChangeText={(text) => {
+              this.setState({
+                userEmail: text
+              });
 
-              }}
-              onSubmitEditing={() => {
-                this.checkEmail();
-              }}
-            />
-          </View>
-          <View style={[userStyle.outer, userStyle.yzmBoxStyle]}>
-            <TextInput
-              ref={"code"}
-              placeholderTextColor={'#d4d4d4'}
-              style={[userStyle.inputStyle, { width: scaleSize(400) }]}
-              placeholder={'请输入验证码'}
-              onChangeText={(text) => {
-                this.setState({
-                  userCode: text
-                });
-              }}
-              onSubmitEditing={() => {
+            }}
+            onSubmitEditing={() => {
+              this.checkEmail();
+            }}
+          />
+        </View>
+        <View style={[userStyle.outer, userStyle.yzmBoxStyle]}>
+          <TextInput
+            ref={"code"}
+            placeholderTextColor={'#d4d4d4'}
+            style={[userStyle.inputStyle, { width: scaleSize(400) }]}
+            placeholder={'请输入验证码'}
+            onChangeText={(text) => {
+              this.setState({
+                userCode: text
+              });
+            }}
+            onSubmitEditing={() => {
 
-              }}
-            />
-            <Button onPress={() => this.checkEmail()}
-              title='获取验证码' />
-          </View>
-          <View style={[userStyle.outer]}>
-            <TextInput
-              style={userStyle.inputStyle}
-              placeholderTextColor={'#d4d4d4'}
-              ref={"onePass"}
-              placeholder={'请输入密码'}
-              secureTextEntry={true}
-              onChangeText={(text) => {
-                this.setState({
-                  userOnePass: text
-                });
-              }}
-              onSubmitEditing={() => {
-                if (this.state.userOnePass.indexOf(" ") !== -1) {
-                  Alert.alert("警告", '不能有空格', [
-                    {
-                      text: '确认', onPress: () => {
-                        this.refs.onePass.focus();
-                      }
+            }}
+          />
+          <Button onPress={() => this.checkEmail()}
+            title='获取验证码' />
+        </View>
+        <View style={[userStyle.outer]}>
+          <TextInput
+            style={userStyle.inputStyle}
+            placeholderTextColor={'#d4d4d4'}
+            ref={"onePass"}
+            placeholder={'请输入密码'}
+            secureTextEntry={true}
+            onChangeText={(text) => {
+              this.setState({
+                userOnePass: text
+              });
+            }}
+            onSubmitEditing={() => {
+              if (this.state.userOnePass.indexOf(" ") !== -1) {
+                Alert.alert("警告", '不能有空格', [
+                  {
+                    text: '确认', onPress: () => {
+                      this.refs.onePass.focus();
                     }
-                  ])
-                }
-              }}
-            />
-          </View>
-          <View style={[userStyle.outer, { marginBottom: scaleSize(30) }]}>
-            <TextInput
-              ref={"twoPass"}
-              style={userStyle.inputStyle}
-              placeholderTextColor={'#d4d4d4'}
-              secureTextEntry={true}
-              placeholder={'请确认密码'}
-              onChangeText={(text) => {
-                this.setState({
-                  userTwoPass: text
-                });
-              }}
-              onSubmitEditing={() => {
-                if (this.state.userTwoPass.indexOf(" ") !== -1) {
-                  Alert.alert("警告", '不能有空格', [
-                    {
-                      text: '确认', onPress: () => {
+                  }
+                ])
+              }
+            }}
+          />
+        </View>
+        <View style={[userStyle.outer, { marginBottom: scaleSize(30) }]}>
+          <TextInput
+            ref={"twoPass"}
+            style={userStyle.inputStyle}
+            placeholderTextColor={'#d4d4d4'}
+            secureTextEntry={true}
+            placeholder={'请确认密码'}
+            onChangeText={(text) => {
+              this.setState({
+                userTwoPass: text
+              });
+            }}
+            onSubmitEditing={() => {
+              if (this.state.userTwoPass.indexOf(" ") !== -1) {
+                Alert.alert("警告", '不能有空格', [
+                  {
+                    text: '确认', onPress: () => {
 
-                      }
                     }
-                  ])
-                }
+                  }
+                ])
+              }
 
-              }}
-            />
-          </View>
-          <View style={userStyle.buttonStyle}>
-            <Button title={"确认修改"}
-              onPress={() => this.isCode()} />
-          </View>
-          </View>
+            }}
+          />
+        </View>
+        <View style={userStyle.buttonStyle}>
+          <Button title={"确认修改"}
+            onPress={() => {
+              if (this.state.userOnePass === this.state.userTwoPass) {
+                this.isCode()
+              } else {
+                Alert.alert("错误警告", '两次输入的密码不一致', [{
+                  text: '确认', onPress: () => {
+                   
+                  }
+                }])
+              }
+            }} />
+        </View>
+      </View>
     );
   }
 
