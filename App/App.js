@@ -5,7 +5,6 @@ import store from '../App/redux/store'
 import Storage from '../App/util/AsyncStorageUtil'
 import {login} from '../App/netWork/api'
 import SplashScreen from 'react-native-splash-screen';
-import {LoginState} from './constants/loginState'
 class App extends Component<{}> {
     constructor(props) {
         super(props);
@@ -30,7 +29,6 @@ class App extends Component<{}> {
         })
         let user = await Storage.get('user')
         let isLogin = await Storage.get('loginState')
-        LoginState(isLogin)
         if (isLogin) {
             this.setState({loginState:true})
             login(user).then(res => {

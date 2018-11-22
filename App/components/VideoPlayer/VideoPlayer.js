@@ -84,8 +84,7 @@ export default class VideoPlayer extends Component {
   getCommentData () {
     getComment(this.state.videoId).then(res => {
       if (res.code === 200) {
-        console.log(res);
-        
+     
       if(res.data==null){
         this.setState({comment: {data:[]},videoId:this.state.videoId})
       }else{
@@ -258,14 +257,8 @@ dissmissVideoLoad(){
 
         </View>
         <View style={styles.leftMsgStyle}>
-          <TouchableOpacity onPress={() => {
-           followUser(this.props.video.userId).then(resp=>{
-             if(resp.code===200){
-               Alert.alert('关注成功')
-             }else{
-              Alert.alert(resp.msg)
-             }
-           })
+          <TouchableOpacity onPress={() => { 
+             Actions.person({'userId':this.props.dataItem.id})
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />
