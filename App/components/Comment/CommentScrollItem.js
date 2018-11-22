@@ -149,11 +149,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: scaleSize(12),
     paddingVertical: scaleSize(5),
+    alignItems: 'center'
   },
   sonCommentNumStyle: {
     color: '#fff',
     fontSize: scaleFont(26),
-    lineHeight: scaleSize(30)
+    lineHeight: scaleSize(30),
+    paddingVertical: scaleSize(5)
   },
   replyFontStyle: {
     paddingHorizontal: scaleSize(13),

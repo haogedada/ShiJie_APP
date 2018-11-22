@@ -199,7 +199,7 @@ dissmissVideoLoad(){
               }
             })
             }}>
-              <Image style={styles.iconStyle}
+              <Image style={[styles.iconStyle, {top: scaleSize(30)}]}
                 source={require('./../../resources/images/icon/collect_white.png')} />
             </TouchableOpacity>
           </View>
@@ -269,11 +269,9 @@ dissmissVideoLoad(){
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />
-            <Image style={styles.addConcernStyle}
-              source={require('./../../resources/images/icon/add_concern.png')} />
           </TouchableOpacity>
-          <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: -30 }]}
-            numberOfLines={1}>{this.props.video.userBean.userNickname}</Text>
+          <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: scaleSize(-30)}]}
+            numberOfLines={1}>@{this.props.video.userBean.userNickname}</Text>
           <Text style={styles.videoContentStyle}
             numberOfLines={5}>{this.props.video.videoContent}</Text>
         </View>
@@ -336,7 +334,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: scaleFont(27),
-    marginTop: -20
+    marginTop: scaleSize(-40)
   },
   leftMsgStyle: {
     position: 'absolute',
@@ -349,18 +347,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: 15,
     fontSize: scaleFont(23),
-    marginTop: 10
+    marginTop: scaleSize(5)
   },
   headerStyle: {
-    width: scaleSize(70),
-    height: scaleSize(70),
+    width: scaleSize(90),
+    height: scaleSize(90),
     margin: 20,
     borderRadius: 50
-  },
-  addConcernStyle: {
-    width: scaleSize(40),
-    height: scaleSize(40),
-    top: scaleSize(-53),
-    left: scaleSize(48)
   }
 });

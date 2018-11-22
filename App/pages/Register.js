@@ -158,7 +158,7 @@ class Register extends Component {
                 <View style={styles.column}>
                     <Image
                         style={styles.bg}
-                        source={require('./../resources/images/image_backgrund/bg_1.jpg')}
+                        source={require('./../resources/images/image_backgrund/bg_1.png')}
                         blurRadius={10}
                     />
                     <View style={styles.row}>
@@ -246,12 +246,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: width,
-        height: height - 70
+        height: height - 65
     },
     input: {
         height: 38,
         width: width * 0.7,
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.2,
         borderColor: "#fff",
         marginBottom: 10,
         fontSize: 18,

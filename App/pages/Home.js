@@ -294,14 +294,14 @@ export default class Home extends Component {
       <View style={[homeStyle.barOuter]}>
         <View style={[homeStyle.barTitle]}>
           {/*搜索*/}
-          <TouchableOpacity onPress={() => {
+          {/* <TouchableOpacity onPress={() => {
             this.setState({
               isPage: false
             });
           }}>
             <Image style={homeStyle.search}
               source={require('../resources/images/icon/search.png')} /></TouchableOpacity>
-          {/*标题栏*/}
+          标题栏 */}
           {this.homTitle()}
           {/*上传视频*/}
           <TouchableOpacity

@@ -92,12 +92,12 @@ class Login extends Component {
     //render函数渲染
     render() {
         return (
-            <View>
+            // <View>
             <KeyboardAwareScrollView>
                 <View style={styles.container}>
                     <Image
                         style={styles.bg}
-                        source={require('./../resources/images/image_backgrund/bg_1.jpg')}
+                        source={require('./../resources/images/image_backgrund/bg_1.png')}
                         blurRadius={10}
                     />
                     <View style={styles.tgInputBox}>
@@ -128,23 +128,22 @@ class Login extends Component {
                 </View>
                 <RNAlertLoad ref='RNAlertLoad' content={'加载中...'}/>
             </KeyboardAwareScrollView>
-         </View>
+        //  </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         width: width,
-        height: height
+        height: height-65
     },
     inputStyle: {
         height: 38,
         width: width * 0.7,
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.2,
         borderColor: "#fff",
         marginBottom: 10,
         fontSize: 18,
