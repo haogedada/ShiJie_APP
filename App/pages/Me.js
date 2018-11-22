@@ -158,7 +158,7 @@ export default class Me extends Component {
               style={meStyle.topImageStyle}
               resizeMode='cover' />
             <TouchableOpacity onPress={() => {
-              Actions.userMsg({ 'userInfo': this.state.userInfo })
+              Actions.userMsg({ 'userInfo': this.state.userInfo,'headimgUrl':{uri:this.state.userInfo.headimgUrl}})
             }}
               style={meStyle.headerLeftStyle}>
               <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />

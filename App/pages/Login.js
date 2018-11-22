@@ -74,12 +74,12 @@ class Login extends Component {
                 Storage.save('loginState', true)
                 this.dissmissLoadDialog()
                 let userInfo={
-                headimgUrl: require('../resources/images/icon/header.png'),
                 userNickname:'',
                 userSex:'',
                 userBirthday:'',
                 bardianSign: ''}
-                Actions.firstLogin({'userInfo':userInfo})
+                let headimgUrl=require('../resources/images/icon/header.png'); 
+                Actions.firstLogin({'userInfo':userInfo,'headimgUrl':headimgUrl})
             }
         })
     }

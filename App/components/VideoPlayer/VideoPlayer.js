@@ -258,7 +258,7 @@ dissmissVideoLoad(){
         </View>
         <View style={styles.leftMsgStyle}>
           <TouchableOpacity onPress={() => { 
-             Actions.person({'userId':this.props.dataItem.id})
+             followUser.person({'userId':this.props.dataItem.id})
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />

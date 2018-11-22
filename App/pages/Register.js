@@ -66,7 +66,9 @@ class Register extends Component {
                     username: '',
                     password: '',
                     email: '',
-                    promptCount: 0
+                    promptCount: 0,
+                    okpassword: '',
+                    yzm: '',
                 });
             } else if (response.code === 500) {
                 Alert.alert('出问题了!',response.msg)

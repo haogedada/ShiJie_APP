@@ -14,7 +14,7 @@ class UserMsg extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      headerPath: {uri: this.props.userInfo.headimgUrl },
+      headerPath: this.props.headimgUrl ,
       nickname: this.props.userInfo.userNickname,
       sex:this.props.userInfo.userSex,
       birthday:this.props.userInfo.userBirthday,
