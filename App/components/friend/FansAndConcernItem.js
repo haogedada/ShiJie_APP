@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#a5a5a5'
+    borderBottomColor: '#a5a5a5',
+    alignItems: 'center'
   },
   avatar: {
     width: 50,

@@ -23,6 +23,7 @@ import {
 import Storage from '../util/AsyncStorageUtil';
 import MeHome from '../components/meCollectionHome/MeHome';
 import MeCollection from '../components/meCollectionHome/MeCollection';
+import { scaleSize, scaleFont } from '../util/Adaptive';
 
 let {
   width,
@@ -142,65 +143,69 @@ export default class Me extends Component {
       }
     }
     let login = (
-      <View style={meStyle.loginBoxStyle}>
-        <View style={meStyle.headerBox}>
-          <Image source={{ uri: this.state.userInfo.headimgUrl }}
-            style={meStyle.topImageStyle}
-            resizeMode='cover' />
-          <TouchableOpacity onPress={() => {
-            Actions.userMsg({ 'userInfo': this.state.userInfo })
-          }}
-            style={meStyle.headerLeftStyle}>
-            <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
-            <View>
-              <Text style={{ fontSize: 17, fontWeight: '500', color: '#fff' }}>{this.state.userInfo.userNickname}</Text>
-              <Text style={{color: '#fff'}}>{this.state.userInfo.bardianSign} </Text>
+      <ScrollView
+        refreshControl={<RefreshControl
+          refreshing={this.state.isRef}
+          onRefresh={
+            this.onRefreshLoading.bind(this)
+          }
+        />
+        }
+      >
+        <View style={meStyle.loginBoxStyle}>
+          <View style={meStyle.headerBox}>
+            <Image source={{ uri: this.state.userInfo.headimgUrl }}
+              style={meStyle.topImageStyle}
+              resizeMode='cover' />
+            <TouchableOpacity onPress={() => {
+              Actions.userMsg({ 'userInfo': this.state.userInfo })
+            }}
+              style={meStyle.headerLeftStyle}>
+              <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
+              <View>
+                <Text style={{ fontSize: 17, fontWeight: '500', color: '#fff' }}>{this.state.userInfo.userNickname}</Text>
+                <Text style={{ color: '#fff' }}>{this.state.userInfo.bardianSign} </Text>
+                <View style={meStyle.fansAndFollowStyle}>
+                  <Text style={meStyle.fansStyle}>粉丝:{this.state.home.fansNum}</Text>
+                  <Text style={meStyle.fansStyle}>关注:{this.state.home.followNum}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+            <View style={meStyle.buttonViewStyle}>
+              <Text style={meStyle.buttonTextStyle} onPress={() => {
+                Storage.save('loginState', false);
+                Storage.save('user', null);
+                Storage.save('token', null);
+                this.setState({
+                  loginState: false
+                });
+              }} >注销</Text>
             </View>
-          </TouchableOpacity>
-          <View style={meStyle.buttonViewStyle}>
-            <Text style={meStyle.buttonTextStyle} onPress={() => {
-              Storage.save('loginState', false);
-              Storage.save('user', null);
-              Storage.save('token', null);
-              this.setState({
-                loginState: false
-              });
-            }} >注销</Text>
           </View>
-        </View>
-        <View style={{
-          height: 45, width: width, flexDirection: 'row', alignItems: 'center',
-          marginBottom: 15, backgroundColor: '#fff'
-        }}>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity onPress={() => {
-              this.setState({ collHome: true })
-            }}>
-              <Text style={coll}>我的作品</Text>
-            </TouchableOpacity>
+          <View style={{
+            height: 45, width: width, flexDirection: 'row', alignItems: 'center',
+            marginBottom: 15, backgroundColor: '#fff'
+          }}>
+            <View style={{ flex: 1 }}>
+              <TouchableOpacity onPress={() => {
+                this.setState({ collHome: true })
+              }}>
+                <Text style={coll}>我的作品</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 1 }}>
+              <TouchableOpacity onPress={() => {
+                this.setState({ collHome: false })
+              }}>
+                <Text style={home}>我的收藏</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity onPress={() => {
-              this.setState({ collHome: false })
-            }}>
-              <Text style={home}>我的收藏</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ paddingBottom: 120 }}>
-          <ScrollView
-            refreshControl={<RefreshControl
-              refreshing={this.state.isRef}
-              onRefresh={
-                this.onRefreshLoading.bind(this)
-              }
-            />
-            }
-          >
+          <View style={{ paddingBottom: 120 }}>
             {this.state.collHome ? <MeHome home={this.state.home} /> : <MeCollection />}
-          </ScrollView>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     );
     let noLogin = (
       <View style={meStyle.noLoginV}>
@@ -289,5 +294,19 @@ const meStyle = StyleSheet.create({
     width: width,
     height: 200,
     position: 'absolute',
+  },
+  fansAndFollowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: scaleSize(10)
+  },
+  fansStyle: {
+    marginRight: scaleSize(8),
+    paddingHorizontal: scaleSize(15),
+    paddingVertical: scaleSize(8),
+    backgroundColor: 'red',
+    borderRadius: 20,
+    color: '#FFF',
+    fontSize: scaleFont(20)
   }
 });
