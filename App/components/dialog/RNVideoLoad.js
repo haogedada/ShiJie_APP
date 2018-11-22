@@ -29,7 +29,7 @@ export default class RNVideoLoad extends Component {
                   transparent={true}
                   //关闭时调用
                   onRequestClose={this.dissmiss()}>
-                     <TouchableOpacity style = {styles.container} >
+                     <TouchableOpacity style = {styles.container} onPress={this.dissmiss(0.5)}>
                       <View style = {{justifyContent:'center', alignItems:'center', height:30}}>
                         <Progress.Circle size={40} indeterminate={true} />
                       </View>

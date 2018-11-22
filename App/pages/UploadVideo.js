@@ -61,11 +61,15 @@ ProgressBarCancel(){
       Alert.alert('输入内容不能含有空格')
       return
     }
+    //  if(this.state.curveContent.includes('')){
+    //   Alert.alert('你还没有选择视频类型')
+    //   return
+    // }
     if (this.state.isSelectVideo) {
       var formData = new FormData();
       formData.append("title", this.state.videoTitle);
       formData.append("content", this.state.videoContent);
-      formData.append('file', FileUtil.creatFile(this.state.videoSource, 'uploadvideo'));
+      formData.append('file', FileUtil.creatVideoFile(this.state.videoSource, 'uploadvideo.mp4'));
       if (this.state.isSelectImg) {
         formData.append("file", FileUtil.creatFile(this.state.VideoCoverfile.uri, 'videoCoverfile'));
       }
@@ -75,6 +79,15 @@ ProgressBarCancel(){
         if (res.code === 200) {
           this.dissmissProgressBar();
           Alert.alert('上传成功')
+          this.setState({
+          videoSource: ' ',
+          videoTitle: ' ',
+          videoContent: ' ',
+          videoType: '',
+          isSelectImg: false,
+          isSelectVideo: false,
+          progress: 0,
+          curveContent: '',})
         }else{
           Alert.alert(res.msg)
         }

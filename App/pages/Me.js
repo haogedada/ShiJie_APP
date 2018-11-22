@@ -39,7 +39,7 @@ export default class Me extends Component {
       homeVideo: [],
       collHome: true,
       isRef: false,
-      isSwitch: true
+      isSwitch: true,
     };
     this.getInfo = this.getInfo.bind(this);
     this.loadMyVideo = this.loadMyVideo.bind(this);
@@ -48,7 +48,7 @@ export default class Me extends Component {
     this.onRefreshLoading = this.onRefreshLoading.bind(this)
   }
   componentWillMount() {
-    this.getInfo();
+    setTimeout(this.getInfo(),2000)
     this.loadMyVideo();
   }
 
