@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { View, ImageBackground, Text, TouchableOpacity, Image,Alert,
-   Dimensions, RefreshControl, ScrollView, StyleSheet } from 'react-native'
-import { getHome,removeVideo } from "../../netWork/api";
+import {
+  View, Platform, Text, TouchableOpacity, Image, Alert,
+  Dimensions, RefreshControl, ScrollView, StyleSheet, BackHandler
+} from 'react-native'
+import { getHome, removeVideo } from "../../netWork/api";
 import { Actions } from 'react-native-router-flux';
 const { width, height } = Dimensions.get('window')
 
@@ -11,12 +13,31 @@ export default class MeHome extends Component {
     this.state = {
       isRefreshing: false,
       homeData: [],
-      videoList: []
+      videoList: [],
+      isIconShow: true
     }
+    this.onBackAndroid = this.onBackAndroid.bind(this)
   }
 
   componentWillMount() {
     this.getFetch();
+    if (Platform.OS === 'android') {
+      this.listener = BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid)
+    }
+  }
+  componentWillUnmount () {
+    if (Platform.OS === 'android') {
+      this.listener.remove('hardwareBackPress');
+    }
+  }
+
+  onBackAndroid () {
+    if (!this.state.isIconShow) {
+      this.setState({isIconShow: true})
+      return true
+    } else {
+      return false
+    }
   }
 
   getFetch() {
@@ -38,37 +59,45 @@ export default class MeHome extends Component {
     this.setState({
       isRefreshing: true
     });
-      this.getFetch();
+    this.getFetch();
   }
 
   loadingView() {
     return this.state.videoList.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
-          <TouchableOpacity onPress={() => {
-            Actions.video({ 'index': index+1,'videoList':this.state.videoList});
-          }}>
+          <TouchableOpacity onPress={() => { Actions.video({ 'index': index + 1, 'videoList': this.state.videoList }); }}
+            onLongPress={() => { this.setState({ isIconShow: !this.state.isIconShow }) }}>
             <Text style={styles.titleStyle}>{item.videoTitle}</Text>
-            <TouchableOpacity onPress={()=>{
-                Actions.updateVideo({"videoBean":item});
-            }}>
-              <Text>修改</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-               Alert.alert('提示', '你确定要删除这个视频?',
-                [{text: '确定', onPress: () =>{
-                    removeVideo(item.videoId).then(res=>{
-                      if(res.code===200){
-                        Alert.alert('删除成功')
-                        Actions.me()
-                      }else{
-                        Alert.alert(res.msg)
+            {this.state.isIconShow ? <View /> : (
+              <View style={[styles.reAndUpStyle, {}]}>
+                <TouchableOpacity onPress={() => {
+                  Actions.updateVideo({ "videoBean": item });
+                }}>
+                  <Image source={require('./../../resources/images/icon/updateIcon.png')}
+                    style={styles.rightTopIconStyle} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                  Alert.alert('提示', '你确定要删除这个视频?',
+                    [{
+                      text: '确定', onPress: () => {
+                        removeVideo(item.videoId).then(res => {
+                          if (res.code === 200) {
+                            Alert.alert('删除成功')
+                            Actions.me()
+                          } else {
+                            Alert.alert(res.msg)
+                          }
+                        })
                       }
-                    })}}, 
-                {text: '取消', onPress: () =>{return}}])
-            }}>
-              <Text>删除</Text>
-            </TouchableOpacity>
+                    },
+                    { text: '取消', onPress: () => { return } }])
+                }}>
+                  <Image source={require('./../../resources/images/icon/removeIcon.png')}
+                    style={styles.rightTopIconStyle} />
+                </TouchableOpacity>
+              </View>
+            )}
             <View style={styles.imageBoxStyle}>
               <Image style={styles.ImageStyle}
                 source={{ uri: item.videoCoverUrl }}
@@ -94,7 +123,7 @@ export default class MeHome extends Component {
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoTime}</Text>
               </View>
             </View>
-            
+
           </TouchableOpacity>
         </View>
       )
@@ -162,5 +191,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1
-  }
+  },
+  reAndUpStyle: {
+    position: 'absolute',
+    top: 0,
+    right: -10,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderTopLeftRadius: 24,
+    borderBottomLeftRadius: 24,
+  },
+  rightTopIconStyle: {
+    width: 40,
+    height: 40,
+    marginRight: 15
+  },
 })

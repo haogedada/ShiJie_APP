@@ -50,9 +50,17 @@ export default class VideoPlayer extends Component {
   componentDidMount() {
     this.initData()
     this.listenerCurrentPage()
+    this.listenerLoadcomment()
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('ChangeCurrentPage')
+  }
+  listenerLoadcomment(){
+    DeviceEventEmitter.addListener('loadcomment', () => {
+      if (this.state.currentPage === this.state._index) {
+        this.getCommentData()
+      }
+    })
   }
   initData() {
     if (this.state.currentPage === this.state._index) {
@@ -76,6 +84,8 @@ export default class VideoPlayer extends Component {
   getCommentData () {
     getComment(this.state.videoId).then(res => {
       if (res.code === 200) {
+        console.log(res);
+        
       if(res.data==null){
         this.setState({comment: {data:[]},videoId:this.state.videoId})
       }else{
@@ -189,13 +199,13 @@ dissmissVideoLoad(){
               }
             })
             }}>
-              <Image style={styles.iconStyle}
+              <Image style={[styles.iconStyle, {top: scaleSize(30)}]}
                 source={require('./../../resources/images/icon/collect_white.png')} />
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => {
-              Actions.push('comment', {commentData: this.state.comment})
+              Actions.push('comment', {commentData: this.state.comment, videoId: this.state.videoId})
             }}>
               <Image style={styles.iconStyle}
                 source={require('./../../resources/images/icon/comment_white.png')} />
@@ -259,11 +269,9 @@ dissmissVideoLoad(){
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />
-            <Image style={styles.addConcernStyle}
-              source={require('./../../resources/images/icon/add_concern.png')} />
           </TouchableOpacity>
-          <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: -30 }]}
-            numberOfLines={1}>{this.props.video.userBean.userNickname}</Text>
+          <Text style={[styles.msgNumberStyle, { textAlign: 'auto', marginTop: scaleSize(-30)}]}
+            numberOfLines={1}>@{this.props.video.userBean.userNickname}</Text>
           <Text style={styles.videoContentStyle}
             numberOfLines={5}>{this.props.video.videoContent}</Text>
         </View>
@@ -326,7 +334,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: scaleFont(27),
-    marginTop: -20
+    marginTop: scaleSize(-40)
   },
   leftMsgStyle: {
     position: 'absolute',
@@ -339,18 +347,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: 15,
     fontSize: scaleFont(23),
-    marginTop: 10
+    marginTop: scaleSize(5)
   },
   headerStyle: {
-    width: scaleSize(70),
-    height: scaleSize(70),
+    width: scaleSize(90),
+    height: scaleSize(90),
     margin: 20,
     borderRadius: 50
-  },
-  addConcernStyle: {
-    width: scaleSize(40),
-    height: scaleSize(40),
-    top: scaleSize(-53),
-    left: scaleSize(48)
   }
 });

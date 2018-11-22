@@ -110,7 +110,7 @@ export default class Me extends Component {
       coll = {
         // backgroundColor: '#9ec6ff',
         color: '#515dff',
-        lineHeight: 36,
+        lineHeight: 50,
         textAlign: 'center',
         borderBottomWidth: 2,
         borderColor: "#515dff"
@@ -118,7 +118,7 @@ export default class Me extends Component {
       home = {
         // backgroundColor: '#9ec6ff',
         color: '#6a6e6d',
-        lineHeight: 36,
+        lineHeight: 50,
         textAlign: 'center'
         // borderBottomWidth: 2,
         // borderColor: "#6a6e6d"
@@ -127,7 +127,7 @@ export default class Me extends Component {
       home = {
         // backgroundColor: '#9ec6ff',
         color: '#515dff',
-        lineHeight: 36,
+        lineHeight: 50,
         textAlign: 'center',
         borderBottomWidth: 2,
         borderColor: "#515dff"
@@ -135,7 +135,7 @@ export default class Me extends Component {
       coll = {
         // backgroundColor: '#9ec6ff',
         color: '#6a6e6d',
-        lineHeight: 36,
+        lineHeight: 50,
         textAlign: 'center'
         // borderBottomWidth: 2,
         // borderColor: "#6a6e6d"
@@ -144,14 +144,17 @@ export default class Me extends Component {
     let login = (
       <View style={meStyle.loginBoxStyle}>
         <View style={meStyle.headerBox}>
+          <Image source={{ uri: this.state.userInfo.headimgUrl }}
+            style={meStyle.topImageStyle}
+            resizeMode='cover' />
           <TouchableOpacity onPress={() => {
-            Actions.userMsg({'userInfo':this.state.userInfo})
+            Actions.userMsg({ 'userInfo': this.state.userInfo })
           }}
             style={meStyle.headerLeftStyle}>
             <Image source={{ uri: this.state.userInfo.headimgUrl }} style={meStyle.noLoginImage} />
             <View>
-              <Text style={{ fontSize: 17, fontWeight: '500' }}>{this.state.userInfo.userNickname}</Text>
-              <Text>{this.state.userInfo.bardianSign} </Text>
+              <Text style={{ fontSize: 17, fontWeight: '500', color: '#fff' }}>{this.state.userInfo.userNickname}</Text>
+              <Text style={{color: '#fff'}}>{this.state.userInfo.bardianSign} </Text>
             </View>
           </TouchableOpacity>
           <View style={meStyle.buttonViewStyle}>
@@ -166,7 +169,7 @@ export default class Me extends Component {
           </View>
         </View>
         <View style={{
-          height: 36, width: width, flexDirection: 'row', alignItems: 'center',
+          height: 45, width: width, flexDirection: 'row', alignItems: 'center',
           marginBottom: 15, backgroundColor: '#fff'
         }}>
           <View style={{ flex: 1 }}>
@@ -184,7 +187,7 @@ export default class Me extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{paddingBottom: 120}}>
+        <View style={{ paddingBottom: 120 }}>
           <ScrollView
             refreshControl={<RefreshControl
               refreshing={this.state.isRef}
@@ -242,6 +245,8 @@ const meStyle = StyleSheet.create({
     marginTop: 3,
     borderRadius: 4
   },
+
+
   loginBoxStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -253,7 +258,9 @@ const meStyle = StyleSheet.create({
     width: width,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    height: 200,
+    alignItems: 'flex-end'
   },
   headerLeftStyle: {
     flexDirection: 'row',
@@ -267,14 +274,20 @@ const meStyle = StyleSheet.create({
     marginTop: 15
   },
   buttonViewStyle: {
-    justifyContent: 'center',
+    paddingVertical: 25 / 2
   },
   buttonTextStyle: {
     backgroundColor: '#1296db',
     paddingHorizontal: 20,
     borderRadius: 20,
     color: '#fff',
-    height: 40,
-    lineHeight: 40
+    height: 35,
+    lineHeight: 35,
+    textAlign: 'center'
+  },
+  topImageStyle: {
+    width: width,
+    height: 200,
+    position: 'absolute',
   }
 });

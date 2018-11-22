@@ -13,9 +13,6 @@ export default class SonComment extends Component {
         </Text>
         <Text style={styles.replyStyle}>{this.props.sonComment.txtContext}</Text>
         <Text style={styles.dateStyle}>{Time.getFormatTime(timestamp)}</Text>
-        <TouchableOpacity onPress={this.props.sonCommentHideOrShow}>
-          <Text style={styles.putStyle}>收起ˆ</Text>
-        </TouchableOpacity>
       </View>
     )
   }
@@ -23,7 +20,8 @@ export default class SonComment extends Component {
 const styles = StyleSheet.create({
   sonCommentStyle: {
     flexDirection: 'column',
-    width: scaleSize(450)
+    width: scaleSize(450),
+    marginBottom: scaleSize(20)
   },
   nameStyle: {
     color: '#e8e8e8',
@@ -39,10 +37,5 @@ const styles = StyleSheet.create({
     color: '#999',
     fontSize: scaleFont(25),
     marginBottom: scaleSize(7)
-  },
-  putStyle: {
-    textAlign: 'right',
-    color: '#e8e8e8',
-    marginBottom: scaleSize(10)
   }
 })

@@ -3,55 +3,90 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, TouchableWithoutFeedba
 import { scaleFont, scaleSize } from './../../util/Adaptive'
 import SonComment from './SonComment';
 import Time from '../../util/DateUtil'
+import { topComment, trampleComment } from './../../netWork/api'
 export default class CommentScrollItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isHideSonComment: true,
+      commentObj: this.props.comment,
+      topNum: this.props.comment.comment.commentatorTipNum,
+      trampleNum: this.props.comment.comment.commentatorTrampleNum
     }
 
     this.sonCommentHideOrShow = this.sonCommentHideOrShow.bind(this)
+    this.topCommentFun = this.topCommentFun.bind(this)
+    this.trampleCommentFun = this.trampleCommentFun.bind(this)
+
   }
 
   sonCommentHideOrShow() {
     this.setState({
       isHideSonComment: !this.state.isHideSonComment
-    })  
+    })
+  }
+
+  topCommentFun() {
+    let preveTopState = this.state.topNum
+    this.setState({ topNum: this.state.topNum + 1 })
+    topComment(this.state.commentObj.comment.txtId).then(res => {
+      if (!res.code === 200) {
+        this.setState({ topNum: preveTopState })
+      }
+    })
+  }
+
+  trampleCommentFun() {
+    let prevetrampleState = this.state.trampleNum
+    this.setState({ trampleNum: this.state.trampleNum + 1 })
+    trampleComment(this.state.commentObj.comment.txtId).then(res => {
+      if (!(res.code === 200)) {
+        this.setState({ trampleNum: prevetrampleState })
+      }
+    }).catch(err => this.setState({ trampleNum: prevetrampleState }))
   }
 
   render() {
     let sonComments = this.props.comment.comments.map((item, index) => {
-      return (<SonComment sonCommentHideOrShow={this.sonCommentHideOrShow} sonComment={item} key={index} />)
+      return (<SonComment sonComment={item} key={index} />)
     })
-    let timestamp = Date.parse(new Date(this.props.comment.comment.txtCreatTime));
-   return (
+    let timestamp = Date.parse(new Date(this.state.commentObj.comment.txtCreatTime));
+    return (
       <View style={styles.commentStyle}>
         <View style={{ flex: 1 }}>
           <Image style={styles.headerStyle}
-            source={{ uri: this.props.comment.comment.userBean.headimgUrl }}></Image>
+            source={{ uri: this.state.commentObj.comment.userBean.headimgUrl }}></Image>
         </View>
         <View style={styles.rightBoxStyle}>
           <TouchableWithoutFeedback onPress={() => {
-            this.props.inputUpdateState(this.props.comment.comment.userBean.userNickname, 
-              this.props.comment.comment.userId)
+            this.props.inputUpdateState(this.state.commentObj.comment.userBean.userNickname,
+              this.state.commentObj.comment.txtId)
           }}>
             <View>
-              <Text style={styles.nameStyle}>{this.props.comment.comment.userBean.userNickname}</Text>
-              <Text style={styles.replyStyle}>{this.props.comment.comment.txtContext}</Text>
+              <Text style={styles.nameStyle}>{this.state.commentObj.comment.userBean.userNickname}</Text>
+              <Text style={styles.replyStyle}>{this.state.commentObj.comment.txtContext}</Text>
               <Text style={styles.dateStyle}>{Time.getFormatTime(timestamp)}</Text>
             </View>
           </TouchableWithoutFeedback>
           <View style={{ flexDirection: 'row' }}>
-            <View style={styles.praiseStyle}>
-              <Image style={styles.iconStyle}
-                source={require('./../../resources/images/icon/top.png')} />
-              <Text style={styles.sonCommentNumStyle}>{this.props.comment.comment.commentatorTipNum}</Text>
-            </View>
-            <View style={styles.praiseStyle}>
-              <Image style={styles.iconStyle}
-                source={require('./../../resources/images/icon/trample.png')} />
-              <Text style={styles.sonCommentNumStyle}>{this.props.comment.comment.commentatorTrampleNum}</Text>
-            </View>
+            <TouchableOpacity
+              onPress={this.topCommentFun}
+            >
+              <View style={styles.praiseStyle}>
+                <Image style={styles.iconStyle}
+                  source={require('./../../resources/images/icon/top.png')} />
+                <Text style={styles.sonCommentNumStyle}>{this.state.topNum}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.trampleCommentFun}
+            >
+              <View style={styles.praiseStyle}>
+                <Image style={styles.iconStyle}
+                  source={require('./../../resources/images/icon/trample.png')} />
+                <Text style={styles.sonCommentNumStyle}>{this.state.trampleNum}</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.replyFontStyle}>
               <TouchableOpacity onPress={this.sonCommentHideOrShow}>
                 <View style={styles.praiseStyle}>
@@ -64,6 +99,9 @@ export default class CommentScrollItem extends Component {
               </TouchableOpacity>
               <View style={this.state.isHideSonComment ? styles.hide : styles.show}>
                 {sonComments}
+                <TouchableOpacity onPress={this.sonCommentHideOrShow}>
+                  <Text style={styles.putStyle}>收起ˆ</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -110,11 +148,14 @@ const styles = StyleSheet.create({
   praiseStyle: {
     flexDirection: 'row',
     marginRight: scaleSize(12),
-    paddingVertical: scaleSize(5)
+    paddingVertical: scaleSize(5),
+    alignItems: 'center'
   },
   sonCommentNumStyle: {
     color: '#fff',
-    fontSize: scaleFont(26)
+    fontSize: scaleFont(26),
+    lineHeight: scaleSize(30),
+    paddingVertical: scaleSize(5)
   },
   replyFontStyle: {
     paddingHorizontal: scaleSize(13),
@@ -126,5 +167,10 @@ const styles = StyleSheet.create({
   },
   show: {
     display: 'flex'
+  },
+  putStyle: {
+    textAlign: 'right',
+    color: '#e8e8e8',
+    marginBottom: scaleSize(10)
   }
 })

@@ -1,26 +1,48 @@
 import React, { Component } from 'react'
-import { View, Text, Image, Dimensions, TouchableOpacity, 
-  Alert,RefreshControl, ScrollView, StyleSheet } from 'react-native'
-import { getCollections,cancelCollectVideo } from "../../netWork/api";
+import {
+  View, Text, Image, Dimensions, TouchableOpacity,
+  Alert, RefreshControl, ScrollView, StyleSheet, Platform, BackHandler
+} from 'react-native'
+import { getCollections, cancelCollectVideo } from "../../netWork/api";
 const { width, height } = Dimensions.get('window')
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 export default class MeCollection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coll: []
+      coll: [],
+      hidRemoveIcon: true
     }
+    this.onBackAndroid = this.onBackAndroid.bind(this)
   }
 
   componentWillMount() {
     this.getFetch();
+    if (Platform.OS === 'android') {
+      this.listener = BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid)
+    }
+  }
+
+  componentWillUnmount () {
+    if (Platform.OS === 'android') {
+      this.listener.remove('hardwareBackPress');
+    }
+  }
+
+  onBackAndroid () {
+    if (!this.state.hidRemoveIcon) {
+      this.setState({hidRemoveIcon: true})
+      return true
+    } else {
+      return false
+    }
   }
 
   getFetch() {
     getCollections().then(req => {
       this.setState({
         coll: req.data
-        ,isRefreshing:false
+        , isRefreshing: false
       });
     }
     )
@@ -30,31 +52,39 @@ export default class MeCollection extends Component {
     this.setState({
       isRefreshing: true
     });
-      this.getFetch()
+    this.getFetch()
   }
 
   loadingView() {
     return this.state.coll.map((item, index) => {
       return (
         <View style={styles.showDatilsStyle} key={index}>
-          <TouchableOpacity onPress={() => {
-            Actions.video({ 'index': index+1,'videoList':this.state.coll})
-          }}>
-           <TouchableOpacity onPress={()=>{
-               Alert.alert('提示', '你确定要取消收藏这个视频?',
-                [{text: '确定', onPress: () =>{
-                  cancelCollectVideo(item.videoId).then(res=>{
-                      if(res.code===200){
-                        Alert.alert('成功')
-                        Actions.me()
-                      }else{
-                        Alert.alert(res.msg)
+          <TouchableOpacity onPress={() => {Actions.video({ 'index': index + 1, 'videoList': this.state.coll})}}
+            onLongPress={() => this.setState({hidRemoveIcon: !this.state.hidRemoveIcon})}>
+          {
+            this.state.hidRemoveIcon ? <View /> :
+              <View style={styles.removeStyle}>
+                <TouchableOpacity onPress={() => {
+                  Alert.alert('提示', '你确定要取消收藏这个视频?',
+                    [{
+                      text: '确定', onPress: () => {
+                        cancelCollectVideo(item.videoId).then(res => {
+                          if (res.code === 200) {
+                            Alert.alert('成功')
+                            Actions.me()
+                          } else {
+                            Alert.alert(res.msg)
+                          }
+                        })
                       }
-                    })}}, 
-                {text: '取消', onPress: () =>{return}}])
-            }}>
-              <Text>取消收藏</Text>
-            </TouchableOpacity>
+                    },
+                    { text: '取消', onPress: () => { return } }])
+                }}>
+                  <Image style={styles.removeIconStyle} source={require('./../../resources/images/icon/removeIcon.png')} />
+
+                </TouchableOpacity>
+              </View>
+          }
             <Text style={styles.titleStyle}>{item.videoTitle}</Text>
             <View style={styles.imageBoxStyle}>
               <Image style={styles.ImageStyle}
@@ -145,5 +175,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1
+  },
+  removeStyle: {
+    position: 'absolute',
+    top: 0,
+    right: -10,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderTopLeftRadius: 24,
+    borderBottomLeftRadius: 24,
+  },
+  removeIconStyle: {
+    width: 40,
+    height: 40,
+    marginRight: 15
   }
 })
