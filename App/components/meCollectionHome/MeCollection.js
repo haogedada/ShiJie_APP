@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     marginRight: scaleSize(20),
     alignItems: 'center'
   },
-  reAndUpStyle: {
+  removeIconStyle: {
     position: 'absolute',
     top: 0,
     right: -10,
@@ -196,9 +196,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderBottomLeftRadius: 24,
   },
-  rightTopIconStyle: {
+  removeStyle: {
     width: 40,
     height: 40,
     marginRight: 15
-  },
+  }
 })

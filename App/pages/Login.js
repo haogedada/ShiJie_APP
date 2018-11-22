@@ -64,7 +64,7 @@ class Login extends Component {
                 Storage.save('loginState', true)
                 DeviceEventEmitter.emit('login')
                 Actions.me()
-            } if(res.code === 199){
+            }else if(res.code === 199){
                 this.setState({
                     userName: '',
                     passWord: ''
@@ -80,6 +80,12 @@ class Login extends Component {
                 bardianSign: ''}
                 let headimgUrl=require('../resources/images/icon/header.png'); 
                 Actions.firstLogin({'userInfo':userInfo,'headimgUrl':headimgUrl})
+            }else if(res.code === 105){
+                Alert.alert('账号或密码错误')
+                this.dissmissLoadDialog()
+            }else{
+                Alert.alert(res.msg)
+                this.dissmissLoadDialog()
             }
         })
     }
