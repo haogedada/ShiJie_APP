@@ -60,11 +60,10 @@ ProgressBarCancel(){
       this.state.videoContent.includes(' ')) {
       Alert.alert('输入内容不能含有空格')
       return
+    }else if(this.state.videoType===''){
+      Alert.alert('你还没有选择视频类型')
+      return
     }
-    //  if(this.state.curveContent.includes('')){
-    //   Alert.alert('你还没有选择视频类型')
-    //   return
-    // }
     if (this.state.isSelectVideo) {
       var formData = new FormData();
       formData.append("title", this.state.videoTitle);
