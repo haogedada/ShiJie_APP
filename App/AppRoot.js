@@ -51,8 +51,7 @@ class AppRoot extends Component {
       <Router onExitApp={this.onExitApp}
         createReducer={this.createReducer.bind(this)}
         scenes={scenes}
-      >
-      </Router>
+      > </Router>
     )
   }
 }
@@ -84,7 +83,7 @@ const scenes = Actions.create(
       <Scene key="userMsg" component={UserMsg} hideNavBar={false} title='修改资料' navBar={CustomNavBarView} />
       <Scene key="firstLogin" component={UserMsg} hideNavBar={false} title='请完善个人资料' navBar={CustomNavBarView} />
       <Scene key="Forget" component={Forget} hideNavBar={false} title='找回密码' navBar={CustomNavBarView} />
-      <Scene key="person" component={Person} hideNavBar={false} title="他的中心" navBar={CustomNavBarView} />      
+      <Scene key="person" component={Person} hideNavBar={false} title="他的中心" navBar={CustomNavBarView} />  
       <Scene key="tabbar"
         initial
         tabs={true}

@@ -40,7 +40,7 @@ function selectVideo() {
       console.log('User tapped custom button: ', response.customButton);
       return    
     } else {
-      
+      console.log(response);
       DeviceEventEmitter.emit('selectVideo', response.uri)
     }
   })
