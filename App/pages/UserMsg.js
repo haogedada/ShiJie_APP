@@ -98,7 +98,7 @@ class UserMsg extends Component {
           this.setState({
             progress:0
           })
-          Actions.me()
+          Actions.me()  
         } else {
           Alert.alert(data.msg)
           this.setState({
