@@ -48,7 +48,7 @@ export default class Me extends Component {
     this.onRefreshLoading = this.onRefreshLoading.bind(this)
   }
   componentWillMount() {
-    setTimeout(this.getInfo(),2000)
+    this.getInfo();
     this.loadMyVideo();
   }
 
