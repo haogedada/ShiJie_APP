@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, DeviceEventEmitter } from "react-native"
 import { Actions } from 'react-native-router-flux'
 const { height, width } = Dimensions.get("window");
+import { scaleSize, scaleFont } from './../../util/Adaptive'
 export default class ShowDatils extends Component {
     constructor(props) {
         super(props);
@@ -29,22 +30,24 @@ export default class ShowDatils extends Component {
                 resizeMode='cover' />
             </View>
             <View style={styles.msgStyle}>
-              <View style={styles.iconAndNumStyle}>
-                <Image source={require('./../../resources/images/icon/eye.png')}
-                  style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.videoBean.playerCount}</Text>
+              <View style={styles.msgLeftStyle}>
+                <View style={styles.iconAndNumStyle}>
+                  <Image source={require('./../../resources/images/icon/eye.png')}
+                    style={{ width: 20, height: 20, marginTop: 3 }} />
+                  <Text style={styles.textStyle}>{item.videoBean.playerCount}</Text>
+                </View>
+                <View style={styles.iconAndNumStyle}>
+                  <Image source={require('./../../resources/images/icon/top.png')}
+                    style={{ width: 20, height: 20, marginTop: 3 }} />
+                  <Text style={styles.textStyle}>{item.videoBean.videoTipNum}</Text>
+                </View>
+                <View style={styles.iconAndNumStyle}>
+                  <Image source={require('./../../resources/images/icon/trample.png')}
+                    style={{ width: 20, height: 20, marginTop: 3 }} />
+                  <Text style={styles.textStyle}>{item.videoBean.videoTrampleNum}</Text>
+                </View>
               </View>
-              <View style={styles.iconAndNumStyle}>
-                <Image source={require('./../../resources/images/icon/top.png')}
-                  style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.videoBean.videoTipNum}</Text>
-              </View>
-              <View style={styles.iconAndNumStyle}>
-                <Image source={require('./../../resources/images/icon/trample.png')}
-                  style={{ width: 20, height: 20, marginTop: 3 }} />
-                <Text style={styles.textStyle}>{item.videoBean.videoTrampleNum}</Text>
-              </View>
-              <View style={[styles.iconAndNumStyle, { flex: 8, justifyContent: 'flex-end' }]}>
+              <View>
                 <Text style={{ color: '#fff', marginRight: 5 }}>{item.videoBean.videoTime}</Text>
               </View>
             </View>
@@ -65,10 +68,10 @@ const styles = StyleSheet.create({
   showDatilsStyle: {
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 10
+    marginBottom: scaleSize(40)
   },
   imageBoxStyle: {
-    
+
   },
   ImageStyle: {
     width: width - 20,
@@ -78,9 +81,11 @@ const styles = StyleSheet.create({
   msgStyle: {
     flexDirection: 'row',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    marginTop: -35,
+    marginTop: scaleSize(-63),
     borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5
+    borderBottomLeftRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   textStyle: {
     color: '#fff',
@@ -95,9 +100,29 @@ const styles = StyleSheet.create({
     left: 10,
     zIndex: 1
   },
+  msgLeftStyle: {
+    flexDirection: 'row',
+  },
   iconAndNumStyle: {
     flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1
-  }
+    marginRight: scaleSize(20),
+    alignItems: 'center'
+  },
+  reAndUpStyle: {
+    position: 'absolute',
+    top: 0,
+    right: -10,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderTopLeftRadius: 24,
+    borderBottomLeftRadius: 24,
+  },
+  rightTopIconStyle: {
+    width: 40,
+    height: 40,
+    marginRight: 15
+  },
 })
