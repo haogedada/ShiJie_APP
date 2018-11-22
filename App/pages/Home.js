@@ -18,7 +18,7 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { getHomeDate } from "../netWork/api"
 import { loadData } from '../util/LoadDataUtil'
-import {scaleSize, scaleFont} from './../util/Adaptive'
+import { scaleSize, scaleFont } from './../util/Adaptive'
 const { width, height } = Dimensions.get("window");
 const titleJson = [{
   id: 0,
@@ -242,6 +242,7 @@ export default class Home extends Component {
    * @returns {*}
    */
   renderDate(num) {
+
     let str = this.state.all;
     for (let i = this.state.clickSwitch; i < str.length; i++) {
       if (i === this.state.clickSwitch) {
@@ -250,18 +251,18 @@ export default class Home extends Component {
             <View key={index} style={homeStyle.videoItemStyle}>
               <View style={homeStyle.coverStyle}>
                 <Text style={homeStyle.videoTitleStyle}>{item.videoTitle}</Text>
-                <TouchableOpacity onPress={()=>{
-                  Actions.video({index:index+1,videoList:str[i]})
+                <TouchableOpacity onPress={() => {
+                  Actions.video({ index: index + 1, videoList: str[i] })
                 }}>
-                <Image style={homeStyle.coverImgStyle}
-                  source={{ uri: item.videoCoverUrl }}
-                  resizeMode='cover'
-                />
+                  <Image style={homeStyle.coverImgStyle}
+                    source={{ uri: item.videoCoverUrl }}
+                    resizeMode='cover'
+                  />
                 </TouchableOpacity>
               </View>
               <View style={homeStyle.textBoxStyle}>
                 <View style={homeStyle.userMsgStyle}>
-                  <Image source={{uri: item.userBean.headimgUrl}}
+                  <Image source={{ uri: item.userBean.headimgUrl }}
                     style={homeStyle.headStyle} />
                   <Text style={homeStyle.userNameStyle}>{item.userBean.userNickname}</Text>
                 </View>
@@ -280,9 +281,7 @@ export default class Home extends Component {
                     <Text style={homeStyle.timeTextStyle}>时长: {item.videoTime}</Text>
                   </View>
                 </View>
-
               </View>
-
             </View>
           );
         })
