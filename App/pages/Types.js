@@ -167,7 +167,7 @@ export default class Classification extends Component {
             refCount: this.state.refCount + 1
         });
        
-            this.getTypesVideo({info: this.state.refCount, count: 10, type: 'hot'})
+            this.getTypesVideo({info: this.state.refCount, count: 10, type: this.state.typeNew})
             this.setState({isRef: false})
       
     }
