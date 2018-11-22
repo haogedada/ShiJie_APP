@@ -12,7 +12,8 @@ import {
   Dimensions,
   StyleSheet,
   RefreshControl,
-  ViewPagerAndroid
+  ViewPagerAndroid,
+  DeviceEventEmitter
 } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { getHomeDate } from "../netWork/api"
