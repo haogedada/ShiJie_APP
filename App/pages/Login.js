@@ -75,7 +75,7 @@ class Login extends Component {
                 this.dissmissLoadDialog()
                 let userInfo={
                 userNickname:'',
-                userSex:'',
+                userSex:'保密',
                 userBirthday:'',
                 bardianSign: ''}
                 let headimgUrl=require('../resources/images/icon/header.png'); 

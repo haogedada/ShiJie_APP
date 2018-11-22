@@ -258,7 +258,13 @@ dissmissVideoLoad(){
         </View>
         <View style={styles.leftMsgStyle}>
           <TouchableOpacity onPress={() => { 
-             followUser.person({'userId':this.props.dataItem.id})
+           followUser(this.props.video.userId).then(resp=>{
+            if(resp.code===200){
+              Alert.alert('关注成功')
+            }else{
+             Alert.alert(resp.msg)
+            }
+          })
           }} style={{width: scaleSize(140)}}>
             <Image style={styles.headerStyle}
               source={{uri:this.props.video.userBean.headimgUrl}} />

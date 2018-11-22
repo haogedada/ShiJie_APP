@@ -80,25 +80,34 @@ class UserMsg extends Component {
     if (!this.state.isSelect) {
       Alert.alert('请选择照片')
       return
-    } else {
+    } 
       var form = new FormData();
       form.append("nickname", this.state.nickname);
       form.append("sex", this.state.sex);
       form.append("birthday", this.state.birthday);
-      form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
+      if(this.state.isSelect){
+        form.append('imgfile', FileUtil.creatFile(this.state.headerPath[0].uri, 'header'));
+      }
       form.append("sign", this.state.sign);
       this.showProgressBar()
       modifyUserMsg(form).then(data => {
         if (data.code === 200) {
-          this.dissmissProgressBar()
           Alert.alert('上传成功!!')
+          this.dissmissProgressBar()
           DeviceEventEmitter.emit('login')
+          this.setState({
+            progress:0
+          })
           Actions.me()
         } else {
           Alert.alert(data.msg)
+          this.setState({
+            progress:0
+          })
+          this.dissmissProgressBar()
         }
       })
-    }
+    
   }
   render() {
     return (
