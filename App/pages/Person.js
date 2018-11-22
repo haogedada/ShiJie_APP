@@ -42,41 +42,6 @@ export default class Person extends Component {
       videoItem = () => (<View><Text>这个人好懒....没有作品</Text></View>)
     }
     return (
-<<<<<<< HEAD
-      <View style={styles.userInfo}>
-       <View style={{alignContent:'center',justifyContent:'center'}}><Image style={{width:50,height:50}} source={{uri:this.state.userInfo.heardUrl}}/></View>
-       <Text>昵称:{this.state.userInfo.nickName ==null ? `这个人好懒....什么都没写`:this.state.userInfo.nickName }</Text>
-       <View style={styles.userInfo_num}>
-       <Text>关注:{this.state.userInfo.followNum}</Text>
-       <Text>粉丝:{this.state.userInfo.fansNum}</Text>
-       <TouchableOpacity onPress={()=>{
-         followUser(this.props.userId).then(res=>{
-           if(res.code === 200){
-            Alert.alert('关注成功')
-           }else{
-            Alert.alert(res.msg)
-           }
-         })
-       }}>
-         <Text>关注他</Text>
-       </TouchableOpacity>
-       </View>
-       <View style={{height: 1,width: '100%', backgroundColor: 'lightgrey'}}></View>
-       <View><Text>他的作品: {this.state.userInfo.videoNum}个</Text></View>
-       <View style={{height: 1,width: '100%', backgroundColor: 'lightgrey'}}></View>
-       <ScrollView
-         refreshControl={
-          <RefreshControl
-            refreshing={this.state.isRefreshing}
-            onRefresh={this._onRefresh}
-            tintColor="#fff"
-            progressBackgroundColor="#fff"
-          />}
-       >
-         {videoItem}
-       </ScrollView>
-      </View>
-=======
       <ScrollView
       refreshControl={
         <RefreshControl
@@ -121,7 +86,6 @@ export default class Person extends Component {
             {videoItem}
         </View>
         </ScrollView>
->>>>>>> 944d08bfa995a3dd3b8dc7ad2d1b2a30d6d2f8b0
     )
   }
 }
