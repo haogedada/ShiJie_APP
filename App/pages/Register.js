@@ -4,6 +4,7 @@ import { Text, View, TextInput, StyleSheet,
 import { register, promptEmail, promptUserName } from '../netWork/api'
 import { randomNumber } from '../util/random'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { scaleFont } from '../util/Adaptive';
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -207,7 +208,7 @@ class Register extends Component {
                     </View>
                     <View style={styles.row}>
                         <View style={styles.yzmBox}>
-                            <Text style={{ fontSize: 15, textAlign: 'center', lineHeight: 36 }}
+                            <Text style={{ fontSize: scaleFont(40), textAlign: 'center', lineHeight: 36 }}
                                 onPress={() => {
                                     let yzm =  randomNumber();
                                      this.setState({ random:yzm }) }}>
