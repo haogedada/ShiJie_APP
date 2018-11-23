@@ -204,8 +204,10 @@ class Register extends Component {
                     </View>
                     <View style={styles.row}>
                         <View style={styles.yzmBox}>
-                            <Text style={{ fontSize: 20, textAlign: 'center', lineHeight: 36 }}
-                                onPress={() => { this.setState({ random: randomNumber() }) }}>
+                            <Text style={{ fontSize: 15, textAlign: 'center', lineHeight: 36 }}
+                                onPress={() => {
+                                    let yzm =  randomNumber();
+                                     this.setState({ random:yzm }) }}>
                                 {this.state.random}
                             </Text>
                         </View>
