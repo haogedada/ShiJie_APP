@@ -14,6 +14,7 @@ import java.util.List;
 import com.imagepicker.ImagePickerPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -25,12 +26,13 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
+          new RNDeviceInfo(),
           new MainReactPackage(),
-            new RNSyanImagePickerPackage(),
-            new ImagePickerPackage(),
-            new ReactVideoPackage(),
-            new SplashScreenReactPackage()
-            
+          new RNSyanImagePickerPackage(),
+          new ImagePickerPackage(),
+          new ReactVideoPackage(),
+          new SplashScreenReactPackage()
+          
       );
     }
     @Override

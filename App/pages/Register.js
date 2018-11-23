@@ -19,13 +19,13 @@ class Register extends Component {
             btn_disabled: true,
             promptCount: 0,
             prompt_str:[
-                '用户名为长度3至20的英文字母数字组合',
-                '密码为长度8至16的英文字符组合',
-                '两次密码不匹配',
-                '邮箱不合法',
-                '邮箱已存在',
-                '验证码不正确',
-                '用户名已存在'
+                '*用户名为长度3至20的英文字母数字组合',
+                '*密码为长度8至16的英文字符组合',
+                '*两次密码不匹配',
+                '*邮箱不合法',
+                '*邮箱已存在',
+                '*验证码不正确',
+                '*用户名已存在'
             ]
         }
         this.btn_register = this.btn_register.bind(this)
@@ -61,7 +61,7 @@ class Register extends Component {
         register(form).then(response => {
             this.dissmissLoadDialog()
             if (response.code === 200) {
-                Alert.alert('注册成功!','请在邮箱内激活')
+                Alert.alert('注册成功!','请到邮箱内激活')
                 this.setState({
                     username: '',
                     password: '',
@@ -164,10 +164,13 @@ class Register extends Component {
                         blurRadius={10}
                     />
                     <View style={styles.row}>
+                        <Text style={styles.hint}>{this.state.prompt}</Text>
+                    </View>
+                    <View style={styles.row}>
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/user.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptUserName}
-                            placeholder="请输入用户名"
+                            placeholder="3至20的英文字母数字组合"
                             defaultValue={this.state.username}
                             placeholderTextColor='#d4d4d4'
                         />
@@ -176,7 +179,7 @@ class Register extends Component {
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptPassword}
-                            placeholder="请输入密码"
+                            placeholder="8至16的英文字符组合"
                             defaultValue={this.state.password}
                             password={true}
                             secureTextEntry={true}
@@ -187,7 +190,7 @@ class Register extends Component {
                         {/* <Image style={{ width: 35, height: 35, marginTop: 4 }} source={require('./../resources/images/icon/word.png')} /> */}
                         <TextInput style={styles.input}
                             onChangeText={this.handlePromptOkPassword}
-                            placeholder="请输入密码"
+                            placeholder="请确认密码"
                             defaultValue={this.state.okpassword}
                             password={true}
                             secureTextEntry={true}
@@ -216,9 +219,6 @@ class Register extends Component {
                             placeholder="请输入验证码"
                             defaultValue=""
                             placeholderTextColor='#d4d4d4' />
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.hint}>{this.state.prompt}</Text>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.btn} >

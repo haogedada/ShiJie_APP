@@ -3,8 +3,9 @@ import { Provider } from 'react-redux';
 import AppRoot from './AppRoot'
 import store from '../App/redux/store'
 import Storage from '../App/util/AsyncStorageUtil'
-import {login} from '../App/netWork/api'
+import {login,getAppVersions} from '../App/netWork/api'
 import SplashScreen from 'react-native-splash-screen';
+import DeviceInfo from 'react-native-device-info';
 class App extends Component<{}> {
     constructor(props) {
         super(props);
@@ -14,10 +15,18 @@ class App extends Component<{}> {
         this.changeFirstCall = this.changeFirstCall.bind(this)
     }
     componentWillMount() {
-        setTimeout(this.openApp.bind(this),2000);
+        setTimeout(this.initApp.bind(this),2000);
         SplashScreen.hide()
     }
-   async openApp(){
+   
+   async initApp(){
+       //判断版本号
+    // getAppVersions().then(res=>{
+    //     let vs =parseFloat(res.data.appVersions) 
+    //      if(DeviceInfo.getVersion() < vs){
+            
+    //      }
+    //  })
         Storage.get('isFirstStart').then(value => {
             if (value == null || value == "" || value == undefined) {
                 this.setState({ isFirstStart: true })

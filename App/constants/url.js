@@ -35,5 +35,6 @@ export const url = {
     URL_USER:'/user/',
            
     TOP_COMMENT: '/comment/top/',
-    TRAMPLE_COMMENT: '/comment/trample/'
+    TRAMPLE_COMMENT: '/comment/trample/',
+    URL_APPVERSIONS:'/AppVersions'
 }

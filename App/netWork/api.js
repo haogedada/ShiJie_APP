@@ -119,3 +119,6 @@ export function topComment(commentId){
 export function trampleComment(commentId){
   return HttpUtil.put(url.TRAMPLE_COMMENT + commentId) 
 }
+export function getAppVersions(){
+    return HttpUtil.get(url.URL_APPVERSIONS) 
+}
