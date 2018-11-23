@@ -22,7 +22,7 @@ import { scaleSize, scaleFont } from './../util/Adaptive'
 const { width, height } = Dimensions.get("window");
 const titleJson = [{
   id: 0,
-  name: "热门"
+  name: "最新"
 },
 {
   id: 1,
@@ -30,7 +30,7 @@ const titleJson = [{
 }
   , {
   id: 2,
-  name: "最新"
+  name: "热门"
 }
 ]
 export default class Home extends Component {
