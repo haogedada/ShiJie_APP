@@ -101,8 +101,11 @@ export default class UserName extends Component {
       }
       forgetPassword(str).then(req => {
         if (req.code === 200) {
-
-          Actions.me();
+          Alert.alert("提示", "找回成功,请登录", [{
+            text: "确认", onPress: () => {
+              Actions.me();
+            }
+          }]);
         }
         if (req.code === 500) {
           Alert.alert("警告", "验证码错误", [
@@ -255,7 +258,7 @@ export default class UserName extends Component {
               } else {
                 Alert.alert("错误警告", '两次输入的密码不一致', [{
                   text: '确认', onPress: () => {
-                   
+
                   }
                 }])
               }
