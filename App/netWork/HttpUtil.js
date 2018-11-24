@@ -58,7 +58,7 @@ async function initialRequest(options) {
                     Storage.save('token', response.headers.Authorization)
                 }
                 if (response.data.code === 401 && response.data.msg.includes('unlawful request')) {
-                    Actions.me()
+                    Alert.alert('你还没有登录!\n请登录')
                 }
                 try {
                     let data = response.data
@@ -76,12 +76,12 @@ async function initialRequest(options) {
                 if (error.response.status === 400) { //400状态码,一些正常的响应
                     if (error.response.data.msg.includes("Missing request header 'Authorization' for method parameter of type String")) {
                         Alert.alert('你还没有登录!\n请登录')
-                        Actions.me()
                         reject(error)
                     }
                     resolve(error.response.data)
                 } else if (error.response.data.code === 401) {
-                    Actions.me()
+                    Alert.alert('你还没有登录!\n请登录')
+                    reject(error)
                 } else if (error.request) {
                     // 发送请求但是没有响应返回
                     console.log(error.request);
