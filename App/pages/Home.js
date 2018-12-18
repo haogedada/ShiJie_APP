@@ -129,7 +129,6 @@ export default class Home extends Component {
   netWork(page) {
     getHomeDate(page).then(req => {
       this.setState({ all: req.data.concat(this.state.all) });
-      console.log(this.state.all)
     });
   }
 
