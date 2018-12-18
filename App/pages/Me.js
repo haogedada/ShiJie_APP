@@ -176,6 +176,7 @@ export default class Me extends Component {
                 Storage.save('loginState', false);
                 Storage.save('user', null);
                 Storage.save('token', null);
+                DeviceEventEmitter.emit('clear_friend')
                 this.setState({
                   loginState: false
                 });

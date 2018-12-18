@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import FansAndConcernContain from '../components/friend/FansAndConcernContain';
 import { getUserFansList, getUserFollowList } from '../netWork/api'
+import Storage from '../util/AsyncStorageUtil'
 import { DeviceEventEmitter,StyleSheet ,TouchableOpacity,Dimensions,View,Text} from 'react-native'
 let { width, height } = Dimensions.get("window")
 export default class Friend extends Component {
@@ -25,9 +26,13 @@ export default class Friend extends Component {
     DeviceEventEmitter.addListener('loadFriend', () => {
       this.loadUserFriend()
     })
+    DeviceEventEmitter.addListener('clear_friend',()=>{
+      this.setState({fansList:[],followList:[]})
+    })
   }
   componentWillUnmount() {
     DeviceEventEmitter.removeListener('loadFriend')
+    DeviceEventEmitter.removeListener('clear_friend')
   }
   loadUserFriend() {
     getUserFollowList().then(_followList => {
@@ -58,8 +63,7 @@ export default class Friend extends Component {
   refreshCallBack(fansList, followList) {
     this.setState({ fansList: fansList, followList: followList })
   }
-
-  render() {
+  render() {  
     return (
       <ScrollableTabView locked={false} tabBarUnderlineStyle={{ backgroundColor: '#1296db' }} tabBarActiveTextColor='#1296db'>
         <FansAndConcernContain refreshCallBack={this.refreshCallBack}

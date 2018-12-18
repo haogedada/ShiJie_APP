@@ -15,7 +15,8 @@ class App extends Component<{}> {
         this.changeFirstCall = this.changeFirstCall.bind(this)
     }
     componentWillMount() {
-        setTimeout(this.initApp.bind(this),2000);
+       // setTimeout(this.initApp.bind(this),2000);
+        this.initApp()
         SplashScreen.hide()
     }
    
@@ -27,24 +28,24 @@ class App extends Component<{}> {
             
     //      }
     //  })
-        Storage.get('isFirstStart').then(value => {
-            if (value == null || value == "" || value == undefined) {
-                this.setState({ isFirstStart: true })
-                Storage.save('isFirstStart',true)
-            }
-             if(value==false){
-                this.setState({ isFirstStart: true })
-            }
-        })
+    //判断是否是第一次登陆
+        // Storage.get('isFirstStart').then(value => {
+        //     if (value == null || value == "" || value == undefined) {
+        //         this.setState({ isFirstStart: true })
+        //         Storage.save('isFirstStart',true)
+        //     }
+        //      if(value==false){
+        //         this.setState({ isFirstStart: true })
+        //     }
+        // })
         let user = await Storage.get('user')
         let isLogin = await Storage.get('loginState')
         if (isLogin) {
             this.setState({loginState:true})
-            login(user).then(res => {
-                if (res.data) {
-                    Storage.save('token', res.data)
-                }
-            })
+            let _data = await login(user)
+             if(_data.data){
+                Storage.save('token', _data.data)
+             }
         }
     }
     changeFirstCall(){
